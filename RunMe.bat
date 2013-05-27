@@ -1,30 +1,33 @@
 @echo off
-REM  The Universal Kindle Fire First Aide  is Protected by Copywrite.
+SETLOCAL
+REM  The Universal Kindle Fire First Aide is Protected by Copyright.
 REM  Please Do NOT Distribute The Tool Without Authorization. Do NOT
-REM   Make Copies Of This Tool Nor Use This Tool In A Manor It Was
+REM   Make Copies Of This Tool Nor Use This Tool In A Manner It Was
 REM   Not Designed. Do Not Attempt To Change This File In Any Way
 REM             You May Contact Us Through Email
-REM         prokennexusa@gmail.com - Thank You For The
+REM         support@canonicaldev.com - Thank You For The
 REM     Support! Phone is 707-774-5923 In The United States
-REM       This Is Revision 87 Dated 04/24/2013 at 10:44
+REM       This Is Revision 88 Dated 05/17/2013
 mode con:cols=90 lines=56
-
+SET path=%~dp0;%path%
 
 color 2
 :menu
+cd %~dp0
 cls
 ECHO **********************************
-ECHO *  PLEASE PLUG IN THE USB CABLE  *
-ECHO *TO THE KINDLE, THEN PLUG IN TO A*
-ECHO *  USB SLOT ON YOUR COMPUTER.    *
+ECHO * PLEASE PLUG THE USB CABLE INTO *
+ECHO * THE KINDLE, THEN PLUG INTO A   *
+ECHO *   USB SLOT ON YOUR COMPUTER.   *
 ECHO *ALTHOUGH WE TAKE EXTENSIVE STEPS*
-ECHO *TO PERFECT THIS SOFTWARE.PLEASE *
-ECHO *NOTE THERE IS A RISK INVLOVOLED *
+ECHO *TO PERFECT THIS SOFTWARE, PLEASE*
+ECHO *  NOTE THERE IS A RISK INVOLVED *
 ECHO * WHEN DEPLOYING SOFTWARE TO THE *
 ECHO * KINDLE. IF YOU DO NOT AGREE TO *
-ECHO *RISK, PLEASE EXIT THIS SOFTWARE *
-ECHO *IMMEDIATLY. DO NOT POST AN ANGRY*
-ECHO * EMAIL IF SOMETHINGS GOES WRONG *
+ECHO * THIS RISK, PLEASE EXIT THIS    *
+ECHO *      SOFTWARE IMMEDIATELY.     *
+ECHO * DO NOT POST AN ANGRY EMAIL IF  *
+ECHO *     SOMETHING GOES WRONG       *
 ECHO *    !!!!PLEASE USE THIS!!!!     *
 ECHO *!!UTILITY WITH EXTREME CAUTION!!*
 ECHO **********************************
@@ -35,110 +38,353 @@ CLS
 echo.
 color 2
 echo.
-set path=C:\KFFirstAide;%path%
+
 ECHO --------------------------------------------------------------------
-ECHO      Kindle Fire First Aide Version 4.1.87-Beta For The Kindle
-ECHO       Fire HD 7 The Kindle Fire HD 8.9 And  The Kindle Fire 2
+ECHO              Kindle Fire First Aide Version 4.1.88-Beta
+ECHO      For The Kindle Fire HD 7, 8.9 And The Kindle Fire 2nd Gen
+ECHO            Please Choose The Device We Are Working With
 ECHO --------------------------------------------------------------------
-ECHO 1.  Completly Restore the KF2  7   10.2.3                      (Fastboot)
-ECHO 2.  Completly Restore the KF2  7   10.2.1                      (Fastboot)
-ECHO 3.  Completly Restore the KFHD 7    7.2.3                      (Fastboot)
-ECHO 4.  Completly Restore the KFHD 7    7.2.1                      (Fastboot)
-ECHO 5.  Completly Restore the KFHD 8.9  8.1.2                      (Fastboot)
-ECHO 6.  Completly Restore the KFHD 8.9  8.1.3                      (Fastboot)
-ECHO 7.  Completly Restore the KFHD 8.9  8.1.4                      (Fastboot)
-ECHO 8.  Erase the Kindle Cache and User Data                       (Fastboot)
-ECHO 9.  Display the Fastboot Status                                (Fastboot)
-ECHO 10. Reboot The Kindle Into Normal Boot Mode                    (Fastboot)
-ECHO 11. Ready to Test ADB Communication                            (ADB)
-ECHO 12. Install Amazon ADB Driver (Preferred)                      (DRIVER)
-ECHO 13. Backup The Entire Kindle To The KindleBackup Folder        (ADB)
-ECHO 14. Disable Amazon OTA Updates                                 (ADB)
-ECHO 15. Reboot The Kindle In To Fastboot Mode (Preferred Method)   (ADB)
-ECHO 16. Reboot The Kindle In To Fastboot Mode (Alternative Method) (ADB)
-ECHO 17. Backup Three Kindle Images To The Backup Folder            (ADB)
-ECHO 18. Install Google Play Store (Android Market) v3.10.10        (ADB)
-ECHO 19. Enable Amazon OTA Updates                                  (ADB)
-ECHO 20. Root The Kindle Fire - Method 1 (Older Kindle)             (ADB)
-ECHO 21. Root The Kindle Fire - Method 2 (Preferred)                (ADB)
-ECHO 22. UnRoot The Kindle - Do This Before Sending Back To Amazon  (ADB)
-ECHO 23. Install Google Apps - ICS or Jelly Bean                    (ADB)
-ECHO 24. Install Universal ADB Driver (Alternative)                 (Driver)
-ECHO 25. Restore The Kindle From The KindleBackup Folder            (Fastboot)
-ECHO 26. Restore The Kindle From The Backup Folder                  (Fastboot)
-ECHO 27. Install Sony xLoud and ClearAudio+ Audio Upgrade           (ADB)
-ECHO 28. Install Sony Bravia Engine 2 Video Upgrade                 (ADB)
-ECHO 29. Install Pimp My BeatsÂ© Audio Upgrade                       (ADB)
-ECHO 30. Install Lock Screen and Disable The Original Lock Screen   (ADB)
-ECHO 31. Fix The Android System Permissions And Anomalies           (ADB)
-ECHO 32. Disable Amazon Ad Services                                 (ADB)
-ECHO 33. Make Google Play Your Default Market                       (ADB)
-ECHO 34. Install ADW Launcher v1.3.3.8 Stable Version               (ADB)
-ECHO 35. Install Holo Launcher HD v2.0.2 Stable	Version		    (ADB)
-ECHO 36. Install Boat Browser Flash Player And Instagram            (ADB)
-ECHO 37. Install VPN And SIP/VoIP Client Software                   (ADB)
-ECHO 38. Fix Broken Installation - Use Under Guidance		    (ADB)
-ECHO 39. Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 7	    (ADB)
-ECHO 40. Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KF2	    (ADB)
-ECHO 41. Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 8.9	    (ADB)
-ECHO 42. Fix Sluggish Kindle With Flashing Screen		    (ADB)
-ECHO 43. Upgrade Superuser To The Latest Stable Version             (ADB)
-ECHO 44. Upgrade Busybox (Symbolic) To The Latest Stable Version    (ADB)
-ECHO 45. Install ChainFire 3D (Improves 3D Performance)		    (ADB)
+
+ECHO 1.  Device Diagnostics (Safe)                         (ADB Fastboot)
+ECHO 2.  Kindle Fire 2nd Gen
+ECHO 3.  Kindle Fire HD 7"
+ECHO 4.  Kindle Fire HD 8.9"
+ECHO 5.  Rooting/UnRooting
+ECHO 6.  Backups
+ECHO 7.  Extras
+ECHO 8.  Drivers
+ECHO 9.  Device Diagnostics (Root Required)
+ECHO 10. CAUTION: INSTALL 2ND BOOTLOADER (TWRP)
 ECHO 0.  Exit
 ECHO --------------------------------------------------------------------
 
 SET INPUT=
 SET /P INPUT=Select an option:
 IF /I '%INPUT%'=='0' GOTO exit
-IF /I '%INPUT%'=='1' GOTO OPTION1
-IF /I '%INPUT%'=='2' GOTO OPTION2
-IF /I '%INPUT%'=='3' GOTO OPTION3
-IF /I '%INPUT%'=='4' GOTO OPTION4
-IF /I '%INPUT%'=='5' GOTO OPTION5
-IF /I '%INPUT%'=='6' GOTO option6
-IF /I '%INPUT%'=='7' GOTO OPTION7
-IF /I '%INPUT%'=='8' GOTO OPTION8
-IF /I '%INPUT%'=='9' GOTO OPTION9
-IF /I '%INPUT%'=='10' GOTO OPTION10
-IF /I '%INPUT%'=='11' GOTO OPTION11
-IF /I '%INPUT%'=='12' GOTO OPTION12
-IF /I '%INPUT%'=='13' GOTO OPTION13
-IF /I '%INPUT%'=='14' GOTO OPTION14
-IF /I '%INPUT%'=='15' GOTO OPTION15
-IF /I '%INPUT%'=='16' GOTO OPTION16
-IF /I '%INPUT%'=='17' GOTO OPTION17
-IF /I '%INPUT%'=='18' GOTO OPTION18
-IF /I '%INPUT%'=='19' GOTO OPTION19
-IF /I '%INPUT%'=='20' GOTO OPTION20
-IF /I '%INPUT%'=='21' GOTO OPTION21
-IF /I '%INPUT%'=='22' GOTO OPTION22
-IF /I '%INPUT%'=='23' GOTO OPTION23
-IF /I '%INPUT%'=='24' GOTO OPTION24
-IF /I '%INPUT%'=='25' GOTO OPTION25
-IF /I '%INPUT%'=='26' GOTO OPTION26
-IF /I '%INPUT%'=='27' GOTO OPTION27
-IF /I '%INPUT%'=='28' GOTO OPTION28
-IF /I '%INPUT%'=='29' GOTO OPTION29
-IF /I '%INPUT%'=='30' GOTO OPTION30
-IF /I '%INPUT%'=='31' GOTO OPTION31
-IF /I '%INPUT%'=='32' GOTO OPTION32
-IF /I '%INPUT%'=='33' GOTO OPTION33
-IF /I '%INPUT%'=='34' GOTO OPTION34
-IF /I '%INPUT%'=='35' GOTO OPTION35
-IF /I '%INPUT%'=='36' GOTO OPTION36
-IF /I '%INPUT%'=='37' GOTO OPTION37
-IF /I '%INPUT%'=='38' GOTO OPTION38
-IF /I '%INPUT%'=='39' GOTO OPTION39
-IF /I '%INPUT%'=='40' GOTO OPTION40
-IF /I '%INPUT%'=='41' GOTO OPTION41
-IF /I '%INPUT%'=='42' GOTO OPTION42
-IF /I '%INPUT%'=='43' GOTO OPTION43
-IF /I '%INPUT%'=='44' GOTO OPTION44
-IF /I '%INPUT%'=='45' GOTO OPTION45
-IF /I '%INPUT%'=='99' GOTO OPTION99
+IF /I '%INPUT%'=='1' GOTO diagmenu
+IF /I '%INPUT%'=='2' GOTO kf2ndmenu
+IF /I '%INPUT%'=='3' GOTO kfhd7menu
+IF /I '%INPUT%'=='4' GOTO kfhd89menu
+IF /I '%INPUT%'=='5' GOTO rootmenu
+IF /I '%INPUT%'=='6' GOTO backupmenu
+IF /I '%INPUT%'=='7' GOTO extrasmenu
+IF /I '%INPUT%'=='8' GOTO driversmenu
+IF /I '%INPUT%'=='9' GOTO diag2menu
+IF /I '%INPUT%'=='10' GOTO bootloadermenu
 
-:OPTION1
+:diagmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *            Diagnostics Listing                   *
+ECHO ****************************************************
+
+ECHO 1.  Ready to Test ADB Communication                            (ADB)
+ECHO 2.  Reboot The Kindle Into Fastboot Mode (Preferred Method)    (ADB)
+ECHO 3.  Reboot The Kindle Into Fastboot Mode (Alternative Method)  (ADB)
+ECHO 4.  Display the Fastboot Status                           (Fastboot)
+ECHO 5.  Reboot The Kindle Into Normal Boot Mode               (Fastboot)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO TESTADB
+IF /I '%INPUT%'=='2' GOTO FASTBOOTPREFERRED
+IF /I '%INPUT%'=='3' GOTO FASTBOOTALT
+IF /I '%INPUT%'=='4' GOTO FASTBOOTSTATUS
+IF /I '%INPUT%'=='5' GOTO FASTBOOTREBOOT
+
+:kf2ndmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *           Kindle Fire 2nd Gen Listing            *
+ECHO ****************************************************
+
+ECHO 1.  Completely Restore the Kindle Fire 2nd Gen  10.2.3    (Fastboot)
+ECHO 2.  Completely Restore the Kindle Fire 2nd Gen  10.2.1    (Fastboot)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO RESTOREKF2-10-2-3
+IF /I '%INPUT%'=='2' GOTO RESTOREKF2-10-2-1
+
+:kfhd7menu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *             Kindle Fire HD 7" Listing            *
+ECHO ****************************************************
+
+ECHO 1.  Completely Restore the KFHD 7    7.2.3                (Fastboot)
+ECHO 2.  Completely Restore the KFHD 7    7.2.1                (Fastboot)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO RESTOREKFHD7-7-2-3
+IF /I '%INPUT%'=='2' GOTO RESTOREKFHD7-7-2-1
+
+:kfhd89menu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *           Kindle Fire HD 8.9" Listing            *
+ECHO ****************************************************
+
+ECHO 1.  Completely Restore the KFHD 8.9  8.1.2                (Fastboot)
+ECHO 2.  Completely Restore the KFHD 8.9  8.1.3                (Fastboot)
+ECHO 3.  Completely Restore the KFHD 8.9  8.1.4                (Fastboot)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO RESTOREKFHD8-8-1-2
+IF /I '%INPUT%'=='2' GOTO RESTOREKFHD8-8-1-3
+IF /I '%INPUT%'=='3' GOTO RESTOREKFHD8-8-1-4
+
+:rootmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *              Root/UnRoot Listing                 *
+ECHO ****************************************************
+
+ECHO 1.  Root The Kindle Fire - Method 1 (Older Kindle)             (ADB)
+ECHO 2.  Root The Kindle Fire - Method 2 (Preferred)                (ADB)
+ECHO 3.  UnRoot The Kindle - Do This Before Sending Back To Amazon  (ADB)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO ROOT-OLD
+IF /I '%INPUT%'=='2' GOTO ROOT-PREFERRED
+IF /I '%INPUT%'=='3' GOTO UNROOT
+
+
+:backupmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *                 Backup Listing                   *
+ECHO ****************************************************
+
+ECHO 1.  Backup The Entire Kindle To The KindleBackup Folder        (ADB)
+ECHO 2.  Backup Three Kindle Images To The Backup Folder            (ADB)
+ECHO 3.  Erase the Kindle Cache and User Data                  (Fastboot)
+ECHO 4.  Restore The Kindle From The KindleBackup Folder       (Fastboot)
+ECHO 5.  Restore The Kindle From The Backup Folder             (Fastboot)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO BACKUP-FULL
+IF /I '%INPUT%'=='2' GOTO BACKUP-3
+IF /I '%INPUT%'=='3' GOTO ERASEKINDLE
+IF /I '%INPUT%'=='4' GOTO RESTORE-FULL
+IF /I '%INPUT%'=='5' GOTO RESTORE-3
+
+:extrasmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *                 Extras Listing                   *
+ECHO ****************************************************
+
+ECHO 1.  Disable Amazon OTA Updates                                 (ADB)
+ECHO 2.  Enable Amazon OTA Updates                                  (ADB)
+ECHO 3.  Disable Amazon Ad Services                                 (ADB)
+ECHO.
+ECHO 4.  Install Google Play Store (Android Market) v3.10.10        (ADB)
+ECHO 5.  Make Google Play Your Default Market                       (ADB)
+ECHO 6.  Install Google Apps - ICS or Jelly Bean                    (ADB)
+ECHO.
+ECHO 7.  Install Sony xLoud and ClearAudio+ Audio Upgrade           (ADB)
+ECHO 8.  Install Sony Bravia Engine 2 Video Upgrade                 (ADB)
+ECHO 9.  Install Pimp My Beats© Audio Upgrade                       (ADB)
+ECHO 10. Install Lock Screen and Disable The Original Lock Screen   (ADB)
+ECHO.
+ECHO 11. Install ADW Launcher v1.3.3.8 Stable Version               (ADB)
+ECHO 12. Install Holo Launcher HD v2.0.2 Stable Version             (ADB)
+ECHO.
+ECHO 13. Install Boat Browser Flash Player And Instagram            (ADB)
+ECHO 14. Install VPN And SIP/VoIP Client Software                   (ADB)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO OTA-DISABLE
+IF /I '%INPUT%'=='2' GOTO OTA-ENABLE
+IF /I '%INPUT%'=='3' GOTO ADS-DISABLE
+IF /I '%INPUT%'=='4' GOTO INSTALL-PLAYSTORE
+IF /I '%INPUT%'=='5' GOTO DEFAULT-PLAYSTORE
+IF /I '%INPUT%'=='6' GOTO INSTALL-GAPPS
+
+:driversmenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *                  Drivers Listing                 *
+ECHO ****************************************************
+
+ECHO 1. Install Amazon ADB Driver (Preferred)                    (DRIVER)
+ECHO 2. Install Universal ADB Driver (Alternative)               (DRIVER)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+
+:diag2menu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *        Diagnostics Listing (Root Required)       *
+ECHO ****************************************************
+
+ECHO 1.  Fix The Android System Permissions And Anomalies           (ADB)
+ECHO.
+ECHO 2.  Fix Sluggish Kindle With Flashing Screen                   (ADB)
+ECHO.
+ECHO 3.  Upgrade Superuser To The Latest Stable Version             (ADB)
+ECHO 4.  Upgrade Busybox (Symbolic) To The Latest Stable Version    (ADB)
+ECHO.
+ECHO 5.  Install ChainFire 3D (Improves 3D Performance)             (ADB)
+ECHO.
+ECHO 6.  Fix Broken Installation - Use Under Guidance               (ADB)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+
+:bootloadermenu
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ****************************************************
+ECHO *            TWRP Bootloader Listing               *
+ECHO ****************************************************
+
+ECHO 1.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 7       (ADB)
+ECHO 2.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KF2          (ADB)
+ECHO 3.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 8.9     (ADB)
+ECHO 0.  <Back to Menu>
+
+SET INPUT=
+SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='0' GOTO menu
+
+:testadb
+echo.
+cls
+echo.
+COLOR 2
+echo.
+ECHO ***********************************************************
+ECHO *  This option will issue an ADB query to the Kindle      *
+ECHO *     so it will display its system information.          *
+ECHO *    This non-destructive command is a good way to        *
+ECHO *  determine if ADB is ENABLED and if the Kindle is       *
+ECHO * responding to simple commands. If the Kindle responds   *
+ECHO * to this command it is safe to proceed with other ADB    *
+ECHO * commands. If this command fails, you should look under  *
+ECHO *      Settings, Security, and make sure ADB is ON.       *
+ECHO * Please ensure you have the Kindle plugged into the USB  *
+ECHO *   with a NORMAL micro-usb cable, NOT a Factory Cable.   *
+ECHO *  If ADB hangs and does not respond, go to the Kindle,   *
+ECHO * then navigate to Settings, Security, and Toggle ADB OFF *
+ECHO * and back ON. If this doesn't correct it please inspect  *
+ECHO * Windows Device Manager for Yellow Triangles. Then post  *
+ECHO * an image of it in our thread on XDA. We will solve this.*
+ECHO ***********************************************************
+echo.
+echo.
+PAUSE
+echo.
+COLOR 2
+echo.
+CALL:yesno "Would You Like To Test ADB On The Kindle Fire?" testadb1 menu
+
+:testadb1
+echo.
+cls
+echo.
+echo.
+COLOR 2
+echo.
+cls
+setlocal
+del device.txt >nul 2>&1
+adb kill-server
+adb wait-for-device
+echo.
+adb devices>device.txt
+FINDSTR /b /l "D026 D025 D059 BOC9 B0CA B0CB B0CC" device.txt>nul && (
+ECHO *******************************************
+ECHO *Kindle Device has been SUCCESSFULLY found*
+FINDSTR /b /l "D026" device.txt>nul && ECHO *        IDENTIFIED AS KF2ND 8GB          * && SET DEVICE=KF2
+FINDSTR /b /l "D025" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 16GB         * && SET DEVICE=KFHD7
+FINDSTR /b /l "D059" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 32GB         * && SET DEVICE=KFHD7
+FINDSTR /b /l "B0C9" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 16GB       * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CA" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 32GB       * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CB" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 32GB    * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CC" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 64GB    * && SET DEVICE=KFHD8
+ECHO *******************************************
+) || (
+ECHO *******************************************
+ECHO *             NO DEVICE FOUND!            *
+ECHO *         Please ensure ADB is ON         *
+ECHO *    and proper drivers are installed.    *
+ECHO *******************************************
+)
+del device.txt
+PAUSE
+echo.
+cls
+echo.
+adb kill-server
+echo.
+CALL:menu
+
+:RESTOREKF2-10-2-3
 echo.
 cls
 echo.
@@ -152,17 +398,15 @@ ECHO *   Recovey And System Then, We Will Wrap Up The       *
 ECHO * Process By Clearing The User Data And Davlik Cache.  *
 ECHO ********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire 2 To 10.2.3?" OPTION1.0 OPTION1.5
+CALL:yesno "Would You Like To Restore The Kindle Fire 2 To 10.2.3?" RESTOREKF2-10-2-3.0 RESTOREKF2-10-2-3.5
 
-:OPTION1.0
+:RESTOREKF2-10-2-3.0
 echo.
 cls
 echo.
@@ -178,13 +422,12 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION1.1 OPTION1.5
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKF2-10-2-3.1 RESTOREKF2-10-2-3.5
 
-:OPTION1.1
+:RESTOREKF2-10-2-3.1
 echo.
 cls
 echo.
@@ -195,11 +438,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION1.2 OPTION1.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKF2-10-2-3.2 RESTOREKF2-10-2-3.4
 
-:OPTION1.2
+:RESTOREKF2-10-2-3.2
 echo.
 cls
 echo.
@@ -215,19 +457,17 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Fire 2 7 Must Be Power On To The Desktop." OPTION1.3 OPTION1.2
+CALL:yesno "Are You Ready? The Kindle Fire 2 7 Must Be Power On To The Desktop." RESTOREKF2-10-2-3.3 RESTOREKF2-10-2-3.2
 
-:OPTION1.3
+:RESTOREKF2-10-2-3.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *  The Kindle Fire 2 Will Now Reboot In Fastboot Mode!    *
@@ -256,7 +496,7 @@ ECHO *To Boot The Kindle Fire 2 Into Fastboot Mode *
 ECHO ***********************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION1.4
+IF %unr% == y GOTO RESTOREKF2-10-2-1.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -269,23 +509,22 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
-
-:OPTION1.4
+:RESTOREKF2-10-2-3.4
 echo.
 cls
 echo.
 color 2
 echo.
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
-del \KFFirstAide\system.img
+mkdir kf7\10.2.3 2>nul
+cd kf7\10.2.3
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -299,7 +538,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -329,7 +567,6 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot-prod.img
 fastboot -i 0x1949 flash recovery recovery-prod.img
 fastboot -i 0x1949 flash system system.img
@@ -364,13 +601,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
+cd %~dp0
 echo.
 cls
 echo.
 CALL:menu
 
-:OPTION1.5
+:RESTOREKF2-10-2-3.5
 echo.
 cls
 echo.
@@ -386,19 +623,18 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
+cd %~dp0
 echo.
 cls
 echo.
 CALL:menu
 
-:OPTION2
+:RESTOREKF2-10-2-1
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ********************************************************
 ECHO *This Option Will Use Fastboot To Flash Software To The*
@@ -408,15 +644,14 @@ ECHO *   Recovey And System Then, We Will Wrap Up The       *
 ECHO * Process By Clearing The User Data And Davlik Cache.  *
 ECHO ********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 2 7 To 10.2.1?" OPTION2.0 OPTION2.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 2 7 To 10.2.1?" RESTOREKF2-10-2-1.0 RESTOREKF2-10-2-1.5
 
-:OPTION2.0
+:RESTOREKF2-10-2-1.0
 echo.
 cls
 echo.
@@ -429,29 +664,27 @@ ECHO * The Rollback Feature Is Experimental On The    *
 ECHO *Kindle Fire 2, If This Fails Go Back To 10.2.3  *
 ECHO **************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION2.1 OPTION2.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKF2-10-2-1.1 RESTOREKF2-10-2-1.6
 
-:OPTION2.1
+:RESTOREKF2-10-2-1.1
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION2.2 OPTION2.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKF2-10-2-1.2 RESTOREKF2-10-2-1.4
 
-:OPTION2.2
+:RESTOREKF2-10-2-1.2
 echo.
 cls
 echo.
@@ -467,19 +700,17 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" OPTION2.3 OPTION2.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTOREKF2-10-2-1.3 RESTOREKF2-10-2-1.2
 
-:OPTION2.3
+:RESTOREKF2-10-2-1.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *  The Kindle Fire 2 Will Now Reboot In Fastboot Mode!    *
@@ -508,7 +739,7 @@ ECHO *To Boot The Kindle Fire 2 Into Fastboot Mode *
 ECHO ***********************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION2.4
+IF %unr% == y GOTO RESTOREKF2-10-2-1.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -521,20 +752,20 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
 
-:OPTION2.4
+:RESTOREKF2-10-2-1.4
 echo.
 cls
 COLOR 2
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
+mkdir kf7\10.2.1 2> nul
+cd kf7\10.2.1
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
 echo.
 cls
 echo.
@@ -548,7 +779,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -580,17 +810,16 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot flash -i 0x1949 boot boot.img
 fastboot flash -i 0x1949 recovery recovery.img
 fastboot flash -i 0x1949 system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION2.5
+IF %unr% == n GOTO RESTOREKF2-10-2-1.5
 fastboot -i 0x1949 -w
 echo.
-CALL:OPTION2.5
+CALL:RESTOREKF2-10-2-1.5
 
-:OPTION2.5
+:RESTOREKF2-10-2-1.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -627,12 +856,11 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 cls
 echo.
 CALL:menu
 
-:OPTION2.6
+:RESTOREKF2-10-2-1.6
 echo.
 cls
 echo.
@@ -647,13 +875,12 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
-:OPTION3
+:RESTOREKFHD7-7-2-3
 echo.
 cls
 echo.
@@ -667,17 +894,15 @@ ECHO *   Recovey And System Then, We Will Wrap Up The        *
 ECHO * Process By Clearing The User Data And Davlik Cache.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.3?" OPTION3.0 OPTION3.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.3?" RESTOREKFHD7-7-2-3.0 RESTOREKFHD7-7-2-3.5
 
-:OPTION3.0
+:RESTOREKFHD7-7-2-3.0
 echo.
 cls
 echo.
@@ -690,33 +915,30 @@ ECHO * Using Either The Original USB Cable Or The   *
 ECHO *    Factory USB Cable Correct ???????         *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION3.1 OPTION3.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD7-7-2-3.1 RESTOREKFHD7-7-2-3.6
 
-:OPTION3.1
+:RESTOREKFHD7-7-2-3.1
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION3.2 OPTION3.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD7-7-2-3.2 RESTOREKFHD7-7-2-3.4
 
-:OPTION3.2
+:RESTOREKFHD7-7-2-3.2
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 ECHO ******************************************
@@ -732,15 +954,14 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop!" OPTION3.3 OPTION3.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop!" RESTOREKFHD7-7-2-3.3 RESTOREKFHD7-7-2-3.2
 
-:OPTION3.3
+:RESTOREKFHD7-7-2-3.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *The Kindle Fire HD 7  Will Now Reboot In Fastboot Mode!  *
@@ -769,7 +990,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION3.4
+IF %unr% == y GOTO RESTOREKFHD7-7-2-3.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -782,20 +1003,20 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 cls
 echo.
 CALL:menu
 
-:OPTION3.4
+:RESTOREKFHD7-7-2-3.4
 echo.
 cls
 COLOR 2
 echo.
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
-del \KFFirstAide\system.img
+mkdir kfhd7\7.2.3 2>nul
+cd kfhd7\7.2.3
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -809,7 +1030,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -842,18 +1062,17 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot.img
 fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION3.5
+IF %unr% == n GOTO RESTOREKFHD7-7-2-3.5
 fastboot -i 0x1949 -w
 echo.
 echo.
 CALL:OPTION3.5
 
-:OPTION3.5
+:RESTOREKFHD7-7-2-3.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -891,12 +1110,11 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 cls
 echo.
 CALL:menu
 
-:OPTION3.6
+:RESTOREKFHD7-7-2-3.6
 echo.
 cls
 echo.
@@ -913,12 +1131,11 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 cls
 echo.
 CALL:menu
 
-:OPTION4
+:RESTOREKFHD7-7-2-1
 echo.
 cls
 echo.
@@ -932,17 +1149,15 @@ ECHO *   Recovey And System Then, We Will Wrap Up The        *
 ECHO * Process By Clearing The User Data And Davlik Cache.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.1?" OPTION4.0 OPTION4.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.1?" RESTOREKFHD7-7-2-1.0 RESTOREKFHD7-7-2-1.5
 
-:OPTION4.0
+:RESTOREKFHD7-7-2-1.0
 echo.
 cls
 echo.
@@ -958,13 +1173,12 @@ echo.
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION4.1 OPTION4.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD7-7-2-1.1 RESTOREKFHD7-7-2-1.6
 
-:OPTION4.1
+:RESTOREKFHD7-7-2-1.1
 echo.
 cls
 echo.
@@ -975,11 +1189,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION4.2 OPTION4.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD7-7-2-1.2 RESTOREKFHD7-7-2-1.4
 
-:OPTION4.2
+:RESTOREKFHD7-7-2-1.2
 echo.
 cls
 echo.
@@ -995,19 +1208,17 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." OPTION4.3 OPTION4.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD7-7-2-1.3 RESTOREKFHD7-7-2-1.2
 
-:OPTION4.3
+:RESTOREKFHD7-7-2-1.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *The Kindle Fire HD 7  Will Now Reboot In Fastboot Mode!  *
@@ -1035,10 +1246,9 @@ ECHO * Is Damaged And Requires A Factory USB Cable  *
 ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION4.4
+IF %unr% == y GOTO RESTOREKFHD7-7-2-1.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1057,14 +1267,15 @@ CALL:menu
 
 
 
-:OPTION4.4
+:RESTOREKFHD7-7-2-1.4
 echo.
 cls
 color 2
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
-del \KFFirstAide\system.img
+mkdir kfhd7\7.2.1 2>nul
+cd kfhd7\7.2.1
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -1077,7 +1288,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -1102,19 +1312,18 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot.img
 fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 fastboot -i 0x1949 -w
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION4.5
+IF %unr% == n GOTO RESTOREKFHD7-7-2-1.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:OPTION4.5
+CALL:RESTOREKFHD7-7-2-1.5
 
-:OPTION4.5
+:RESTOREKFHD7-7-2-1.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1150,13 +1359,12 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
-:OPTION4.6
+:RESTOREKFHD7-7-2-1.6
 echo.
 cls
 echo.
@@ -1173,13 +1381,12 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
-:OPTION5
+:RESTOREKFHD8-8-1-2
 echo.
 cls
 echo.
@@ -1193,17 +1400,15 @@ ECHO *   Recovey And System Then, We Will Wrap Up The        *
 ECHO * Process By Clearing The User Data And Davlik Cache.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION5.0 OPTION5.5
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-2.0 RESTOREKFHD8-8-1-2.5
 
-:OPTION5.0
+:RESTOREKFHD8-8-1-2.0
 echo.
 cls
 echo.
@@ -1216,15 +1421,14 @@ ECHO *  Using Either The Original USB Cable Or The    *
 ECHO *      Factory USB Cable Correct ???????         *
 ECHO **************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure? This Operation Can Not Be Reversed!" OPTION5.1 OPTION5.6
+CALL:yesno "Are You Sure? This Operation Can Not Be Reversed!" RESTOREKFHD8-8-1-2.1 RESTOREKFHD8-8-1-2.6
 
-:OPTION5.1
+:RESTOREKFHD8-8-1-2.1
 echo.
 cls
 echo.
@@ -1235,11 +1439,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION5.2 OPTION5.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-2.2 RESTOREKFHD8-8-1-2.4
 
-:OPTION5.2
+:RESTOREKFHD8-8-1-2.2
 echo.
 cls
 echo.
@@ -1255,19 +1458,17 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" OPTION5.3 OPTION5.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTOREKFHD8-8-1-2.3 RESTOREKFHD8-8-1-2.2
 
-:OPTION5.3
+:RESTOREKFHD8-8-1-2.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *The Kindle Fire HD 8.9  Will Now Reboot In Fastboot Mode!*
@@ -1295,10 +1496,9 @@ ECHO * Is Damaged And Requires A Factory USB Cable  *
 ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION5.4
+IF %unr% == y GOTO RESTOREKFHD8-8-1-2.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1311,21 +1511,21 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 echo.
 CALL:menu
 
 
-:OPTION5.4
+:RESTOREKFHD8-8-1-2.4
 echo.
 cls
 color 2
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
-del \KFFirstAide\system.img
+mkdir kfhd8\8.1.2 2>nul
+cd kfhd8\8.1.2
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -1339,7 +1539,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -1369,19 +1568,18 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot.img
 fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 fastboot -i 0x1949 -w
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION5.5
+IF %unr% == n GOTO RESTOREKFHD8-8-1-2.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:OPTION5.5
+CALL:RESTOREKFHD8-8-1-2.5
 
-:OPTION5.5
+:RESTOREKFHD8-8-1-2.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1412,12 +1610,11 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 echo.
 cls
 CALL:menu
 
-:OPTION5.6
+:RESTOREKFHD8-8-1-2.6
 echo.
 cls
 echo.
@@ -1435,12 +1632,11 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cd \KFFirstAide
 cls
 echo.
 CALL:menu
 
-:OPTION6
+:RESTOREKFHD8-8-1-3
 echo.
 cls
 echo.
@@ -1454,17 +1650,15 @@ ECHO *   Recovey And System Then, We Will Wrap Up The        *
 ECHO * Process By Clearing The User Data And Davlik Cache.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.3?" OPTION6.0 OPTION6.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.3?" RESTOREKFHD8-8-1-3.0 RESTOREKFHD8-8-1-3.5
 
-:OPTION6.0
+:RESTOREKFHD8-8-1-3.0
 echo.
 cls
 echo.
@@ -1480,13 +1674,12 @@ echo.
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION6.1 OPTION6.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-3.1 RESTOREKFHD8-8-1-3.6
 
-:OPTION6.1
+:RESTOREKFHD8-8-1-3.1
 echo.
 cls
 echo.
@@ -1497,11 +1690,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION6.2 OPTION6.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-3.2 RESTOREKFHD8-8-1-3.4
 
-:OPTION6.2
+:RESTOREKFHD8-8-1-3.2
 echo.
 cls
 echo.
@@ -1520,19 +1712,17 @@ adb kill-server
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." OPTION6.3 OPTION6.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-1-3.3 RESTOREKFHD8-8-1-3.2
 
-:OPTION6.3
+:RESTOREKFHD8-8-1-3.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *The Kindle Fire HD 8.9  Will Now Reboot In Fastboot Mode!*
@@ -1561,7 +1751,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION6.4
+IF %unr% == y GOTO RESTOREKFHD8-8-1-3.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1572,7 +1762,6 @@ ECHO ******************************************************
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 adb kill-server
 echo.
@@ -1581,15 +1770,16 @@ echo.
 CALL:menu
 
 
-:OPTION6.4
+:RESTOREKFHD8-8-1-3.4
 echo.
 cls
 COLOR 2
 echo.
-cd \KFFirstAide
-del \KFFirstAide\boot-prod.img
-del \KFFirstAide\recovery-prod.img
-del \KFFirstAide\system.img
+mkdir kfhd8\8.1.3 2>nul
+cd kfhd8\8.1.3
+REM del \KFFirstAide\boot-prod.img
+REM del \KFFirstAide\recovery-prod.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -1603,7 +1793,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -1634,18 +1823,17 @@ cls
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot-prod.img
 fastboot -i 0x1949 flash recovery recovery-prod.img
 fastboot -i 0x1949 flash system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION6.5
+IF %unr% == n GOTO RESTOREKFHD8-8-1-3.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:OPTION6.5
+CALL:RESTOREKFHD8-8-1-3.5
 
-:OPTION6.5
+:RESTOREKFHD8-8-1-3.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1675,7 +1863,6 @@ echo.
 echo.
 PAUSE
 echo.
-cd \KFFirstAide
 echo.
 adb kill-server
 echo.
@@ -1683,7 +1870,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION6.6
+:RESTOREKFHD8-8-1-3.6
 echo.
 cls
 echo.
@@ -1694,7 +1881,6 @@ echo *  The Operation To Flash The Kindle Fire HD  *
 ECHO *     8.9  Was Canceled By The User.          *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -1705,7 +1891,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION7
+:RESTOREKFHD8-8-1-4
 echo.
 cls
 echo.
@@ -1719,18 +1905,16 @@ ECHO *   Recovey And System Then, We Will Wrap Up The        *
 ECHO * Process By Clearing The User Data And Davlik Cache.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.4?" OPTION7.0 OPTION7.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.4?" RESTOREKFHD8-8-1-4.0 RESTOREKFHD8-8-1-4.5
 
-:OPTION7.0
+:RESTOREKFHD8-8-1-4.0
 echo.
 cls
 echo.
@@ -1743,15 +1927,14 @@ ECHO *  Using Either The Original USB Cable Or The    *
 ECHO *      Factory USB Cable Correct ???????         *
 ECHO **************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION7.1 OPTION7.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-4.1 RESTOREKFHD8-8-1-4.6
 
-:OPTION7.1
+:RESTOREKFHD8-8-1-4.1
 echo.
 cls
 echo.
@@ -1762,11 +1945,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION7.2 OPTION7.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-4.2 RESTOREKFHD8-8-1-4.4
 
-:OPTION7.2
+:RESTOREKFHD8-8-1-4.2
 echo.
 cls
 echo.
@@ -1779,7 +1961,6 @@ ECHO *Then Plug The Mini USB In To The Kindle *
 ECHO *  And The Other End To The Computer     *
 ECHO ******************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -1789,9 +1970,9 @@ cls
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." OPTION7.3 OPTION7.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-1-4.3 RESTOREKFHD8-8-1-4.2
 
-:OPTION7.3
+:RESTOREKFHD8-8-1-4.3
 echo.
 cls
 echo.
@@ -1806,7 +1987,6 @@ ECHO *   Popup, Please Click Grant Or Allow, Otherwise This    *
 ECHO *               Process Will Fail!                        *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 echo.
 adb kill-server
 adb wait-for-device
@@ -1826,7 +2006,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION7.4
+IF %unr% == y GOTO RESTOREKFHD8-8-1-4.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1835,7 +2015,6 @@ ECHO * Boot Into Fastboot Mode. Send A PM To Prokennexusa *
 ECHO *           To Order A Factory USB Cable             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -1846,14 +2025,15 @@ echo.
 CALL:menu
 
 
-:OPTION7.4
+:RESTOREKFHD8-8-1-4.4
 echo.
 cls
 COLOR 2
-cd \KFFirstAide
-del \KFFirstAide\boot.img
-del \KFFirstAide\recovery.img
-del \KFFirstAide\system.img
+mkdir kfhd8\8.1.4 2>nul
+cd kfhd8\8.1.4
+REM del \KFFirstAide\boot.img
+REM del \KFFirstAide\recovery.img
+REM del \KFFirstAide\system.img
 echo.
 cls
 echo.
@@ -1867,7 +2047,6 @@ ECHO ************************************************
 ECHO *Please wait while I Download The 3 Images.....*
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
@@ -1899,18 +2078,17 @@ echo.
 echo.
 echo.
 echo.
-cd \KFFirstAide
 fastboot -i 0x1949 flash boot boot.img
 fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION7.5
+IF %unr% == n GOTO RESTOREKFHD8-8-1-4.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:OPTION7.5
+CALL:RESTOREKFHD8-8-1-4.5
 
-:OPTION7.5
+:RESTOREKFHD8-8-1-4.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1941,7 +2119,6 @@ echo.
 cls
 echo.
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 COLOR 2
@@ -1952,7 +2129,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION7.6
+:RESTOREKFHD8-8-1-4.6
 echo.
 cls
 echo.
@@ -1963,7 +2140,6 @@ ECHO *The Operation To Flash The Kindle Fire HD 8.9 *
 ECHO *          Was Canceled By The User.           *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -1973,7 +2149,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION8
+:ERASEKINDLE
 echo.
 cls
 echo.
@@ -1993,17 +2169,15 @@ ECHO * Practice To Wipe This Information After Installing    *
 ECHO *      New Boot, Recovery And System Software.          *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Wipe The User Data And Cache On The Kindle Fire?" OPTION8.0 OPTION8.5
+CALL:yesno "Would You Like To Wipe The User Data And Cache On The Kindle Fire?" ERASEKINDLE.0 ERASEKINDLE.5
 
-:OPTION8.0
+:ERASEKINDLE.0
 echo.
 cls
 echo.
@@ -2016,15 +2190,14 @@ ECHO *  Using Either The Original USB Cable Or The    *
 ECHO *      Factory USB Cable Correct ???????         *
 ECHO **************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" OPTION8.1 OPTION8.5
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" ERASEKINDLE.1 ERASEKINDLE.5
 
-:OPTION8.1
+:ERASEKINDLE.1
 echo.
 cls
 echo.
@@ -2035,11 +2208,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION8.2 OPTION8.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" ERASEKINDLE.2 ERASEKINDLE.4
 
-:OPTION8.2
+:ERASEKINDLE.2
 echo.
 cls
 echo.
@@ -2055,13 +2227,12 @@ PAUSE
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." OPTION8.3 OPTION8.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." ERASEKINDLE.3 ERASEKINDLE.2
 
-:OPTION8.3
+:ERASEKINDLE.3
 echo.
 cls
 echo.
@@ -2075,7 +2246,6 @@ ECHO * Grant Or Allow Otherwise This Operation Will  *
 ECHO *                    Fail!                      *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 adb kill-server
 adb wait-for-device
@@ -2095,7 +2265,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION8.4
+IF %unr% == y GOTO ERASEKINDLE.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -2104,7 +2274,6 @@ ECHO * Boot Into Fastboot Mode. Send A PM To Prokennexusa *
 ECHO *           To Order A Factory USB Cable             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2114,12 +2283,10 @@ cls
 echo.
 CALL:menu
 
-
-:OPTION8.4
+:ERASEKINDLE.4
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2148,7 +2315,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION8.5
+:ERASEKINDLE.5
 echo.
 cls
 echo.
@@ -2160,7 +2327,6 @@ ECHO *The Operation To Wipe Kindle Dalvik*
 ECHO * Cache And User Data Was Canceled! *
 ECHO *************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2170,7 +2336,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION9
+:FASTBOOTSTATUS
 echo.
 cls
 echo.
@@ -2186,20 +2352,17 @@ ECHO *   To This Command It Is Safe To Proceed With Other    *
 ECHO *                 Fastboot Commands.                    *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Is The Kindle Powered On And Plugged Into USB?" OPTION9.0 OPTION9.1
+CALL:yesno "Is The Kindle Powered On And Plugged Into USB?" FASTBOOTSTATUS.0 FASTBOOTSTATUS.1
 
-:OPTION9.0
+:FASTBOOTSTATUS.0
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2226,7 +2389,6 @@ ECHO *  It Looks Like Fastboot is Enabled.  *
 ECHO *You May Safely Proceed With A Restore!*
 ECHO ****************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2236,7 +2398,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION9.1
+:FASTBOOTSTATUS.1
 echo.
 cls
 echo.
@@ -2249,7 +2411,6 @@ ECHO * Information Was Canceled By The   *
 ECHO *             User!                 *
 ECHO *************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2259,7 +2420,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION10
+:FASTBOOTREBOOT
 echo.
 cls
 echo.
@@ -2277,20 +2438,17 @@ ECHO *  Fire Bootloader May Be Damaged And May Require A     *
 ECHO * Factory USB Cable To Boot The Kindle Into Fastboot.   *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Reboot The Kindle Out Of Fastboot?" OPTION10.0 OPTION10.1
+CALL:yesno "Would You Like To Reboot The Kindle Out Of Fastboot?" FASTBOOTREBOOT.0 FASTBOOTREBOOT.1
 
-:OPTION10.0
+:FASTBOOTREBOOT.0
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2311,7 +2469,6 @@ ECHO *   Power Button, The Kindle Should Now Exit   *
 ECHO *              Fastboot Mode                   *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2321,11 +2478,10 @@ cls
 echo.
 CALL:menu
 
-:OPTION10.1
+:FASTBOOTREBOOT.1
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2544,7 +2700,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION13
+:BACKUP-FULL
 echo.
 cls
 echo.
@@ -2560,20 +2716,17 @@ ECHO *Since This Option Proceeds To Backup The Entire Kindle, This Is*
 ECHO *     The Best Backup To Recover A Kindle Fire Disaster.        *
 ECHO *****************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Perform A Full Backup Using Option 13?" OPTION13.0 OPTION13.1
+CALL:yesno "Would You Like To Perform A Full Backup Using Option 13?" BACKUP-FULL.0 BACKUP-FULL.1
 
 :OPTION13.0
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2607,9 +2760,8 @@ ECHO * Be Sure To Click Allow Or Grant, Otherwise This   *
 ECHO * Process Will Fail Without Proper Authorization.   *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION13.2
+if %errorlevel% == 1 goto BACKUP-FULL.2
 adb shell su -c "rm -R /data/local/kindlebackup"
 ECHO Please Ignore Any Errors Above This Line
 adb shell su -c "mkdir /data/local/kindlebackup"
@@ -2682,7 +2834,8 @@ ECHO *             Your USB Subsystem............                  *
 ECHO ***************************************************************
 echo.
 echo.
-cd \KFFirstAide\KindleBackup
+mkdir KindleBackup 2>nul
+cd KindleBackup
 adb pull /data/local/kindlebackup/xloader.img
 adb pull /data/local/kindlebackup/bootloader.img
 adb pull /data/local/kindlebackup/idme.img
@@ -2694,7 +2847,6 @@ adb pull /data/local/kindlebackup/efs.img
 adb pull /data/local/kindlebackup/recovery.img
 adb pull /data/local/kindlebackup/boot.img
 adb pull /data/local/kindlebackup/system.img
-cd \KFFirstAide
 echo.
 echo.
 COLOR 2
@@ -2707,7 +2859,6 @@ ECHO * Or To A Dropbox Cloud Drive. Please Do This *
 ECHO * Before You Have A Problem With The Kindle!  *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 adb kill-server
@@ -2716,7 +2867,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION13.1
+:BACKUP-FULL.1
 echo.
 cls
 echo.
@@ -2728,7 +2879,6 @@ ECHO *  The Operation To Backup The Entire Kindle  *
 ECHO *         Was Canceled By The User!           *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2738,7 +2888,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION13.2
+:BACKUP-FULL.2
 echo.
 cls
 echo.
@@ -2750,15 +2900,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -2783,9 +2933,9 @@ ECHO *****************************************************
 echo.
 PAUSE
 echo.
-CALL:OPTION13.0
+CALL:BACKUP-FULL.0
 
-:OPTION14
+:OTA-DISABLE
 echo.
 cls
 echo.
@@ -2801,20 +2951,17 @@ ECHO *If You Find An Amazon Service Not Functioning After Applying *
 ECHO * This Update, Please Use Option 19 To Selectivly Enable OTA  *
 ECHO ***************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Disable The Amazon OTA Updates?" OPTION14.0 OPTION14.1
+CALL:yesno "Would You Like To Disable The Amazon OTA Updates?" OTA-DISABLE.0 OTA-DISABLE.1
 
-:OPTION14.0
+:OTA-DISABLE.0
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -2849,11 +2996,10 @@ ECHO *  To Click Allow Or Grant Otherwise This Process  *
 ECHO *        Will Fail Without Proper Approval.        *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION14.2
+if %errorlevel% == 1 goto OTA-DISABLE.2
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAUpdateMessageHandler'"
@@ -2886,7 +3032,6 @@ ECHO *We Have Successfully Disabled The Amazon*
 ECHO *     Over The Air Software Updates      *
 ECHO ******************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2894,7 +3039,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION14.1
+:OTA-DISABLE.1
 echo.
 cls
 echo.
@@ -2906,7 +3051,6 @@ ECHO * The Operation To Disable Amazon OTA Updates *
 ECHO *         Was Canceled By The User!           *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2916,8 +3060,9 @@ cls
 echo.
 CALL:menu
 
-:OPTION14.2
+:OTA-DISABLE.2
 echo.
+cd root
 cls
 echo.
 echo.
@@ -2928,15 +3073,14 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
-cd \KFFirstAide
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -2948,7 +3092,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install -r Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -2966,7 +3109,7 @@ adb kill-server
 echo.
 CALL:OPTION14.0
 
-:OPTION15
+:FASTBOOTPREFERRED
 echo.
 cls
 echo.
@@ -2988,14 +3131,12 @@ PAUSE
 echo.
 cls
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 4
 echo.
-CALL:yesno "Would You Like To Enable Fastboot Using Method One?" option15.1 option15.2
+CALL:yesno "Would You Like To Enable Fastboot Using Method One?" FASTBOOTPREFERRED.1 FASTBOOTPREFERRED.2
 
-:OPTION15.1
+:FASTBOOTPREFERRED.1
 echo.
 cls
 echo.
@@ -3008,7 +3149,6 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable.  *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -3048,7 +3188,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION15.2
+:FASTBOOTPREFERRED.2
 echo.
 cls
 echo.
@@ -3060,7 +3200,6 @@ ECHO * The Operation To Boot The Kindle Into Fastboot*
 ECHO *          Was Canceled By The User!           *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3070,8 +3209,7 @@ cls
 echo.
 CALL:menu
 
-
-:OPTION16
+:FASTBOOTALT
 echo.
 cls
 echo.
@@ -3092,14 +3230,12 @@ ECHO *   Fire HD 7  Which Both Use A Passive      *
 ECHO *              Bootloader.                   *
 ECHO **********************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Enable Fastboot Using Method Two?" OPTION16.0 OPTION16.2
+CALL:yesno "Would You Like To Enable Fastboot Using Method Two?" FASTBOOTALT.0 FASTBOOTALT.2
 
-:OPTION16.0
+:FASTBOOTALT.0
 echo.
 echo.
 ECHO **************************************
@@ -3111,9 +3247,9 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered Off And Accessible." OPTION16.1 OPTION16.0
+CALL:yesno "Are You Ready? The Kindle Must Be Powered Off And Accessible." FASTBOOTALT.1 FASTBOOTALT.0
 
-:OPTION16.1
+:FASTBOOTALT.1
 echo.
 cls
 echo.
@@ -3141,7 +3277,6 @@ ECHO *  To Terminate A Hanging Fastboot Process. Then    *
 ECHO *      Relaunch Kindle Fire First Aide.             *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 fastboot -i 0x1949 getvar product
 if exist %1 echo %1 goto :enabled
@@ -3153,7 +3288,7 @@ COLOR 2
 echo.
 ECHO *****************************************************
 ECHO *We Have Attempted To Enable USB Through A Passive  *
-ECHO *Mode, If This Fails Use Option 15 To Boot In To    *
+ECHO *Mode, If This Fails Use Preferred To Boot In To    *
 ECHO *Fastboot. In Some Rare Cases, The Kindle Bootloader*
 ECHO *Is Damaged And Will Not Boot Without A Factory USB *
 ECHO *     Cable (Kindle Fire HD 7 and 2 Only).          *
@@ -3163,7 +3298,7 @@ PAUSE
 echo.
 CALL:menu
 
-:OPTION16.2
+:FASTBOOTALT.2
 echo.
 cls
 echo.
@@ -3175,7 +3310,6 @@ ECHO * The Operation To Boot The Kindle Into Fastboot*
 ECHO *          Was Canceled By The User!            *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3185,7 +3319,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION17
+:BACKUP-3
 echo.
 cls
 echo.
@@ -3201,15 +3335,13 @@ ECHO *Since This Option Proceeds To Backup Part Of Kindle, This Is       *
 ECHO *            The Best Backup To Perform Weekly.                     *
 ECHO *********************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Backup The Kindle Fire Using Option 17 Backup?" OPTION17.0 OPTION17.1
+CALL:yesno "Would You Like To Backup The Kindle Fire Using Option 17 Backup?" BACKUP-3.0 BACKUP-3.1
 
 
-:OPTION17.0
+:BACKUP-3.0
 echo.
 cls
 echo.
@@ -3228,7 +3360,6 @@ ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***************************************
 ECHO * We Are Now Waking Up The ADB Server *
@@ -3249,7 +3380,7 @@ ECHO *                 Fail!                     *
 ECHO *********************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION17.2
+if %errorlevel% == 1 goto BACKUP-3.2
 echo.
 adb shell su -c "rm -R /data/local/backup"
 ECHO Please Ignore Any Errors Above This Line
@@ -3257,7 +3388,8 @@ adb shell su -c "mkdir /data/local/backup"
 adb shell su -c "busybox chown media_rw.media_rw /data/local/backup"
 adb shell su -c "busybox chmod 777 /data/local/backup"
 echo.
-cd \KFFirstAide\Backup
+mkdir Backup 2>nul
+cd Backup
 echo.
 ECHO I Am Backing Up Partition 9 (recovery)
 ECHO ***************************
@@ -3287,12 +3419,10 @@ ECHO *             Your USB Subsystem............                  *
 ECHO ***************************************************************
 echo.
 echo.
-cd \KFFirstAide\Backup
 adb pull /data/local/backup/stock-boot.img
 adb pull /data/local/backup/stock-recovery.img
 adb pull /data/local/backup/stock-system.img
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************
 ECHO *OK, We Are Done With The Process, We Are Now *
@@ -3318,7 +3448,6 @@ ECHO *The Backup Process Has Completed. Please Make A*
 ECHO *Copy Of The Backup From The Backup Folder to CD*
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3326,7 +3455,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION17.1
+:BACKUP-3.1
 echo.
 cls
 echo.
@@ -3338,7 +3467,6 @@ ECHO * The Operation To Backup The Kindle To A Folder*
 ECHO *    Named Backup Was Canceled By The User!     *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3348,7 +3476,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION17.2
+:BACKUP-3.2
 echo.
 cls
 echo.
@@ -3360,15 +3488,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -3380,7 +3508,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -3396,9 +3523,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION17.0
+CALL:BACKUP-3.0
 
-:OPTION18
+:INSTALL-PLAYSTORE
 echo.
 cls
 echo.
@@ -3414,13 +3541,12 @@ ECHO * Store Fails, Be Sure To Reinstall Google Play Store. This Solves  *
 ECHO *                Most Google Play Store Issues.                     *
 ECHO *********************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Install Google play Store Version 3.10.10?" OPTION18.0 OPTION18.1
+CALL:yesno "Would You Like To Install Google play Store Version 3.10.10?" INSTALL-PLAYSTORE.0 INSTALL-PLAYSTORE.1
 
-:OPTION18.0
+:INSTALL-PLAYSTORE.0
 echo.
 cls
 echo.
@@ -3454,7 +3580,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *                  Phase One                          *
@@ -3466,7 +3591,7 @@ ECHO * Otherwise The Google Play Store Install Will Fail.  *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION18.2
+if %errorlevel% == 1 goto INSTALL-PLAYSTORE.2
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mv /data/local/tmp /data/local/tmp.bak"
@@ -3498,11 +3623,11 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide\Disabled
+mkdir Disabled 2>nul
+cd Disabled
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb pull /system/app/MarketIntentProxy.apk
-cd \KFFirstAide
 adb shell su -c "rm /system/app/MarketIntentProxy.apk"
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
@@ -3513,12 +3638,12 @@ ECHO ********************************************************
 echo.
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
-adb push \KFFirstAide\AccountAndSyncSettings.apk /system/app/.
-adb push \KFFirstAide\GoogleServicesFramework.apk /system/app/.
-adb push \KFFirstAide\GoogleLoginService.apk /system/app/.
-adb push \KFFirstAide\NetworkLocation.apk /system/app/.
-adb push \KFFirstAide\Vending.apk /system/app/.
+cd %~dp0GooglePlay
+adb push AccountAndSyncSettings.apk /system/app/.
+adb push GoogleServicesFramework.apk /system/app/.
+adb push GoogleLoginService.apk /system/app/.
+adb push NetworkLocation.apk /system/app/.
+adb push Vending.apk /system/app/.
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -3619,8 +3744,7 @@ adb wait-for-device
 echo.
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
-adb install -r \KFFirstAide\Gplay3.8.17.apk
+adb install -r Gplay3.8.17.apk
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -3636,8 +3760,7 @@ adb wait-for-device
 echo.
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
-adb install -r \KFFirstAide\Phonesky.apk
+adb install -r Phonesky.apk
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -3648,7 +3771,6 @@ ECHO *  We Are Rebooting The Kindle And Restoring The  *
 ECHO *                   Appearance.                   *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -3678,7 +3800,6 @@ ECHO ***************************************************
 echo.
 ECHO
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3686,7 +3807,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION18.1
+:INSTALL-PLAYSTORE.1
 echo.
 cls
 echo.
@@ -3698,7 +3819,6 @@ ECHO * The Operation To Install Google Play Store    *
 ECHO *  Version 3.10.10 Was Canceled By The User!    *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -3708,7 +3828,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION18.2
+:INSTALL-PLAYSTORE.2
 echo.
 cls
 echo.
@@ -3719,15 +3839,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -3739,7 +3859,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install -r Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -3755,9 +3874,10 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION18.0
+cd %~dp0
+CALL:INSTALL-PLAYSTORE.0
 
-:OPTION19
+:OTA-ENABLE
 echo.
 cls
 echo.
@@ -3771,16 +3891,14 @@ ECHO * OTA Services One By One Until You Obtain The Preferred Outcome *
 ECHO *Be Sure To Test The Intended Function As You Enable Each Service*
 ECHO ******************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Selectively Enable OTA Updates?" OPTION19.0 OPTION19.15
+CALL:yesno "Would You Like To Selectively Enable OTA Updates?" OTA-ENABLE.0 OTA-ENABLE.15
 
-:OPTION19.0
+:OTA-ENABLE.0
 echo.
 cls
 echo.
@@ -3815,9 +3933,8 @@ ECHO * Allow Or Grant Each Superuser Request, Otherwise  *
 ECHO *          This Process Will Fail!                  *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION19.16
+if %errorlevel% == 1 goto OTA-ENABLE.16
 echo.
 adb kill-server
 adb wait-for-device
@@ -3829,175 +3946,174 @@ ECHO We Are Now Enabling OTAUpdateMessageHandler.
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAUpdateMessageHandler'"
 echo.
 set /p unr=Would You Like To Disable OTAUpdateMessageHandler(y/n) ?
-IF %unr% == n GOTO OPTION19.1
+IF %unr% == n GOTO OTA-ENABLE.1
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAUpdateMessageHandler'"
 echo.
-CALL:OPTION19.1
+CALL:OTA-ENABLE.1
 
-:OPTION19.1
+:OTA-ENABLE.1
 echo.
 ECHO We Are Now Enabling InventoryUploadService..
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.InventoryUploadService'"
 echo.
 set /p unr=Would You Like To Disable InventoryUploadService(y/n) ?
-IF %unr% == n GOTO OPTION19.2
+IF %unr% == n GOTO OTA-ENABLE.2
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.InventoryUploadService'"
 echo.
-CALL:OPTION19.2
+CALL:OTA-ENABLE.2
 
-:OPTION19.2
+:OTA-ENABLE.2
 echo.
 ECHO We Are Now Enabling UpdatesLookupService...
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.UpdatesLookupService'"
 echo.
 set /p unr=Would You Like To Disable UpdatesLookupService(y/n) ?
-IF %unr% == n GOTO OPTION19.3
+IF %unr% == n GOTO OTA-ENABLE.3
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.UpdatesLookupService'"
 echo.
-CALL:OPTION19.3
+CALL:OTA-ENABLE.3
 
 
-:OPTION19.3
+:OTA-ENABLE.3
 echo.
 ECHO We Are Now Enabling OTAService....
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAService'"
 echo.
 set /p unr=Would You Like To Disable OTAService(y/n) ?
-IF %unr% == n GOTO OPTION19.4
+IF %unr% == n GOTO OTA-ENABLE.4
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAService'"
 echo.
-CALL:OPTION19.4
+CALL:OTA-ENABLE.4
 
-:OPTION19.4
+:OTA-ENABLE.4
 echo.
 ECHO We Are Now Enabling AppStateMonitorService.....
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.AppStateMonitorService'"
 echo.
 set /p unr=Would You Like To Disable AppStateMonitorService(y/n) ?
-IF %unr% == n GOTO OPTION19.5
+IF %unr% == n GOTO OTA-ENABLE.5
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.AppStateMonitorService'"
 echo.
-CALL:OPTION19.5
+CALL:OTA-ENABLE.5
 
-:OPTION19.5
+:OTA-ENABLE.5
 echo.
 ECHO We Are Now Enabling CheckForOTAUpdatesService.......
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.CheckForOTAUpdatesService'"
 echo.
 set /p unr=Would You Like To Disable CheckForOTAUpdatesService(y/n) ?
-IF %unr% == n GOTO OPTION19.6
+IF %unr% == n GOTO OTA-ENABLE.6
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.CheckForOTAUpdatesService'"
 echo.
-CALL:OPTION19.6
+CALL:OTA-ENABLE.6
 
-:OPTION19.6
+:OTA-ENABLE.6
 echo.
 ECHO We Are Now Enabling ViewUpdateActivity.......
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.ViewUpdateActivity'"
 echo.
 set /p unr=Would You Like To Disable ViewUpdateActivity(y/n) ?
-IF %unr% == n GOTO OPTION19.7
+IF %unr% == n GOTO OTA-ENABLE.7
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.ViewUpdateActivity'"
 echo.
-CALL:OPTION19.7
+CALL:OTA-ENABLE.7
 
-:OPTION19.7
+:OTA-ENABLE.7
 echo.
 ECHO We Are Now Enabling OTAStatusActivity........
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAStatusActivity'"
 echo.
 set /p unr=Would You Like To Disable OTAStatusActivity(y/n) ?
-IF %unr% == n GOTO OPTION19.8
+IF %unr% == n GOTO OTA-ENABLE.8
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAStatusActivity'"
 echo.
-CALL:OPTION19.8
+CALL:OTA-ENABLE.8
 
-:OPTION19.8
+:OTA-ENABLE.8
 echo.
 ECHO We Are Now Enabling ResetOTAMessageHandler.........
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.ResetOTAMessageHandler'"
 echo.
 set /p unr=Would You Like To Disable ResetOTAMessageHandler(y/n) ?
-IF %unr% == n GOTO OPTION19.9
+IF %unr% == n GOTO OTA-ENABLE.9
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.ResetOTAMessageHandler'"
 echo.
-CALL:OPTION19.9
+CALL:OTA-ENABLE.9
 
-:OPTION19.9
+:OTA-ENABLE.9
 echo.
 ECHO We Are Now Enabling InventoryUploadReceiver..........
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.InventoryUploadService$InventoryUploadReceiver'"
 echo.
 set /p unr=Would You Like To Disable InventoryUploadReceiver(y/n) ?
-IF %unr% == n GOTO OPTION19.10
+IF %unr% == n GOTO OTA-ENABLE.10
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.InventoryUploadService$InventoryUploadReceiver'"
 echo.
-CALL:OPTION19.10
+CALL:OTA-ENABLE.10
 
-:OPTION19.10
+:OTA-ENABLE.10
 echo.
 ECHO We Are Now Enabling MountStatusChangedReceiver...........
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.UpdatesLookupService$MountStatusChangedReceiver'"
 echo.
 set /p unr=Would You Like To Disable MountStatusChangedReceiver(y/n) ?
-IF %unr% == n GOTO OPTION19.11
+IF %unr% == n GOTO OTA-ENABLE.11
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.UpdatesLookupService$MountStatusChangedReceiver'"
 echo.
-CALL:OPTION19.11
+CALL:OTA-ENABLE.11
 
-:OPTION19.11
+:OTA-ENABLE.11
 echo.
 ECHO We Are Now Enabling OTAWakeupReceiver.............
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAService$OTAWakeupReceiver'"
 echo.
 set /p unr=Would You Like To Disable OTAWakeupReceiver(y/n) ?
-IF %unr% == n GOTO OPTION19.12
+IF %unr% == n GOTO OTA-ENABLE.12
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAService$OTAWakeupReceiver'"
 echo.
-CALL:OPTION19.12
+CALL:OTA-ENABLE.12
 
-:OPTION19.12
+:OTA-ENABLE.12
 echo.
 ECHO We Are Now Enabling OTADedupeReceiver..............
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAService$OTADedupeReceiver'"
 echo.
 set /p unr=Would You Like To Disable OTADedupeReceiver(y/n) ?
-IF %unr% == n GOTO OPTION19.13
+IF %unr% == n GOTO OTA-ENABLE.13
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAService$OTADedupeReceiver'"
 echo.
-CALL:OPTION19.13
+CALL:OTA-ENABLE.13
 
-:OPTION19.13
+:OTA-ENABLE.13
 echo.
 ECHO We Are Now Enabling OTAInstallNowReceiver...............
 adb shell su -c "pm enable 'com.amazon.dcp/.ota.OTAService$OTAInstallNowReceiver'"
 echo.
 set /p unr=Would You Like To Disable OTAInstallNowReceiver(y/n) ?
-IF %unr% == n GOTO OPTION19.14
+IF %unr% == n GOTO OTA-ENABLE.14
 echo.
 adb shell su -c "pm disable 'com.amazon.dcp/.ota.OTAService$OTAInstallNowReceiver'"
 echo.
-CALL:OPTION19.14
+CALL:OTA-ENABLE.14
 
-:OPTION19.14
+:OTA-ENABLE.14
 echo.
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *We Are Done! We Will Now Reboot The Kindle, Are You Ready*
@@ -4025,7 +4141,6 @@ ECHO ***************************************************
 ECHO *The OTA Enable Process Has Completed.............*
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4033,7 +4148,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION19.15
+:OTA-ENABLE.15
 echo.
 cls
 echo.
@@ -4045,7 +4160,6 @@ ECHO * The Operation To Selectively Enable OTA Was   *
 ECHO *          Canceled By The User!                *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4055,7 +4169,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION19.16
+:OTA-ENABLE.16
 echo.
 cls
 echo.
@@ -4067,15 +4181,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -4087,7 +4201,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install -r Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -4103,14 +4216,12 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION19.0
+CALL:OTA-ENABLE.0
 
-:OPTION20
+:ROOT-OLD
 echo.
 cls
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 ECHO *********************************************************
 ECHO *This Option We Will Attempt To Root The Kindle Using A *
@@ -4187,17 +4298,17 @@ adb wait-for-device
 PAUSE <CON
 echo.
 echo.
-cd \KFFirstAide
-del \KFFirstAide\dropbox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\dropbox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell "busybox mount -o remount,rw ext4 /system"
 adb shell "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
-adb push \KFFirstAide\su /data/local/tmp/.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push busybox /data/local/tmp/.
+adb push su /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 adb shell "busybox chmod 755 /data/local/tmp/busybox"
 adb shell "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell "/data/local/tmp/busybox mount -o remount,rw /system"
@@ -4219,7 +4330,6 @@ adb shell su -c "rm -r /data/local/tmp"
 adb shell "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
 adb shell "/system/xbin/busybox mount -o remount,ro /system"
-cd \KFFirstAide
 echo.
 ECHO ***************************************************
 ECHO *OK, We Are Done With The Binary, Now We Are Going*
@@ -4248,7 +4358,6 @@ ECHO * The Kindle Apps. Please Use This Program*
 ECHO *             To Test Root.               *
 ECHO *******************************************
 echo.
-cd \KFFirstAide
 adb install -r suchecker.apk
 echo.
 ECHO *******************************************************
@@ -4282,7 +4391,7 @@ ECHO *    Security And Toogle ADB Off Then Back On.     *
 ECHO ****************************************************
 echo.
 type isroot | adb shell | find "#"
-if %errorlevel% == 1 goto OPTION20.1
+if %errorlevel% == 1 goto ROOT-OLD.1
 echo.
 ECHO *******************************************************
 ECHO *Success!!! You Have Root, This Test Is Very Accurate *
@@ -4295,7 +4404,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4303,7 +4411,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION20.1
+:ROOT-OLD.1
 echo.
 cls
 echo.
@@ -4315,11 +4423,10 @@ ECHO *You Made It Passed Step 2, We Were Able To Exploit The Kindle!*
 ECHO *  Although Root Failed. Please Run Option 18 Again, Sometimes *
 ECHO * The Process Need To Be Repeated Several Time Before You Will *
 ECHO * Successfully Root The Kindle. If This Method Fails More Than *
-ECHO * 5 Times Try Option 21 Which Uses A Different Method To Root  *
+ECHO * 5 Times Try Preferred Which Uses A Different Method To Root  *
 ECHO *                         The Kindle.                          *
 ECHO ****************************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4327,12 +4434,12 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION21
+:ROOT-PREFERRED
 echo.
 cls
 echo.
 ECHO ***********************************************************
-ECHO *Thank You For Selecting Option 21 To Root The Kindle This*
+ECHO *Thank You For Selecting Preferred To Root The Kindle This*
 ECHO *Method Is Highy Effective To Root The Kindle, You May Use*
 ECHO *This Option To Root Other Android Devices Since It Works *
 ECHO * On Most Androids. This Method Is Non-Destructive So If  *
@@ -4341,16 +4448,14 @@ ECHO * No Harm Will Result. The Binaries Used Are Universal To *
 ECHO *             All Android Devices!                        *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Are You Sure You Would Like To Root The Kindle Fire Using Option 21?" OPTION21.0 OPTION21.4
+CALL:yesno "Are You Sure You Would Like To Root The Kindle Fire Using Preferred Method?" ROOT-PREFERRED.0 ROOT-PREFERRED.4
 
-
-:OPTION21.0
+:ROOT-PREFERRED.0
 echo.
+cd root
 cls
 echo.
 COLOR 2
@@ -4375,12 +4480,11 @@ ECHO *                Phase One                         *
 ECHO *   We Are Now Setting Up A Fake Restore.....      *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***************************************************
 ECHO *Attention, This Is An Important Step! Please Look*
 ECHO * At Your Kindle's Display. Please Click On The   *
-ECHO *Restore Button. If The Kindle Asks Fot A Password*
+ECHO *Restore Button. If The Kindle Asks For A Password*
 ECHO * Use Your Amazon Account Password, Although This *
 ECHO *           Usually Not Required.                 *
 ECHO ***************************************************
@@ -4427,22 +4531,21 @@ ECHO ****************************************************
 ECHO *     We Are Pushing Busybox To The Kindle         *
 ECHO ****************************************************
 echo.
-del \KFFirstAide\busybox
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 adb shell "mkdir /data/local/tmp"
-adb push C:\KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *   We Are Pushing The SU Binary To The Kindle     *
 ECHO ****************************************************
 echo.
-adb push \KFFirstAide\su /data/local/tmp/.
+adb push su /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *     We Are Pushing Superuser To The Kindle       *
 ECHO ****************************************************
 echo.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *    We Are Now Setting The Busybox Permissions    *
@@ -4455,8 +4558,7 @@ ECHO *We Are Now Setting The Permissions And Installing*
 ECHO *                Busybox                          *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\Busybox_Installer_4.1.apk
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell "/data/local/tmp/busybox mount -o remount,rw /system"
@@ -4483,9 +4585,9 @@ ECHO *********************************************
 echo.
 adb reboot
 echo.
-CALL:OPTION21.2
+CALL:ROOT-PREFERRED.2
 
-:OPTION21.1
+:ROOT-PREFERRED.1
 echo.
 cls
 echo.
@@ -4499,28 +4601,27 @@ ECHO * Success! The First Exploit Worked! Let's  *
 ECHO *             Wrap This Up....              *
 ECHO *********************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ****************************************************
 ECHO *     We Are Pushing Busybox To The Kindle         *
 ECHO ****************************************************
 echo.
-del \KFFirstAide\busybox
+REM del \KFFirstAide\busybox
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 adb shell "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *   We Are Pushing The SU Binary To The Kindle     *
 ECHO ****************************************************
 echo.
-adb push \KFFirstAide\su /data/local/tmp/.
+adb push su /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *     We Are Pushing Superuser To The Kindle       *
 ECHO ****************************************************
 echo.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 echo.
 ECHO ****************************************************
 ECHO *    We Are Now Setting The Busybox Permissions    *
@@ -4529,7 +4630,7 @@ echo.
 adb shell "chmod 755 /data/local/tmp/busybox"
 adb shell "busybox mount -o remount,rw ext4 /system"
 adb shell "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-del \KFFirstAide\Busybox_Installer_4.1.apk
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell "/data/local/tmp/busybox mount -o remount,rw /system"
 adb shell "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -4547,13 +4648,12 @@ adb shell "ln -s /system/xbin/su /system/bin/su"
 adb install -r Busybox_Installer_4.1.apk
 adb shell "/system/xbin/busybox mount -o remount,ro ext4 /system"
 adb shell "mount -o ro,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
 echo.
 adb reboot
 echo.
-CALL:OPTION21.2
+CALL:ROOT-PREFERRED.2
 
-:OPTION21.2
+:ROOT-PREFERRED.2
 echo.
 cls
 echo.
@@ -4571,7 +4671,6 @@ ECHO * The Kindle Apps. Please Use This Program*
 ECHO *             To Test Root.               *
 ECHO *******************************************
 echo.
-cd \KFFirstAide
 adb install -r suchecker.apk
 echo.
 ECHO *******************************************************
@@ -4613,9 +4712,8 @@ ECHO *   We Are Now Testing Superuser...Please Wait      *
 ECHO *       This Test May Tak A Few Minutes..........   *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 type isroot | adb shell | find "#"
-if %errorlevel% == 1 goto OPTION21.3
+if %errorlevel% == 1 goto ROOT-PREFERRED.3
 echo.
 ECHO **********************************************
 ECHO *Looks Good! The Root Permission Test Passed!*
@@ -4631,17 +4729,17 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION21.3
+:ROOT-PREFERRED.3
 echo.
 cls
 echo.
 COLOR 2
 echo.
 ECHO ****************************************************************
-ECHO *     Root Failed. Please Run Option 21 Again, Sometimes       *
+ECHO *     Root Failed. Please Run Preferred Again, Sometimes       *
 ECHO * The Process Need To Be Repeated Several Time Before You Will *
 ECHO * Successfully Root The Kindle. If This Method Fails More Than *
-ECHO * 5 Times Try Option 20 Which Uses A Different Method To Root  *
+ECHO * 5 Times Try Option OLD Which Uses A Different Method To Root *
 ECHO *                         The Kindle.                          *
 ECHO ****************************************************************
 echo.
@@ -4670,7 +4768,6 @@ ECHO *  Allow Or Grant. This Will Solve The Missing  *
 ECHO *              Navigation Bars!                 *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 adb shell "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
@@ -4688,7 +4785,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION21.4
+:ROOT-PREFERRED.4
 echo.
 cls
 echo.
@@ -4696,12 +4793,11 @@ echo.
 COLOR 2
 echo.
 ECHO ******************************************************
-ECHO *Thank You For Selecting Option 21 To Root The Kindle*
+ECHO *Thank You For Selecting Preferred To Root The Kindle*
 ECHO *The Operation To Root The Kindle Fire Was Canceled  *
 ECHO *                  By The User!                      *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4710,12 +4806,12 @@ echo.
 CALL:menu
 
 
-:OPTION22
+:UNROOT
 echo.
 cls
 echo.
 ECHO ************************************************************
-ECHO *Thank You For Selecting Option 22. This Option will Remove*
+ECHO *Thank You For Selecting UNROOT. This Option will Remove*
 ECHO * The Android Superuser Service And Remove The SU Binary   *
 ECHO *  You Will Want To Use This Option Prior To Sending The   *
 ECHO *  Tablet Back To Amazon. You May Use This Option On Any   *
@@ -4726,14 +4822,13 @@ ECHO * To Reduce Access While The Tablet Is Loaned To Another   *
 ECHO *        Kindle User, Like Your Kids Or A Friend.          *
 ECHO ************************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Are You Sure You Would Like To Remove Root From The Kindle Fire?" OPTION22.0 OPTION22.1
+CALL:yesno "Are You Sure You Would Like To Remove Root From The Kindle Fire?" UNROOT.0 UNROOT.1
 
-:OPTION22.0
+:UNROOT.0
+cd root
 echo.
 cls
 echo.
@@ -4757,7 +4852,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -4765,8 +4859,7 @@ ECHO *              An Automated Install.                  *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION22.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto UNROOT.2
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -4783,7 +4876,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -4828,15 +4920,14 @@ adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide\Backup
+mkdir root\backup 2>nul
+cd root\backup
 adb pull /system/xbin/su
 adb pull /system/app/Superuser.apk
 adb shell su -c "rm /system/xbin/su"
 adb shell su -c "rm /system/app/Superuser.apk"
-cd \KFFirstAide
 adb shell "busybox mount -o remount,ro /system"
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************
 ECHO *Success! We Have Removed Root On Your Kindle.*
@@ -4849,7 +4940,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION22.1
+:UNROOT.1
 echo.
 cls
 echo.
@@ -4857,12 +4948,11 @@ echo.
 COLOR 2
 echo.
 ECHO ******************************************************
-ECHO *  Thank You For Selecting Option 22 To Remove Root  *
+ECHO *    Thank You For Selecting UNROOT To Remove Root   *
 ECHO *  The Operation To Remove Root The Kindle Fire Was  *
 ECHO *            Canceled By The User!                   *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -4870,7 +4960,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION22.2
+:UNROOT.2
 echo.
 cls
 echo.
@@ -4883,15 +4973,14 @@ ECHO * And We Will Install The Original Busybox That Was  *
 ECHO *           Included With The Kindle.                *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -4903,7 +4992,7 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install -r Busybox_Installer_4.1.apk
-cd \KFFirstAide
+
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -4919,9 +5008,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION22.0
+CALL:UNROOT.0
 
-:OPTION23
+:INSTALL-GAPPS
 echo.
 cls
 echo.
@@ -4938,14 +5027,12 @@ ECHO *    Google Currents, Chrome, Earth, Maps, YouTube    *
 ECHO *  Universal Terminal Emulator And ES File Explorer.  *
 ECHO *******************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Install Google Apps With AVIC Alice Speech Recognition?" OPTION23.0 OPTION23.1
+CALL:yesno "Would You Like To Install Google Apps With AVIC Alice Speech Recognition?" INSTALL-GAPPS.0 INSTALL-GAPPS.2
 
-:OPTION23.0
+:INSTALL-GAPPS.0
 echo.
 cls
 echo.
@@ -4969,7 +5056,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -4977,11 +5063,10 @@ ECHO *              An Automated Install.                  *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION21.3
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-GAPPS.3
 echo.
 set /p unr=Would You Like To Install Google Apps For Ice Cream Sandwich(y/n) ?
-IF %unr% == n GOTO OPTION23.1
+IF %unr% == n GOTO INSTALL-GAPPS.1
 echo.
 ECHO **********************************************************
 ECHO *  We Are Installing Google Apps for Ice Cream Sandwich  *
@@ -5004,7 +5089,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -5025,61 +5109,60 @@ ECHO ********************************************************
 ECHO *   We Are Now Installing The Google Apps & Services   *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /system/addon.d"
-adb push \KFFirstAide\AppsICS\system\addon.d\70-gapps.sh /system/addon.d/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\de-DE_gl0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\de-DE_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\es-ES_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\es-ES_zl0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\fr-FR_nk0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\fr-FR_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\it-IT_cm0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsICS\system\tts\lang_pico\it-IT_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AccountAndSyncSettings.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\ChromeBookmarksSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\FaceLock.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GalleryGoogle.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GenieWidget.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleBackupTransport.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleCalendarSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleContactsSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleFeedback.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleLoginService.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GooglePartnerSetup.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleQuickSearchBox.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleServicesFramework.apk /system/app/.
-adb push \KFFirstAide\GoogleStreetView.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\GoogleTTS.apk /system/app/.
-adb push \KFFirstAide\Google_Voice_0.4.2.72.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\MarketUpdater.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\MediaUploader.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\NetworkLocation.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\OneTimeInitializer.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\Phonesky.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\SetupWizard.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\Talk.apk /system/app/.
-adb push \KFFirstAide\UniversalSearch.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\app\VoiceSearch.apk /system/app/.
-adb push \KFFirstAide\AppsICS\system\etc\g.prop /system/app/etc/.
-adb push \KFFirstAide\AppsICS\system\etc\permissions\com.google.android.maps.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsICS\system\etc\permissions\com.google.android.media.effects.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsICS\system\etc\permissions\com.google.widevine.software.drm.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsICS\system\etc\permissions\features.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsICS\system\etc\framework\com.google.android.maps.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsICS\system\etc\framework\com.google.android.media.effects.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsICS\system\etc\framework\com.google.widevine.software.drm.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsICS\system\lib\libfilterpack_facedetect.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libflint_engine_jni_api.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libfrsdk.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libgcomm_jni.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libpicowrapper.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libspeexwrapper.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libvideochat_jni.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libvideochat_stabilize.so /system/lib/.
-adb push \KFFirstAide\AppsICS\system\lib\libvoicesearch.so /system/lib/.
+adb push AppsICS\system\addon.d\70-gapps.sh /system/addon.d/.
+adb push AppsICS\system\tts\lang_pico\de-DE_gl0_sg.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\de-DE_ta.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\es-ES_ta.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\es-ES_zl0_sg.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\fr-FR_nk0_sg.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\fr-FR_ta.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\it-IT_cm0_sg.bin /system/tts/lang_pico/.
+adb push AppsICS\system\tts\lang_pico\it-IT_ta.bin /system/tts/lang_pico/.
+adb push GooglePlay\AccountAndSyncSettings.apk /system/app/.
+adb push AppsICS\system\app\ChromeBookmarksSyncAdapter.apk /system/app/.
+adb push GApps\FaceLock.apk /system/app/.
+adb push AppsICS\system\app\GalleryGoogle.apk /system/app/.
+adb push AppsICS\system\app\GenieWidget.apk /system/app/.
+adb push AppsICS\system\app\GoogleBackupTransport.apk /system/app/.
+adb push AppsICS\system\app\GoogleCalendarSyncAdapter.apk /system/app/.
+adb push AppsICS\system\app\GoogleContactsSyncAdapter.apk /system/app/.
+adb push AppsICS\system\app\GoogleFeedback.apk /system/app/.
+adb push AppsICS\system\app\GoogleLoginService.apk /system/app/.
+adb push AppsICS\system\app\GooglePartnerSetup.apk /system/app/.
+adb push AppsICS\system\app\GoogleQuickSearchBox.apk /system/app/.
+adb push AppsICS\system\app\GoogleServicesFramework.apk /system/app/.
+adb push GApps\GoogleStreetView.apk /system/app/.
+adb push AppsICS\system\app\GoogleTTS.apk /system/app/.
+adb push GApps\Google_Voice_0.4.2.72.apk /system/app/.
+adb push AppsICS\system\app\MarketUpdater.apk /system/app/.
+adb push AppsICS\system\app\MediaUploader.apk /system/app/.
+adb push AppsICS\system\app\NetworkLocation.apk /system/app/.
+adb push AppsICS\system\app\OneTimeInitializer.apk /system/app/.
+adb push AppsICS\system\app\Phonesky.apk /system/app/.
+adb push AppsICS\system\app\SetupWizard.apk /system/app/.
+adb push AppsICS\system\app\Talk.apk /system/app/.
+adb push GApps\UniversalSearch.apk /system/app/.
+adb push AppsICS\system\app\VoiceSearch.apk /system/app/.
+adb push AppsICS\system\etc\g.prop /system/app/etc/.
+adb push AppsICS\system\etc\permissions\com.google.android.maps.xml /system/app/etc/permissions/.
+adb push AppsICS\system\etc\permissions\com.google.android.media.effects.xml /system/app/etc/permissions/.
+adb push AppsICS\system\etc\permissions\com.google.widevine.software.drm.xml /system/app/etc/permissions/.
+adb push AppsICS\system\etc\permissions\features.xml /system/app/etc/permissions/.
+adb push AppsICS\system\etc\framework\com.google.android.maps.jar /system/app/etc/framework/.
+adb push AppsICS\system\etc\framework\com.google.android.media.effects.jar /system/app/etc/framework/.
+adb push AppsICS\system\etc\framework\com.google.widevine.software.drm.jar /system/app/etc/framework/.
+adb push AppsICS\system\lib\libfilterpack_facedetect.so /system/lib/.
+adb push AppsICS\system\lib\libflint_engine_jni_api.so /system/lib/.
+adb push AppsICS\system\lib\libfrsdk.so /system/lib/.
+adb push AppsICS\system\lib\libgcomm_jni.so /system/lib/.
+adb push AppsICS\system\lib\libpicowrapper.so /system/lib/.
+adb push AppsICS\system\lib\libspeexwrapper.so /system/lib/.
+adb push AppsICS\system\lib\libvideochat_jni.so /system/lib/.
+adb push AppsICS\system\lib\libvideochat_stabilize.so /system/lib/.
+adb push AppsICS\system\lib\libvoicesearch.so /system/lib/.
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -5087,7 +5170,6 @@ ECHO **************************************************************
 ECHO *We Are Now Setting Up The Services And Checking Permissions.*
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox chmod 0755 /system/addon.d/70-gapps.sh"
@@ -5146,17 +5228,16 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb install -r \KFFirstAide\GoogleCurrents.apk
-adb install -r \KFFirstAide\Chrome_18.0.1025308.apk
-adb install -r \KFFirstAide\Earth_7.0.2.8421.apk
-adb install -r \KFFirstAide\ES_File_Explorer_1.6.2.5.apk
-adb install -r \KFFirstAide\Gmail_4.2.1.apk
-adb install -r \KFFirstAide\GoogleMaps.apk
-adb install -r \KFFirstAide\yourapp24.android.tools.alice_lite-1.apk
-adb install -r \KFFirstAide\YouTube_4.2.16.apk
+adb install -r GApps\GoogleCurrents.apk
+adb install -r GApps\Chrome_18.0.1025308.apk
+adb install -r GApps\Earth_7.0.2.8421.apk
+adb install -r GApps\ES_File_Explorer_1.6.2.5.apk
+adb install -r GApps\Gmail_4.2.1.apk
+adb install -r GApps\GoogleMaps.apk
+adb install -r GApps\yourapp24.android.tools.alice_lite-1.apk
+adb install -r GApps\YouTube_4.2.16.apk
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -5165,7 +5246,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -5197,7 +5277,7 @@ adb kill-server
 echo.
 GOTO menu
 
-:OPTION23.1
+:INSTALL-GAPPS.1
 echo.
 cls
 echo.
@@ -5221,15 +5301,14 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
 ECHO *              An Automated Install.                  *
 ECHO *******************************************************
 echo.
-set /p unr=Would You Like To Install Google Apps For Ice Cream Sandwich(y/n) ?
-IF %unr% == n GOTO OPTION23.2
+set /p unr=Would You Like To Install Google Apps For Jelly Bean(y/n) ?
+IF %unr% == n GOTO INSTALL-GAPPS.2
 echo.
 ECHO **********************************************************
 ECHO *     We Are Installing Google Apps for Jelly Bean       *
@@ -5252,7 +5331,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -5273,93 +5351,92 @@ ECHO ********************************************************
 ECHO *   We Are Now Installing The Google Apps & Services   *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /system/addon.d"
 adb shell su -c "mkdir /system/usr/srec/en-US"
-adb push \KFFirstAide\AppsJB\system\addon.d\70-gapps.sh /system/addon.d/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\de-DE_gl0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\de-DE_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\es-ES_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\es-ES_zl0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\fr-FR_nk0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\fr-FR_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\it-IT_cm0_sg.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AppsJB\system\tts\lang_pico\it-IT_ta.bin /system/tts/lang_pico/.
-adb push \KFFirstAide\AccountAndSyncSettings.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\ChromeBookmarksSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\FaceLock.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\ConfigUpdater.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GenieWidget.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GmsCore.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleBackupTransport.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleCalendarSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleContactsSyncAdapter.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleFeedback.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleLoginService.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GooglePartnerSetup.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleServicesFramework.apk /system/app/.
-adb push \KFFirstAide\GoogleStreetView.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\GoogleTTS.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\LatinImeDictionaryPack.apk /system/app/.
-adb push \KFFirstAide\Google_Voice_0.4.2.72.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\MediaUploader.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\NetworkLocation.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\OneTimeInitializer.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\Phonesky.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\QuickSearchBox.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\SetupWizard.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\Talk.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\app\Talkback.apk/system/app/.
-adb push \KFFirstAide\AppsJB\system\app\VoiceSearchStub.apk /system/app/.
-adb push \KFFirstAide\AppsJB\system\etc\g.prop /system/app/etc/.
-adb push \KFFirstAide\AppsJB\system\etc\permissions\com.google.android.maps.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsJB\system\etc\permissions\com.google.android.media.effects.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsJB\system\etc\permissions\com.google.widevine.software.drm.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsJB\system\etc\permissions\features.xml /system/app/etc/permissions/.
-adb push \KFFirstAide\AppsJB\system\etc\preferred-apps\google.xml /system/app/etc/preferred-apps/.
-adb push \KFFirstAide\AppsJB\system\etc\framework\com.google.android.maps.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsJB\system\etc\framework\com.google.android.media.effects.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsJB\system\etc\framework\com.google.widevine.software.drm.jar /system/app/etc/framework/.
-adb push \KFFirstAide\AppsJB\system\lib\libfilterpack_facedetect.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libflint_engine_jni_api.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libfrsdk.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libgcomm_jni.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libpicowrapper.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libspeexwrapper.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libvideochat_jni.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libvideochat_stabilize.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\lib\libvoicesearch.so /system/lib/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\acoustic_model /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\c_fst /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\clg /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\compile_grammar.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\contacts.abnf /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\dict /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\dictation.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\embed_phone_nn_model /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\dictation.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\embed_phone_nn_state_sym /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\endpointer_dictation.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\endpointer_voicesearch.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\ep_acoustic_model /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\g2p_fst /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\google_hotword.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\google_hotword_clg /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\google_hotword_logistic /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\grammar.config /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\google_hotword_logistic /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\hmmsyms /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\hotword_symbols /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\lintrans_model /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\metadata /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\normalizer /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\norm_fst /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\offensive_word_normalizer /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\phonelist /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\rescoring_lm /system/usr/srec/en-us/.
-adb push \KFFirstAide\AppsJB\system\usr\srec\en-US\symbols /system/usr/srec/en-us/.
+adb push AppsJB\system\addon.d\70-gapps.sh /system/addon.d/.
+adb push AppsJB\system\tts\lang_pico\de-DE_gl0_sg.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\de-DE_ta.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\es-ES_ta.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\es-ES_zl0_sg.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\fr-FR_nk0_sg.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\fr-FR_ta.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\it-IT_cm0_sg.bin /system/tts/lang_pico/.
+adb push AppsJB\system\tts\lang_pico\it-IT_ta.bin /system/tts/lang_pico/.
+adb push GooglePlay\AccountAndSyncSettings.apk /system/app/.
+adb push AppsJB\system\app\ChromeBookmarksSyncAdapter.apk /system/app/.
+adb push GApps\FaceLock.apk /system/app/.
+adb push AppsJB\system\app\ConfigUpdater.apk /system/app/.
+adb push AppsJB\system\app\GenieWidget.apk /system/app/.
+adb push AppsJB\system\app\GmsCore.apk /system/app/.
+adb push AppsJB\system\app\GoogleBackupTransport.apk /system/app/.
+adb push AppsJB\system\app\GoogleCalendarSyncAdapter.apk /system/app/.
+adb push AppsJB\system\app\GoogleContactsSyncAdapter.apk /system/app/.
+adb push AppsJB\system\app\GoogleFeedback.apk /system/app/.
+adb push AppsJB\system\app\GoogleLoginService.apk /system/app/.
+adb push AppsJB\system\app\GooglePartnerSetup.apk /system/app/.
+adb push AppsJB\system\app\GoogleServicesFramework.apk /system/app/.
+adb push GApps\GoogleStreetView.apk /system/app/.
+adb push AppsJB\system\app\GoogleTTS.apk /system/app/.
+adb push AppsJB\system\app\LatinImeDictionaryPack.apk /system/app/.
+adb push GApps\Google_Voice_0.4.2.72.apk /system/app/.
+adb push AppsJB\system\app\MediaUploader.apk /system/app/.
+adb push AppsJB\system\app\NetworkLocation.apk /system/app/.
+adb push AppsJB\system\app\OneTimeInitializer.apk /system/app/.
+adb push AppsJB\system\app\Phonesky.apk /system/app/.
+adb push AppsJB\system\app\QuickSearchBox.apk /system/app/.
+adb push AppsJB\system\app\SetupWizard.apk /system/app/.
+adb push AppsJB\system\app\Talk.apk /system/app/.
+adb push AppsJB\system\app\Talkback.apk/system/app/.
+adb push AppsJB\system\app\VoiceSearchStub.apk /system/app/.
+adb push AppsJB\system\etc\g.prop /system/app/etc/.
+adb push AppsJB\system\etc\permissions\com.google.android.maps.xml /system/app/etc/permissions/.
+adb push AppsJB\system\etc\permissions\com.google.android.media.effects.xml /system/app/etc/permissions/.
+adb push AppsJB\system\etc\permissions\com.google.widevine.software.drm.xml /system/app/etc/permissions/.
+adb push AppsJB\system\etc\permissions\features.xml /system/app/etc/permissions/.
+adb push AppsJB\system\etc\preferred-apps\google.xml /system/app/etc/preferred-apps/.
+adb push AppsJB\system\etc\framework\com.google.android.maps.jar /system/app/etc/framework/.
+adb push AppsJB\system\etc\framework\com.google.android.media.effects.jar /system/app/etc/framework/.
+adb push AppsJB\system\etc\framework\com.google.widevine.software.drm.jar /system/app/etc/framework/.
+adb push AppsJB\system\lib\libfilterpack_facedetect.so /system/lib/.
+adb push AppsJB\system\lib\libflint_engine_jni_api.so /system/lib/.
+adb push AppsJB\system\lib\libfrsdk.so /system/lib/.
+adb push AppsJB\system\lib\libgcomm_jni.so /system/lib/.
+adb push AppsJB\system\lib\libpicowrapper.so /system/lib/.
+adb push AppsJB\system\lib\libspeexwrapper.so /system/lib/.
+adb push AppsJB\system\lib\libvideochat_jni.so /system/lib/.
+adb push AppsJB\system\lib\libvideochat_stabilize.so /system/lib/.
+adb push AppsJB\system\lib\libvoicesearch.so /system/lib/.
+adb push AppsJB\system\usr\srec\en-US\acoustic_model /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\c_fst /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\clg /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\compile_grammar.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\contacts.abnf /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\dict /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\dictation.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\embed_phone_nn_model /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\dictation.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\embed_phone_nn_state_sym /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\endpointer_dictation.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\endpointer_voicesearch.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\ep_acoustic_model /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\g2p_fst /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\google_hotword.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\google_hotword_clg /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\google_hotword_logistic /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\grammar.config /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\google_hotword_logistic /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\hmmsyms /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\hotword_symbols /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\lintrans_model /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\metadata /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\normalizer /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\norm_fst /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\offensive_word_normalizer /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\phonelist /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\rescoring_lm /system/usr/srec/en-us/.
+adb push AppsJB\system\usr\srec\en-US\symbols /system/usr/srec/en-us/.
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -5367,7 +5444,6 @@ ECHO **************************************************************
 ECHO *We Are Now Setting Up The Services And Checking Permissions.*
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox chmod 0755 /system/addon.d/70-gapps.sh"
@@ -5426,17 +5502,16 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb install -r \KFFirstAide\GoogleCurrents.apk
-adb install -r \KFFirstAide\Chrome_18.0.1025308.apk
-adb install -r \KFFirstAide\Earth_7.0.2.8421.apk
-adb install -r \KFFirstAide\ES_File_Explorer_1.6.2.5.apk
-adb install -r \KFFirstAide\Gmail_4.2.1.apk
-adb install -r \KFFirstAide\GoogleMaps.apk
-adb install -r \KFFirstAide\yourapp24.android.tools.alice_lite-1.apk
-adb install -r \KFFirstAide\YouTube_4.2.16.apk
+adb install -r GApps\GoogleCurrents.apk
+adb install -r GApps\Chrome_18.0.1025308.apk
+adb install -r GApps\Earth_7.0.2.8421.apk
+adb install -r GApps\ES_File_Explorer_1.6.2.5.apk
+adb install -r GApps\Gmail_4.2.1.apk
+adb install -r GApps\GoogleMaps.apk
+adb install -r GApps\yourapp24.android.tools.alice_lite-1.apk
+adb install -r GApps\YouTube_4.2.16.apk
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -5445,7 +5520,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -5469,7 +5543,6 @@ ECHO *   Kindle Fire First Aide Thread. Thank You For   *
 ECHO *              Using Our Software.                 *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -5478,7 +5551,7 @@ echo.
 GOTO menu
 
 
-:OPTION23.2
+:INSTALL-GAPPS.2
 echo.
 cls
 echo.
@@ -5491,7 +5564,6 @@ ECHO * Apps. The Operation To Install Google Apps On The  *
 ECHO *      Kindle Fire Was Canceled By The User!         *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -5499,7 +5571,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION23.3
+:INSTALL-GAPPS.3
 echo.
 cls
 echo.
@@ -5511,15 +5583,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -5531,7 +5603,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install -r Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -5547,7 +5618,8 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION23.0
+cd %~dp0
+CALL:INSTALL-GAPPS.0
 
 :OPTION24
 echo.
@@ -5641,14 +5713,14 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION25
+:RESTORE-FULL
 echo.
 cls
 echo.
 COLOR 2
 echo.
 ECHO ************************************************
-ECHO *Thank You For Selecting Option 25. This Option*
+ECHO *  Thank You For Selecting Full Restore. This  *
 ECHO *  Will Restore The Kindle From The Option 13  *
 ECHO * Backup. This Option Is Considered A Complete *
 ECHO *  Kindle Fire Restore. This Will Restore All  *
@@ -5663,12 +5735,10 @@ ECHO *  Allowing You To Perform A Full Or Partial   *
 ECHO *        Restore On The Kindle Fire.           *
 ECHO ************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire From An Option 25 Backup?" OPTION25.0 OPTION25.17
+CALL:yesno "Would You Like To Restore The Kindle Fire From An Option 25 Backup?" RESTORE-FULL.0 RESTORE-FULL.17
 
-:OPTION25.0
+:RESTORE-FULL.0
 ECHO ************************************************
 ECHO * Do You Have A Kindle Fire HD or 2  Plugged   *
 ECHO *               In To USB?                     *
@@ -5690,15 +5760,14 @@ cls
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 echo.
 ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Fire Into Fastboot?" OPTION25.1 OPTION25.3
+CALL:yesno "Would You Like Us To Reboot The Kindle Fire Into Fastboot?" RESTORE-FULL.1 RESTORE-FULL.3
 
-:OPTION25.1
+:RESTORE-FULL.1
 echo.
 cls
 echo.
@@ -5710,7 +5779,6 @@ ECHO *Then Plug The Mini USB In To The Kindle *
 ECHO *  And The Other End To The Computer     *
 ECHO ******************************************
 echo.
-cd \KFFirstAide
 PAUSE
 echo.
 cls
@@ -5718,9 +5786,9 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be On!" OPTION25.2 OPTION25.1
+CALL:yesno "Are You Ready? The Kindle Must Be On!" RESTORE-FULL.2 RESTORE-FULL.1
 
-:OPTION25.2
+:RESTORE-FULL.2
 echo.
 cls
 echo.
@@ -5731,7 +5799,6 @@ ECHO *This Process Will Fail If You Do Not Have Root *
 ECHO *           Installed On The Kindle.            *
 ECHO *************************************************
 echo.
-cd \KFFirstAide
 echo.
 adb shell su -c "reboot bootloader"
 echo.
@@ -5748,11 +5815,11 @@ ECHO *   To Boot (Kindle Fire HD 7 and 2 Only)     *
 ECHO ***********************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO OPTION25.3
+IF %unr% == y GOTO RESTORE-FULL.3
 echo.
 CALL:menu
 
-:OPTION25.3
+:RESTORE-FULL.3
 echo.
 cls
 echo.
@@ -5773,7 +5840,6 @@ ECHO *  This Operation Requires The Microsoft Visual C++  *
 ECHO *  Run-Time Components To Be Installed On You PC     *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Do You Have Any Yellow Triangles In The Windows Device Manager (y/n) ?
 IF %unr% == y GOTO OPTION24
@@ -5784,10 +5850,9 @@ ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Do You Need Us To G-Unzip The Images (y/n) ?
-IF %unr% == n GOTO OPTION25.5
+IF %unr% == n GOTO RESTORE-FULL.5
 echo.
 ECHO ***********************************************************
 ECHO *Please wait while I Inspect and Unzip The 11 Images..... *
@@ -5795,7 +5860,7 @@ ECHO *You Will See Errors Here If The Images Are Not Compressed*
 ECHO *       You May Ignore These Eleven Errors.               *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide\KindleBackup
+cd KindleBackup
 gunzip.exe -d xloader.img.gz
 gunzip.exe -d bootloader.img.gz
 gunzip.exe -d idme.img.gz
@@ -5807,130 +5872,116 @@ gunzip.exe -d efs.img.gz
 gunzip.exe -d recovery.img.gz
 gunzip.exe -d boot.img.gz
 gunzip.exe -d system.img.gz
-cd \KFFirstAide
 echo.
 ECHO ********************************************************************************************
 ECHO *We Have Inspected The Recovery - We Are Ready To Flash The 11 Images......................*
 ECHO ********************************************************************************************
 echo.
-CALL:yesno "Are You Ready To Begin The Selective Restore?" OPTION25.5 OPTION25.1
+CALL:yesno "Are You Ready To Begin The Selective Restore?" RESTORE-FULL.5 RESTORE-FULL.1
 
-:OPTION25.5
+:RESTORE-FULL.5
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Would You Like To Restore The Xloader Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.6
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.6
 fastboot flash -i 0x1949 xloader xloader.img
-CALL:OPTION25.6
+CALL:RESTORE-FULL.6
 
-:OPTION25.6
+:RESTORE-FULL.6
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Bootloader Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.7
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.7
 fastboot flash -i 0x1949 bootloader bootloader.img
-CALL:OPTION25.7
+CALL:RESTORE-FULL.7
 
-:OPTION25.7
+:RESTORE-FULL.7
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Idme Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.8
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.8
 fastboot flash -i 0x1949 idme idme.img
-CALL:OPTION25.8
+CALL:RESTORE-FULL.8
 
-:OPTION25.8
+:RESTORE-FULL.8
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Crypto Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.9
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.9
 fastboot flash -i 0x1949 crypto crypto.img
-CALL:OPTION25.9
+CALL:RESTORE-FULL.9
 
-:OPTION25.9
+:RESTORE-FULL.9
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Misc Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.10
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.10
 fastboot flash -i 0x1949 misc misc.img
-CALL:OPTION25.10
+CALL:RESTORE-FULL.10
 
-:OPTION25.10
+:RESTORE-FULL.10
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Dkernel Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.11
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.11
 fastboot flash -i 0x1949 dkernel dkernel.img
-CALL:OPTION25.11
+CALL:RESTORE-FULL.11
 
-:OPTION25.11
+:RESTORE-FULL.11
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Dfs Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.12
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.12
 fastboot flash -i 0x1949 dfs dfs.img
-CALL:OPTION25.12
+CALL:RESTORE-FULL.12
 
-:OPTION25.12
+:RESTORE-FULL.12
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Efs Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.13
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.13
 fastboot flash -i 0x1949 efs efs.img
-CALL:OPTION25.13
+CALL:RESTORE-FULL.13
 
-:OPTION25.13
+:RESTORE-FULL.13
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Recovery Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.14
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.14
 fastboot flash -i 0x1949 recovery recovery.img
-CALL:OPTION25.14
+CALL:RESTORE-FULL.14
 
-:OPTION25.13
+:RESTORE-FULL.13
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The Boot Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.14
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.14
 fastboot flash -i 0x1949 boot boot.img
-CALL:OPTION25.14
+CALL:RESTORE-FULL.14
 
-:OPTION25.14
+:RESTORE-FULL.14
 echo.
 echo.
 echo.
 set /p unr=Would You Like To Restore The System Partition (y/n) ?
-IF %unr% == n GOTO OPTION25.15
-cd \KFFirstAide\KindleBackup
+IF %unr% == n GOTO RESTORE-FULL.15
 fastboot flash -i 0x1949 system system.img
-CALL:OPTION25.15
+CALL:RESTORE-FULL.15
 
 
-:OPTION25.15
+:RESTORE-FULL.15
 echo.
-cd \KFFirstAide
 echo.
 ECHO *****************************************************************
 ECHO * OK, We Are Done Restoring The Kindle, Now We Will Do A Little *
@@ -5940,24 +5991,22 @@ ECHO *****************************************************************
 echo.
 echo.
 set /p unr=Would You Like To Wipe The User Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION25.16
+IF %unr% == n GOTO RESTORE-FULL.16
 echo.
 echo.
 fastboot -i 0x1949 -w
 fastboot -i 0x1949 reboot
 echo.
-cd \KFFirstAide
 echo.
 color 2
 echo.
-CALL:OPTION25.16
+CALL:RESTORE-FULL.16
 
-:OPTION25.16
+:RESTORE-FULL.16
 echo.
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
@@ -5982,13 +6031,12 @@ ECHO * For 5 Seconds And Depress The Power Button Again For 2 Seconds *
 ECHO *Do Not Forget To Disable OTA Before Connecting To It To Wireless*
 ECHO ******************************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 CALL:menu
 
-:OPTION25.17
+:RESTORE-FULL.17
 echo.
 cls
 echo.
@@ -5999,13 +6047,12 @@ echo *  The Operation To Restore The Kindle Fire   *
 ECHO *        Was Canceled By The User.            *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 CALL:menu
 
-:OPTION26
+:RESTORE-3
 echo.
 cls
 echo.
@@ -6019,13 +6066,11 @@ ECHO *The Kindle Fire Boot Image, Recovery Image And*
 ECHO *             The System Image.                *
 ECHO ************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire From An Option 17 Backup?" OPTION26.0 OPTION26.7
+CALL:yesno "Would You Like To Restore The Kindle Fire From A 3 File Backup?" RESTORE-3.0 RESTORE-3.7
 
 
-:OPTION26.0
+:RESTORE-3.0
 echo.
 cls
 echo.
@@ -6036,11 +6081,10 @@ ECHO ****************************************************
 ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" OPTION26.2 OPTION26.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTORE-3.2 RESTORE-3.4
 
-:OPTION26.1
+:RESTORE-3.1
 echo.
 cls
 echo.
@@ -6065,7 +6109,6 @@ ECHO * Sure To Click Allow Or Grant Otherwise This *
 ECHO *            Command Will Fail.               *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 adb shell su -c "reboot bootloader"
 echo.
@@ -6082,14 +6125,12 @@ ECHO *   To Boot (Kindle Fire HD 7 and 2 Only)     *
 ECHO ***********************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == n GOTO OPTION26.1
-cd \KFFirstAide
+IF %unr% == n GOTO RESTORE-3.1
 echo.
-CALL:OPTION26.2
+CALL:RESTORE-3.2
 
-
-
-:OPTION26.2
+:RESTORE-3.2
+cd Backup
 echo.
 cls
 echo.
@@ -6111,31 +6152,28 @@ ECHO *We Have Inspected The Recovery - We Are Ready To Flash The 3 Images.......
 ECHO *******************************************************************************************
 echo.
 set /p unr=Woul You Like To Restore The Recovery Partition (y/n) ?
-IF %unr% == n GOTO OPTION26.3
-cd \KFFirstAide\Backup
+IF %unr% == n GOTO RESTORE-3.3
 fastboot flash -i 0x1949 recovery stock-recovery.img
 echo.
-CALL:OPTION26.3
+CALL:RESTORE-3.3
 
-:OPTION26.3
+:RESTORE-3.3
 echo.
 set /p unr=Woul You Like To Restore The Boot Partition (y/n) ?
-IF %unr% == n GOTO OPTION26.4
-cd \KFFirstAide\Backup
+IF %unr% == n GOTO RESTORE-3.4
 fastboot flash -i 0x1949 boot stock-boot.img
 echo.
-CALL:OPTION26.4
+CALL:RESTORE-3.4
 
-:OPTION26.4
+:RESTORE-3.4
 echo.
 set /p unr=Woul You Like To Restore The System Partition (y/n) ?
-IF %unr% == n GOTO OPTION26.5
-cd \KFFirstAide\Backup
+IF %unr% == n GOTO RESTORE-3.5
 fastboot flash -i 0x1949 system stock-system.img
 echo.
-CALL:OPTION26.5
+CALL:RESTORE-3.5
 
-:OPTION26.5
+:RESTORE-3.5
 echo.
 echo.
 ECHO *****************************************************************
@@ -6145,16 +6183,15 @@ ECHO *****************************************************************
 echo.
 echo.
 set /p unr=Would You Like To Wipe The User Data And Cache (y/n) ?
-IF %unr% == n GOTO OPTION26.6
-cd \KFFirstAide
+IF %unr% == n GOTO RESTORE-3.6
 echo.
 echo.
 fastboot -i 0x1949 -w
 fastboot -i 0x1949 reboot
 echo.
-CALL:OPTION26.6
+CALL:RESTORE-3.6
 
-:OPTION26.6
+:RESTORE-3.6
 echo.
 echo.
 COLOR 2
@@ -6165,7 +6202,6 @@ ECHO *    Has Been Restored Using The     *
 ECHO *         Backup Images.             *
 ECHO **************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -6187,7 +6223,7 @@ PAUSE
 echo.
 CALL:menu
 
-:OPTION26.7
+:RESTORE-3.7
 echo.
 cls
 echo.
@@ -6198,7 +6234,6 @@ echo *  The Option 26 To Restore The Kindle Fire   *
 ECHO *        Was Canceled By The User.            *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 pause
 echo.
@@ -7749,7 +7784,7 @@ adb kill-server
 echo.
 CALL:OPTION31.0
 
-:OPTION32
+:ADS-DISABLE
 echo.
 cls
 echo.
@@ -7770,12 +7805,10 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Disable The Amazon Ad Services?" OPTION32.0 OPTION32.1
+CALL:yesno "Would You Like To Disable The Amazon Ad Services?" ADS-DISABLE.0 ADS-DISABLE.1
 
-:OPTION32.0
+:ADS-DISABLE.0
 echo.
 COLOR 2
 echo.
@@ -7804,7 +7837,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -7812,8 +7844,7 @@ ECHO *   An System Install Without Permission Errors       *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION32.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto ADS-DISABLE.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -7831,7 +7862,6 @@ adb kill-server
 adb start-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7858,12 +7888,11 @@ ECHO *   The Amazon Services Just In Case You Would Like To   *
 ECHO *        Return The Kindle To Stock Condition.           *
 ECHO **********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide\Disabled
+mkdir Disabled 2>nul
+cd Disabled
 adb pull /system/app/dtcp_apk.apk
-cd \KFFirstAide
 adb shell su -c "rm /system/app/dtcp_apk.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
@@ -7874,7 +7903,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7896,7 +7924,6 @@ ECHO *   Kindle Fire First Aide Thread. Thank You For    *
 ECHO *              Using Our Software.                  *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7907,7 +7934,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION32.1
+:ADS-DISABLE.1
 echo.
 cls
 echo.
@@ -7918,7 +7945,6 @@ echo *   The Option 32 To Disabed The Amazon Ad Services  *
 ECHO *    On The Kindle Fire Was Canceled By The User.    *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7926,7 +7952,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION32.2
+:ADS-DISABLE.2
 echo.
 cls
 echo.
@@ -7938,15 +7964,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown  0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -7958,7 +7984,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -7974,9 +7999,10 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION32.0
+cd %~dp0
+CALL:ADS-DISABLE.0
 
-:OPTION33
+:DEFAULT-PLAYSTORE
 echo.
 COLOR 2
 echo.
@@ -8002,12 +8028,10 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Make Google Play Store Your Default Market?" OPTION33.0 OPTION33.1
+CALL:yesno "Would You Like To Make Google Play Store Your Default Market?" DEFAULT-PLAYSTORE.0 DEFAULT-PLAYSTORE.1
 
-:OPTION33.0
+:DEFAULT-PLAYSTORE.0
 echo.
 COLOR 2
 echo.
@@ -8017,7 +8041,6 @@ ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
 ECHO ************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *     We Are Now Preparing The Kindle To Accept       *
@@ -8031,8 +8054,7 @@ adb kill-server
 adb wait-for-device
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION33.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto DEFAULT-PLAYSTORE.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -8049,7 +8071,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8076,12 +8097,11 @@ ECHO *    The Amazon Services Just In Case You Would Like To   *
 ECHO *             Return The Kindle To Stock.                 *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide\Disabled
+mkdir Disabled 2>nul
+cd Disabled
 adb pull /system/app/MarketIntentProxy.apk
-cd \KFFirstAide
 adb shell su -c "rm /system/app/MarketIntentProxy.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
@@ -8091,7 +8111,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8122,7 +8141,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION33.1
+:DEFAULT-PLAYSTORE.1
 echo.
 cls
 echo.
@@ -8133,7 +8152,6 @@ echo *   The Option 33 To Set Google Play Your Default    *
 ECHO *Market On The Kindle Fire Was Canceled By The User. *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8141,7 +8159,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION33.2
+:DEFAULT-PLAYSTORE.2
 echo.
 cls
 echo.
@@ -8153,15 +8171,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -8173,14 +8191,14 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
 ECHO *         Return To The Installation!               *
 ECHO *****************************************************
 echo.
-CALL:OPTION33.0
+cd %~dp0
+CALL:DEFAULT-PLAYSTORE.0
 
 :OPTION34
 echo.

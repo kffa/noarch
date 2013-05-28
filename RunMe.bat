@@ -248,6 +248,14 @@ IF /I '%INPUT%'=='3' GOTO ADS-DISABLE
 IF /I '%INPUT%'=='4' GOTO INSTALL-PLAYSTORE
 IF /I '%INPUT%'=='5' GOTO DEFAULT-PLAYSTORE
 IF /I '%INPUT%'=='6' GOTO INSTALL-GAPPS
+IF /I '%INPUT%'=='7' GOTO INSTALL-SONYAUDIO
+IF /I '%INPUT%'=='8' GOTO INSTALL-SONYVIDEO
+IF /I '%INPUT%'=='9' GOTO INSTALL-BEATS
+IF /I '%INPUT%'=='10' GOTO INSTALL-LOCK
+IF /I '%INPUT%'=='11' GOTO INSTALL-ADW
+IF /I '%INPUT%'=='12' GOTO INSTALL-HOLO
+IF /I '%INPUT%'=='13' GOTO INSTALL-BOAT
+IF /I '%INPUT%'=='14' GOTO INSTALL-VPN
 
 :driversmenu
 echo.
@@ -266,6 +274,8 @@ ECHO 0.  <Back to Menu>
 SET INPUT=
 SET /P INPUT=Select an option:
 IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO DRIVER-PREFERRED
+IF /I '%INPUT%'=='2' GOTO DRIVER-ALT
 
 :diag2menu
 echo.
@@ -292,6 +302,12 @@ ECHO 0.  <Back to Menu>
 SET INPUT=
 SET /P INPUT=Select an option:
 IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO FIX-PERMISSIONS
+IF /I '%INPUT%'=='2' GOTO FIX-FLASHING
+IF /I '%INPUT%'=='3' GOTO UPGRADE-SU
+IF /I '%INPUT%'=='4' GOTO UPGRADE-BUSYBOX
+IF /I '%INPUT%'=='5' GOTO INSTALL-CHAINFIRE
+IF /I '%INPUT%'=='6' GOTO FIX-INSTALLATION
 
 :bootloadermenu
 echo.
@@ -311,78 +327,6 @@ ECHO 0.  <Back to Menu>
 SET INPUT=
 SET /P INPUT=Select an option:
 IF /I '%INPUT%'=='0' GOTO menu
-
-:testadb
-echo.
-cls
-echo.
-COLOR 2
-echo.
-ECHO ***********************************************************
-ECHO *  This option will issue an ADB query to the Kindle      *
-ECHO *     so it will display its system information.          *
-ECHO *    This non-destructive command is a good way to        *
-ECHO *  determine if ADB is ENABLED and if the Kindle is       *
-ECHO * responding to simple commands. If the Kindle responds   *
-ECHO * to this command it is safe to proceed with other ADB    *
-ECHO * commands. If this command fails, you should look under  *
-ECHO *      Settings, Security, and make sure ADB is ON.       *
-ECHO * Please ensure you have the Kindle plugged into the USB  *
-ECHO *   with a NORMAL micro-usb cable, NOT a Factory Cable.   *
-ECHO *  If ADB hangs and does not respond, go to the Kindle,   *
-ECHO * then navigate to Settings, Security, and Toggle ADB OFF *
-ECHO * and back ON. If this doesn't correct it please inspect  *
-ECHO * Windows Device Manager for Yellow Triangles. Then post  *
-ECHO * an image of it in our thread on XDA. We will solve this.*
-ECHO ***********************************************************
-echo.
-echo.
-PAUSE
-echo.
-COLOR 2
-echo.
-CALL:yesno "Would You Like To Test ADB On The Kindle Fire?" testadb1 menu
-
-:testadb1
-echo.
-cls
-echo.
-echo.
-COLOR 2
-echo.
-cls
-setlocal
-del device.txt >nul 2>&1
-adb kill-server
-adb wait-for-device
-echo.
-adb devices>device.txt
-FINDSTR /b /l "D026 D025 D059 BOC9 B0CA B0CB B0CC" device.txt>nul && (
-ECHO *******************************************
-ECHO *Kindle Device has been SUCCESSFULLY found*
-FINDSTR /b /l "D026" device.txt>nul && ECHO *        IDENTIFIED AS KF2ND 8GB          * && SET DEVICE=KF2
-FINDSTR /b /l "D025" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 16GB         * && SET DEVICE=KFHD7
-FINDSTR /b /l "D059" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 32GB         * && SET DEVICE=KFHD7
-FINDSTR /b /l "B0C9" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 16GB       * && SET DEVICE=KFHD8
-FINDSTR /b /l "B0CA" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 32GB       * && SET DEVICE=KFHD8
-FINDSTR /b /l "B0CB" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 32GB    * && SET DEVICE=KFHD8
-FINDSTR /b /l "B0CC" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 64GB    * && SET DEVICE=KFHD8
-ECHO *******************************************
-) || (
-ECHO *******************************************
-ECHO *             NO DEVICE FOUND!            *
-ECHO *         Please ensure ADB is ON         *
-ECHO *    and proper drivers are installed.    *
-ECHO *******************************************
-)
-del device.txt
-PAUSE
-echo.
-cls
-echo.
-adb kill-server
-echo.
-CALL:menu
 
 :RESTOREKF2-10-2-3
 echo.
@@ -1070,7 +1014,7 @@ IF %unr% == n GOTO RESTOREKFHD7-7-2-3.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:OPTION3.5
+CALL:RESTOREKFHD7-7-2-3.5
 
 :RESTOREKFHD7-7-2-3.5
 echo.
@@ -2499,79 +2443,71 @@ cls
 echo.
 CALL:menu
 
-:OPTION11
+:testadb
 echo.
 cls
 echo.
 COLOR 2
 echo.
-ECHO *********************************************************
-ECHO *   This Option Will Use An ADB To Command To Simply    *
-ECHO *  Query The Kindle To Display It's System Informtion   *
-ECHO *  This Simple Non-Destructive Command Is A Good Way To *
-ECHO *   Determin If ADB Is Enabled And If The Kindle Is     *
-ECHO * Responding To Simple Commands. If The Kindle Responds *
-ECHO *   To This Command It Is Safe To Proceed With Other    *
-ECHO * ADB Commands. If This Command Fails, You Should Look  *
-ECHO *  Under More + Security, Make Sure Enable ADB Is ON.   *
-ECHO *********************************************************
+ECHO ***********************************************************
+ECHO *  This option will issue an ADB query to the Kindle      *
+ECHO *     so it will display its system information.          *
+ECHO *    This non-destructive command is a good way to        *
+ECHO *  determine if ADB is ENABLED and if the Kindle is       *
+ECHO * responding to simple commands. If the Kindle responds   *
+ECHO * to this command it is safe to proceed with other ADB    *
+ECHO * commands. If this command fails, you should look under  *
+ECHO *      Settings, Security, and make sure ADB is ON.       *
+ECHO * Please ensure you have the Kindle plugged into the USB  *
+ECHO *   with a NORMAL micro-usb cable, NOT a Factory Cable.   *
+ECHO *  If ADB hangs and does not respond, go to the Kindle,   *
+ECHO * then navigate to Settings, Security, and Toggle ADB OFF *
+ECHO * and back ON. If this doesn't correct it please inspect  *
+ECHO * Windows Device Manager for Yellow Triangles. Then post  *
+ECHO * an image of it in our thread on XDA. We will solve this.*
+ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Test ADB On The Kindle Fire?" OPTION11.0 OPTION11.1
+CALL:yesno "Would You Like To Test ADB On The Kindle Fire?" testadb.1 menu
 
-:OPTION11.0
+:testadb.1
 echo.
+cd %~dp0
 cls
 echo.
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-ECHO ************************************************
-ECHO * OK Here We Go, We Are Beginning The Process! *
-ECHO ************************************************
-echo.
-ECHO ***********************************************************
-ECHO *Please Make Sure ADB Is Enabled On The Kindle By Going To*
-ECHO * The Kindle Menu More - Security - Enable ADB  (Turn On) *
-ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
-ECHO *  USB Cable To The Computer, NOT The Factory USB Cable.  *
-ECHO * If ADB Hangs And Does Not Respond, Go To The Kindle,    *
-ECHO * Then Navigate To More+ Security Toggle Enable ADB Off   *
-ECHO * And Back On. If This Does Not Work Inspect The Windows  *
-ECHO * Device Manager For Yellow Traingles. Post The Image Of  *
-ECHO *The Device Manager In Our Thread. We Will Find A Solution*
-ECHO ***********************************************************
-echo.
-PAUSE
-echo.
 cls
-echo.
-COLOR 2
-echo.
-echo.
+setlocal
+del device.txt >nul 2>&1
 adb kill-server
 adb wait-for-device
 echo.
-adb devices
-echo.
-echo.
-echo.
-COLOR 2
-echo.
+adb devices>device.txt
+FINDSTR /b /l "D026 D025 D059 BOC9 B0CA B0CB B0CC" device.txt>nul && (
 ECHO *******************************************
-ECHO *If You See A Serial Number Before Device,*
-ECHO *   Then It Looks Like ADB is Enabled!    *
+ECHO *Kindle Device has been SUCCESSFULLY found*
+FINDSTR /b /l "D026" device.txt>nul && ECHO *        IDENTIFIED AS KF2ND 8GB          * && SET DEVICE=KF2
+FINDSTR /b /l "D025" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 16GB         * && SET DEVICE=KFHD7
+FINDSTR /b /l "D059" device.txt>nul && ECHO *        IDENTIFIED AS KFHD7 32GB         * && SET DEVICE=KFHD7
+FINDSTR /b /l "B0C9" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 16GB       * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CA" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 32GB       * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CB" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 32GB    * && SET DEVICE=KFHD8
+FINDSTR /b /l "B0CC" device.txt>nul && ECHO *        IDENTIFIED AS KFHD8.9 4G 64GB    * && SET DEVICE=KFHD8
 ECHO *******************************************
-echo.
-cd \KFFirstAide
-echo.
+) || (
+ECHO *******************************************
+ECHO *             NO DEVICE FOUND!            *
+ECHO *         Please ensure ADB is ON         *
+ECHO *    and proper drivers are installed.    *
+ECHO *******************************************
+)
+del device.txt
 PAUSE
 echo.
 cls
@@ -2580,31 +2516,9 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION11.1
+:DRIVER-PREFERRED
 echo.
-cls
-echo.
-echo.
-COLOR 2
-echo.
-ECHO *************************************
-ECHO *The Operation To Reboot The Kindle *
-ECHO *  Using ADB Was Canceled By The    *
-ECHO *              User!                *
-ECHO *************************************
-echo.
-cd \KFFirstAide
-echo.
-PAUSE
-echo.
-adb kill-server
-echo.
-cls
-echo.
-CALL:menu
-
-:OPTION12
-echo.
+cd %~dp0
 cls
 echo.
 COLOR 2
@@ -2619,16 +2533,14 @@ ECHO * It Is Very Important To Unplug The Kindle Fire From   *
 ECHO *     USB Prior To Installing This ADB Driver.          *
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Install The Amazon ADB And Fastboot Driver?" OPTION12.0 OPTION12.1
+CALL:yesno "Would You Like To Install The Amazon ADB And Fastboot Driver?" DRIVER-PREFERRED.0 DRIVER-PREFERRED.1
 
-:OPTION12.0
+:DRIVER-PREFERRED.0
 echo.
 cls
 echo.
@@ -2642,7 +2554,7 @@ ECHO *   From USB During The Driver Installation.   *
 ECHO ************************************************
 echo.
 set /p unr=You DO NOT Have A Functional ADB Driver, Correct (y/n) ?
-IF %unr% == y GOTO OPTION12.1
+IF %unr% == y GOTO DRIVER-PREFERRED.1
 echo.
 ECHO ****************************************
 ECHO *The Kindle ADB Driver Will Now Launch *
@@ -2651,10 +2563,9 @@ ECHO *Software As An Administrator Otherwise*
 ECHO *     This Process May Fail!           *
 ECHO ****************************************
 echo.
-cd \KFFirstAide
 echo.
 echo.
-\KFFirstAide\KindleADB.exe
+KindleADB.exe
 echo.
 echo.
 echo.
@@ -2668,7 +2579,6 @@ ECHO * With The Kindle. This Is The Same USB  *
 ECHO *  Cable You Use To Charge The Kindle    *
 ECHO ******************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2678,7 +2588,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION12.1
+:DRIVER-PREFERRED.1
 echo.
 cls
 echo.
@@ -2690,7 +2600,6 @@ ECHO *The Operation To Install The Amazon Universal*
 ECHO *   ADB Driver Was Canceled By The User!      *
 ECHO ***********************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -2723,7 +2632,7 @@ COLOR 2
 echo.
 CALL:yesno "Would You Like To Perform A Full Backup Using Option 13?" BACKUP-FULL.0 BACKUP-FULL.1
 
-:OPTION13.0
+:BACKUP-FULL.0
 echo.
 cls
 echo.
@@ -3107,7 +3016,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION14.0
+CALL:OTA-DISABLE.0
 
 :FASTBOOTPREFERRED
 echo.
@@ -5621,7 +5530,7 @@ echo.
 cd %~dp0
 CALL:INSTALL-GAPPS.0
 
-:OPTION24
+:DRIVER-ALT
 echo.
 cls
 echo.
@@ -5640,14 +5549,12 @@ ECHO *  Please Make Sure The Kindle Is Disconnected From USB   *
 ECHO *          Prior To Installing This Package.              *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Install Alternate ADB Driver From Amazon?" OPTION24.0 OPTION24.1
+CALL:yesno "Would You Like To Install Alternate ADB Driver From Amazon?" DRIVER-ALT.0 DRIVER-ALT.1
 
-:OPTION24.0
+:DRIVER-ALT.0
 echo.
 cls
 echo.
@@ -5672,9 +5579,8 @@ ECHO * MS-Windows 95 / 98 / ME / NT / 2000  *
 ECHO *  / XP / 2003 / Vista/ and Windows 8  *
 ECHO ****************************************
 echo.
-cd \KFFirstAide
 echo.
-\KFFirstAide\KindleADB.exe
+KindleADB.exe
 echo.
 echo.
 echo.
@@ -5684,15 +5590,14 @@ ECHO *     The Alternate ADB Driver         *
 ECHO *    Installation Was A Success!       *
 ECHO ****************************************
 echo.
-cd \KFFirstAide
 echo.
-set /p unr=Do You Need To Restore The Kindle Fire Frm A Option 13 Backup (y/n) ?
-IF %unr% == n GOTO OPTION25.4
+set /p unr=Do You Need To Restore The Kindle Fire From A Full Backup (y/n) ?
+IF %unr% == y GOTO RESTORE-FULL.4
 echo.
 echo.
 CALL:menu
 
-:OPTION24.1
+:DRIVER-ALT.1
 echo.
 cls
 echo.
@@ -5705,7 +5610,6 @@ ECHO *  The Operation To Install The Alternate ADB Driver  *
 ECHO *    On The Computer Was Canceled By The User!        *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -5842,7 +5746,7 @@ ECHO ******************************************************
 echo.
 echo.
 set /p unr=Do You Have Any Yellow Triangles In The Windows Device Manager (y/n) ?
-IF %unr% == y GOTO OPTION24
+IF %unr% == y GOTO DRIVER-ALT
 echo.
 COLOR 2
 echo.
@@ -6240,7 +6144,7 @@ echo.
 CALL:menu
 
 
-:OPTION27
+:INSTALL-SONYAUDIO
 echo.
 cls
 echo.
@@ -6249,11 +6153,11 @@ ECHO *Thank You For Selecting Option 27. This Option Will Install *
 ECHO *The Sony xLoud And ClearAudio+ Applications. The Sony Xloud *
 ECHO *Service xLOUD Enhances And Improves The Volume In The Loud  *
 ECHO *Speaker. This Only Works With The Loud Speaker And Not The  *
-ECHO *  Headphones. ClearAudio+ Mode, Developed With Sony�s Own   *
+ECHO *  Headphones. ClearAudio+ Mode, Developed With Sony's Own   *
 ECHO *Signal Processing Technologies, Allows Users To effortlessly*
 ECHO *Enjoy Audio Quality That May Have Been Stripped Away By MP3 *
 ECHO * Music Compression. ClearAudio+ Mode Incorporates A Variety *
-ECHO *Of Sony�s Sound Technologies, But With One Simple Operation,*
+ECHO *Of Sony's Sound Technologies, But With One Simple Operation,*
 ECHO *  Users Can Easily Enjoy Sony Recommended Sound In Ultimate *
 ECHO * Clarity And Presence, Across The Entire Spectrum Of Sound. *
 ECHO **************************************************************
@@ -6267,13 +6171,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install Sony xLoud And ClearAudio+ Applications On The Kindle Fire?" OPTION27.0 OPTION27.1
+CALL:yesno "Would You Like To Install Sony xLoud And ClearAudio+ Applications On The Kindle Fire?" INSTALL-SONYAUDIO.0 INSTALL-SONYAUDIO.1
 
-:OPTION27.0
+:INSTALL-SONYAUDIO.0
 echo.
+cd %~dp0
 cls
 echo.
 ECHO ************************************************
@@ -6299,7 +6202,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -6307,8 +6209,7 @@ ECHO *   An System Install Without Permission Errors       *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION27.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-SONYAUDIO.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -6343,7 +6244,6 @@ adb wait-for-device
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 ECHO *************************************************************
 ECHO *   We Are Now Installing The Sony xLoud Libs & Services    *
@@ -6351,25 +6251,25 @@ ECHO *************************************************************
 echo.
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\xsystem\app\AudioEffectService.apk /system/app/.
-adb push \KFFirstAide\com.sonyericsson.audioeffectif.xml /system/etc/permissions/.
-adb push \KFFirstAide\xsystem\framework\semc_audioeffectif.jar /system/framework/.
-adb push \KFFirstAide\xsystem\lib\libacdbloader.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libacdbmapper.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libaudcal.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libaudioparsers.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libmm-audio-resampler.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libsurround_proc.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libvptwrapper.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\libvt_jni.so /system/lib/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libclearaudiowrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libfnrwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libhearingprotection.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libposteffectwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libpreeffectwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libsoundaurawrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libvptwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\xsystem\lib\soundfx\libxloudwrapper.so /system/lib/soundfx/.
+adb push xsystem\app\AudioEffectService.apk /system/app/.
+adb push xsystem\com.sonyericsson.audioeffectif.xml /system/etc/permissions/.
+adb push xsystem\framework\semc_audioeffectif.jar /system/framework/.
+adb push xsystem\lib\libacdbloader.so /system/lib/.
+adb push xsystem\lib\libacdbmapper.so /system/lib/.
+adb push xsystem\lib\libaudcal.so /system/lib/.
+adb push xsystem\lib\libaudioparsers.so /system/lib/.
+adb push xsystem\lib\libmm-audio-resampler.so /system/lib/.
+adb push xsystem\lib\libsurround_proc.so /system/lib/.
+adb push xsystem\lib\libvptwrapper.so /system/lib/.
+adb push xsystem\lib\libvt_jni.so /system/lib/.
+adb push xsystem\lib\soundfx\libclearaudiowrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libfnrwrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libhearingprotection.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libposteffectwrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libpreeffectwrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libsoundaurawrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libvptwrapper.so /system/lib/soundfx/.
+adb push xsystem\lib\soundfx\libxloudwrapper.so /system/lib/soundfx/.
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -6377,11 +6277,10 @@ ECHO *******************************************************
 ECHO *We Are Now Inserting Lines Into The Kindle build.prop*
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\x_add_to_buildprop.sh /data/local/tmp/.
+adb push xsystem\x_add_to_buildprop.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/x_add_to_buildprop.sh"
 adb shell su -c "busybox chmod 777 /data/local/tmp/x_add_to_buildprop.sh"
 adb shell su -c "sh ./data/local/tmp/x_add_to_buildprop.sh"
@@ -6398,10 +6297,9 @@ ECHO * Hour Or More. Relax And Enjoy While I Do The Hard *
 ECHO *                    Work.                          *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -6413,7 +6311,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -6446,7 +6343,7 @@ echo.
 echo.
 CALL:menu
 
-:OPTION27.1
+:INSTALL-SONYAUDIO.1
 echo.
 cls
 echo.
@@ -6457,7 +6354,6 @@ echo *The Option 27 To Install Sony xLoud & ClearAudio+*
 ECHO *  To The Kindle Fire Was Canceled By The User.   *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -6465,7 +6361,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION27.2
+:INSTALL-SONYAUDIO.2
 echo.
 cls
 echo.
@@ -6477,15 +6373,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -6497,7 +6393,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -6513,10 +6408,10 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION27.0
+CALL:INSTALL-SONYAUDIO.0
 
 
-:OPTION28
+:INSTALL-SONYVIDEO
 echo.
 cls
 echo.
@@ -6538,13 +6433,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install Sony BRAVIA Engine 2 On The Kindle Fire?" OPTION28.0 OPTION28.1
+CALL:yesno "Would You Like To Install Sony BRAVIA Engine 2 On The Kindle Fire?" INSTALL-SONYVIDEO.0 INSTALL-SONYVIDEO.1
 
-:OPTION28.0
+:INSTALL-SONYVIDEO.0
 echo.
+cd %~dp0
 cls
 echo.
 ECHO *******************************************************
@@ -6566,7 +6460,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -6574,8 +6467,7 @@ ECHO *              An Automated Install.                  *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION28.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-SONYVIDEO.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -6592,7 +6484,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -6616,20 +6507,19 @@ ECHO *******************************************************
 ECHO *We Are Now Setting Up The Services And Setting Files.*
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\bsystem\app\SwiqiSettingsService.apk /system/app/.
-adb push \KFFirstAide\bsystem\etc\be2_album /system/etc/.
-adb push \KFFirstAide\bsystem\etc\be_movie /system/etc/.
-adb push \KFFirstAide\bsystem\etc\be_movie_setting /system/etc/.
-adb push \KFFirstAide\bsystem\etc\permissions\com.sonyericsson.uxp.xml /system/etc/permissions/.
-adb push \KFFirstAide\bsystem\etc\permissions\com.sonyericsson.uxpres.xml /system/etc/permissions/.
-adb push \KFFirstAide\bsystem\framework\com.sonyericsson.uxp.jar /system/framework/.
-adb push \KFFirstAide\bsystem\framework\com.sonyericsson.uxpres.jar /system/framework/.
-adb push \KFFirstAide\bsystem\lib\libmbe.so /system/lib/.
-adb push \KFFirstAide\bsystem\lib\libmbe_paramselector.so /system/lib/.
-adb push \KFFirstAide\bsystem\lib\libswiqisettinghelper.so /system/lib/.
+adb push bsystem\app\SwiqiSettingsService.apk /system/app/.
+adb push bsystem\etc\be2_album /system/etc/.
+adb push bsystem\etc\be_movie /system/etc/.
+adb push bsystem\etc\be_movie_setting /system/etc/.
+adb push bsystem\etc\permissions\com.sonyericsson.uxp.xml /system/etc/permissions/.
+adb push bsystem\etc\permissions\com.sonyericsson.uxpres.xml /system/etc/permissions/.
+adb push bsystem\framework\com.sonyericsson.uxp.jar /system/framework/.
+adb push bsystem\framework\com.sonyericsson.uxpres.jar /system/framework/.
+adb push bsystem\lib\libmbe.so /system/lib/.
+adb push bsystem\lib\libmbe_paramselector.so /system/lib/.
+adb push bsystem\lib\libswiqisettinghelper.so /system/lib/.
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -6643,10 +6533,9 @@ ECHO * Hour Or More. Relax And Enjoy While I Do The Hard *
 ECHO *                    Work.                          *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -6657,11 +6546,10 @@ ECHO *******************************************************
 ECHO *We Are Now Inserting Lines Into The Kindle build.prop*
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\badd_to_buildprop.sh /data/local/tmp/.
+adb push bsystem\badd_to_buildprop.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/badd_to_buildprop.sh"
 adb shell su -c "busybox chmod 777 /data/local/tmp/badd_to_buildprop.sh"
 adb shell su -c "sh ./data/local/tmp/badd_to_buildprop.sh"
@@ -6673,7 +6561,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -6697,7 +6584,6 @@ ECHO *   Kindle Fire First Aide Thread. Thank You For    *
 ECHO *              Using Our Software.                  *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -6706,7 +6592,7 @@ adb kill-server
 echo.
 GOTO menu
 
-:OPTION28.1
+:INSTALL-SONYVIDEO.1
 echo.
 cls
 echo.
@@ -6717,7 +6603,6 @@ echo *  The Option 28 To Install Sony BRAVIA Engine 2  *
 ECHO *  To The Kindle Fire Was Canceled By The User.   *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -6725,8 +6610,57 @@ adb kill-server
 echo.
 CALL:menu
 
+:INSTALL-SONYVIDEO.2
+echo.
+cls
+echo.
+echo.
+COLOR 2
+echo.
+ECHO ******************************************************
+ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
+ECHO *         And We Will Install Busybox.               *
+ECHO ******************************************************
+echo.
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
+wget http://dl.dropbox.com/u/54456659/busybox/busybox
+wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+adb shell su -c "busybox mount -o remount,rw ext4 /system"
+adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
+adb shell su -c "mkdir /data/local/tmp"
+adb push busybox /data/local/tmp/.
+adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
+adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
+adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
+adb shell su -c "busybox chown root.shell /system/xbin/busybox"
+adb shell su -c "busybox chmod 04755 /system/xbin/busybox"
+adb shell su -c "/system/xbin/busybox --install -s /system/xbin"
+adb shell su -c "busybox chmod 755 /system/xbin/busybox"
+adb shell su -c "rm -r /data/local/tmp/busybox"
+adb shell su -c "busybox mount -o remount,ro ext4 /system"
+adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
+adb install Busybox_Installer_4.1.apk
+echo.
+ECHO *****************************************************
+ECHO * That Is It, Busybox Is Now Installed, We Will Now *
+ECHO *         Return To The Installation!               *
+ECHO *****************************************************
+echo.
+ECHO *****************************************************
+ECHO *  If You See An Error Here, Please Post It In Our  *
+ECHO *     Kindle Fire First Aide Thread. Thanks!        *
+ECHO *****************************************************
+echo.
+PAUSE
+echo.
+adb kill-server
+echo.
+CALL:INSTALL-SONYVIDEO.0
 
-:OPTION29
+
+:INSTALL-BEATS
 echo.
 cls
 echo.
@@ -6753,13 +6687,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install Pimp My Beats© On The Kindle Fire?" OPTION29.0 OPTION29.1
+CALL:yesno "Would You Like To Install Pimp My Beats© On The Kindle Fire?" INSTALL-BEATS.0 INSTALL-BEATS.1
 
-:OPTION29.0
+:INSTALL-BEATS.0
 echo.
+cd %~dp0
 cls
 echo.
 ECHO ************************************************
@@ -6785,7 +6718,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -6793,8 +6725,7 @@ ECHO *   An System Install Without Permission Errors       *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION29.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-BEATS.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -6811,7 +6742,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -6832,149 +6762,148 @@ ECHO *********************************************************
 ECHO *We Are Now Setting Up The Beats© Services And Binaries.*
 ECHO *********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /system/usr/share/alsa"
 adb shell su -c "mkdir /system/etc/soundimage"
-adb push \KFFirstAide\psystem\app\AudioEffectService.apk /system/app/.
-adb push \KFFirstAide\psystem\app\DolbyMobile.apk /system/app/.
-adb push \KFFirstAide\psystem\app\PimpMyBeats.apk /system/app/.
-adb push \KFFirstAide\psystem\bin\alsa_amixer /system/bin/.
-adb push \KFFirstAide\psystem\bin\alsa_aplay /system/bin/.
-adb push \KFFirstAide\psystem\bin\alsa_ctl /system/bin/.
-adb push \KFFirstAide\psystem\bin\basimage_ibeats.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\basimage_ibeats_solo.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\basimage_ibeats_solo_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\basimage_ibeats_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\beatsbass /system/bin/.
-adb push \KFFirstAide\psystem\bin\beatsnormal /system/bin/.
-adb push \KFFirstAide\psystem\bin\dynimage_ibeats.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\dynimage_ibeats_solo.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\dynimage_ibeats_solo_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\dynimage_ibeats_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\mm-audio-alsa-test /system/bin/.
-adb push \KFFirstAide\psystem\bin\peqimage_ibeats.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\peqimage_ibeats_solo.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\peqimage_ibeats_solo_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\peqimage_ibeats_x.bin /system/bin/.
-adb push \KFFirstAide\psystem\bin\sound /system/bin/.
-adb push \KFFirstAide\psystem\bin\sound8960 /system/bin/.
-adb push \KFFirstAide\psystem\bin\spkamp /system/bin/.
-adb push \KFFirstAide\psystem\etc\AudioBTID.csv /system/etc/.
-adb push \KFFirstAide\psystem\etc\audio_effects.conf /system/etc/.
-adb push \KFFirstAide\psystem\etc\AudioFilterPlatform.csv /system/etc/.
-adb push \KFFirstAide\psystem\etc\AudioFilterProduct.csv /system/etc/.
-adb push \KFFirstAide\psystem\etc\AudioPara4.csv /system/etc/.
-adb push \KFFirstAide\psystem\etc\AutoVolumeControl.txt /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_gec.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_gec_bt.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_ibeats.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_ibeats_pro.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_ibeats_solo.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\basimage_ibeats_studio.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_gec.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_gec_bt.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_ibeats.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_ibeats_pro.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_ibeats_solo.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\dynimage_ibeats_studio.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\peqimage_gec.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\peqimage_gec_bt.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\peqimage_ibeats.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\peqimage_ibeats_pro.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\peqimage_ibeats_solo.bin /system/etc/.
-adb push \KFFirstAide\psystem\etc\soundbooster.txt /system/etc/.
-adb push \KFFirstAide\psystem\etc\audio\aeqcoe.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\eqfilter.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\lmfilter.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\situation.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\soundbooster.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\stream_earpiece.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\stream_headset.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\audio\stream_speaker.txt /system/etc/audio/.
-adb push \KFFirstAide\psystem\etc\permissions\com.srs.fusion.fx.xml /system/etc/permissions/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Beats.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_MFG.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Original.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Original_Rec_MFG.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Original_Recording.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Original_SPK.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_HP.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_HP_LE.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_HP_WB.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_HP_WB_LE.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_REC.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_REC_NEL.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_REC_WB.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_SPK.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Phone_Original_SPK_WB.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Rec_Landscape.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Recording.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_Rec_Portrait.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_SRS_A_HP.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_SRS_A_SPK.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_SRS_V_HP.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\Sound_SRS_V_SPK.txt /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srs_bypass.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srsfx_trumedia_51.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srsfx_trumedia_movie.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srsfx_trumedia_music.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srsfx_trumedia_music_wide.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srsfx_trumedia_voice.cfg /system/etc/soundimage/.
-adb push \KFFirstAide\psystem\etc\soundimage\srs_geq10.cfg /system/etc/.
-adb push \KFFirstAide\psystem\etc\soundimage\srs_global.cfg /system/etc/.
-adb push \KFFirstAide\psystem\framework\b1.jar /system/framework/.
-adb push \KFFirstAide\psystem\framework\com.htc.framework.jar /system/framework/.
-adb push \KFFirstAide\psystem\framework\com.srs.fusion.fx.jar /system/framework/.
-adb push \KFFirstAide\psystem\lib\libacdbmapper.so /system/lib/l.
-adb push \KFFirstAide\psystem\lib\libalsa-intf.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libalsa-intf_mfg.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libasound.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libaudcal.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libaudioalsa.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libaudioeq.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libaudio_init.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libbeatsbass.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libbeatscorehtc.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libbundlewrapper.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libDolby-dsp.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libSR_AudioIn.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libsrscorehtc.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libsrsfx.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libsrsprocessing.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libvisualizer.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\libvoAudioFR.so /system/lib/.
-adb push \KFFirstAide\psystem\lib\soundfx\libaudiopreprocessing.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libbeatsbass.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libbundlewrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libcyanogen-dsp.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libreverbwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libsrscore.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libsrsfx.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libsrstb.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libvisualizer.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\lib\soundfx\libxloudwrapper.so /system/lib/soundfx/.
-adb push \KFFirstAide\psystem\usr\share\alsa\alsa.conf /system/usr/share/alsa/.
-adb push \KFFirstAide\psystem\usr\share\alsa\cards\aliases.conf /system/usr/share/alsa/cards/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\center_lfe.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\default.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\dmix.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\dpl.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\dsnoop.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\front.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\iec958.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\modem.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\rear.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\side.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\surround40.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\surround41.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\surround50.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\surround51.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\usr\share\alsa\pcm\surround71.conf /system/usr/share/alsa/pcm/.
-adb push \KFFirstAide\psystem\xbin\alsa_amixer /system/xbin/.
-adb push \KFFirstAide\psystem\xbin\alsa_aplay /system/xbin/.
-adb push \KFFirstAide\psystem\xbin\alsa_ctl /system/xbin/.
+adb push psystem\app\AudioEffectService.apk /system/app/.
+adb push psystem\app\DolbyMobile.apk /system/app/.
+adb push psystem\app\PimpMyBeats.apk /system/app/.
+adb push psystem\bin\alsa_amixer /system/bin/.
+adb push psystem\bin\alsa_aplay /system/bin/.
+adb push psystem\bin\alsa_ctl /system/bin/.
+adb push psystem\bin\basimage_ibeats.bin /system/bin/.
+adb push psystem\bin\basimage_ibeats_solo.bin /system/bin/.
+adb push psystem\bin\basimage_ibeats_solo_x.bin /system/bin/.
+adb push psystem\bin\basimage_ibeats_x.bin /system/bin/.
+adb push psystem\bin\beatsbass /system/bin/.
+adb push psystem\bin\beatsnormal /system/bin/.
+adb push psystem\bin\dynimage_ibeats.bin /system/bin/.
+adb push psystem\bin\dynimage_ibeats_solo.bin /system/bin/.
+adb push psystem\bin\dynimage_ibeats_solo_x.bin /system/bin/.
+adb push psystem\bin\dynimage_ibeats_x.bin /system/bin/.
+adb push psystem\bin\mm-audio-alsa-test /system/bin/.
+adb push psystem\bin\peqimage_ibeats.bin /system/bin/.
+adb push psystem\bin\peqimage_ibeats_solo.bin /system/bin/.
+adb push psystem\bin\peqimage_ibeats_solo_x.bin /system/bin/.
+adb push psystem\bin\peqimage_ibeats_x.bin /system/bin/.
+adb push psystem\bin\sound /system/bin/.
+adb push psystem\bin\sound8960 /system/bin/.
+adb push psystem\bin\spkamp /system/bin/.
+adb push psystem\etc\AudioBTID.csv /system/etc/.
+adb push psystem\etc\audio_effects.conf /system/etc/.
+adb push psystem\etc\AudioFilterPlatform.csv /system/etc/.
+adb push psystem\etc\AudioFilterProduct.csv /system/etc/.
+adb push psystem\etc\AudioPara4.csv /system/etc/.
+adb push psystem\etc\AutoVolumeControl.txt /system/etc/.
+adb push psystem\etc\basimage_gec.bin /system/etc/.
+adb push psystem\etc\basimage_gec_bt.bin /system/etc/.
+adb push psystem\etc\basimage_ibeats.bin /system/etc/.
+adb push psystem\etc\basimage_ibeats_pro.bin /system/etc/.
+adb push psystem\etc\basimage_ibeats_solo.bin /system/etc/.
+adb push psystem\etc\basimage_ibeats_studio.bin /system/etc/.
+adb push psystem\etc\dynimage_gec.bin /system/etc/.
+adb push psystem\etc\dynimage_gec_bt.bin /system/etc/.
+adb push psystem\etc\dynimage_ibeats.bin /system/etc/.
+adb push psystem\etc\dynimage_ibeats_pro.bin /system/etc/.
+adb push psystem\etc\dynimage_ibeats_solo.bin /system/etc/.
+adb push psystem\etc\dynimage_ibeats_studio.bin /system/etc/.
+adb push psystem\etc\peqimage_gec.bin /system/etc/.
+adb push psystem\etc\peqimage_gec_bt.bin /system/etc/.
+adb push psystem\etc\peqimage_ibeats.bin /system/etc/.
+adb push psystem\etc\peqimage_ibeats_pro.bin /system/etc/.
+adb push psystem\etc\peqimage_ibeats_solo.bin /system/etc/.
+adb push psystem\etc\soundbooster.txt /system/etc/.
+adb push psystem\etc\audio\aeqcoe.txt /system/etc/audio/.
+adb push psystem\etc\audio\eqfilter.txt /system/etc/audio/.
+adb push psystem\etc\audio\lmfilter.txt /system/etc/audio/.
+adb push psystem\etc\audio\situation.txt /system/etc/audio/.
+adb push psystem\etc\audio\soundbooster.txt /system/etc/audio/.
+adb push psystem\etc\audio\stream_earpiece.txt /system/etc/audio/.
+adb push psystem\etc\audio\stream_headset.txt /system/etc/audio/.
+adb push psystem\etc\audio\stream_speaker.txt /system/etc/audio/.
+adb push psystem\etc\permissions\com.srs.fusion.fx.xml /system/etc/permissions/.
+adb push psystem\etc\soundimage\Sound_Beats.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_MFG.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Original.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Original_Rec_MFG.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Original_Recording.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Original_SPK.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_HP.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_HP_LE.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_HP_WB.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_HP_WB_LE.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_REC.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_REC_NEL.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_REC_WB.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_SPK.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Phone_Original_SPK_WB.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Rec_Landscape.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Recording.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_Rec_Portrait.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_SRS_A_HP.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_SRS_A_SPK.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_SRS_V_HP.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\Sound_SRS_V_SPK.txt /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srs_bypass.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srsfx_trumedia_51.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srsfx_trumedia_movie.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srsfx_trumedia_music.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srsfx_trumedia_music_wide.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srsfx_trumedia_voice.cfg /system/etc/soundimage/.
+adb push psystem\etc\soundimage\srs_geq10.cfg /system/etc/.
+adb push psystem\etc\soundimage\srs_global.cfg /system/etc/.
+adb push psystem\framework\b1.jar /system/framework/.
+adb push psystem\framework\com.htc.framework.jar /system/framework/.
+adb push psystem\framework\com.srs.fusion.fx.jar /system/framework/.
+adb push psystem\lib\libacdbmapper.so /system/lib/l.
+adb push psystem\lib\libalsa-intf.so /system/lib/.
+adb push psystem\lib\libalsa-intf_mfg.so /system/lib/.
+adb push psystem\lib\libasound.so /system/lib/.
+adb push psystem\lib\libaudcal.so /system/lib/.
+adb push psystem\lib\libaudioalsa.so /system/lib/.
+adb push psystem\lib\libaudioeq.so /system/lib/.
+adb push psystem\lib\libaudio_init.so /system/lib/.
+adb push psystem\lib\libbeatsbass.so /system/lib/.
+adb push psystem\lib\libbeatscorehtc.so /system/lib/.
+adb push psystem\lib\libbundlewrapper.so /system/lib/.
+adb push psystem\lib\libDolby-dsp.so /system/lib/.
+adb push psystem\lib\libSR_AudioIn.so /system/lib/.
+adb push psystem\lib\libsrscorehtc.so /system/lib/.
+adb push psystem\lib\libsrsfx.so /system/lib/.
+adb push psystem\lib\libsrsprocessing.so /system/lib/.
+adb push psystem\lib\libvisualizer.so /system/lib/.
+adb push psystem\lib\libvoAudioFR.so /system/lib/.
+adb push psystem\lib\soundfx\libaudiopreprocessing.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libbeatsbass.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libbundlewrapper.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libcyanogen-dsp.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libreverbwrapper.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libsrscore.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libsrsfx.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libsrstb.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libvisualizer.so /system/lib/soundfx/.
+adb push psystem\lib\soundfx\libxloudwrapper.so /system/lib/soundfx/.
+adb push psystem\usr\share\alsa\alsa.conf /system/usr/share/alsa/.
+adb push psystem\usr\share\alsa\cards\aliases.conf /system/usr/share/alsa/cards/.
+adb push psystem\usr\share\alsa\pcm\center_lfe.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\default.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\dmix.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\dpl.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\dsnoop.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\front.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\iec958.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\modem.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\rear.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\side.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\surround40.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\surround41.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\surround50.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\surround51.conf /system/usr/share/alsa/pcm/.
+adb push psystem\usr\share\alsa\pcm\surround71.conf /system/usr/share/alsa/pcm/.
+adb push psystem\xbin\alsa_amixer /system/xbin/.
+adb push psystem\xbin\alsa_aplay /system/xbin/.
+adb push psystem\xbin\alsa_ctl /system/xbin/.
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -6982,7 +6911,6 @@ ECHO *************************************************************
 ECHO *We Are Now Setting Up The Beats© Permissions and Ownership.*
 ECHO *************************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox chmod 0644 /system/app/AudioEffectService.apk"
@@ -7116,11 +7044,10 @@ ECHO *******************************************************
 ECHO *We Are Now Inserting Lines Into The Kindle build.prop*
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\p_add_to_buildprop.sh /data/local/tmp/.
+adb push psystem\p_add_to_buildprop.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/p_add_to_buildprop.sh"
 adb shell su -c "busybox chmod 777 /data/local/tmp/p_add_to_buildprop.sh"
 adb shell su -c "sh ./data/local/tmp/p_add_to_buildprop.sh"
@@ -7137,10 +7064,9 @@ ECHO * Hour Or More. Relax And Enjoy While I Do The Hard *
 ECHO *                    Work.                          *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -7151,7 +7077,6 @@ ECHO ****************************************************
 ECHO *   We Are Now Restoring The Kindle Appearance.    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7174,7 +7099,6 @@ ECHO *   Kindle Fire First Aide Thread. Thank You For    *
 ECHO *              Using Our Software.                  *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7183,7 +7107,7 @@ adb kill-server
 echo.
 GOTO menu
 
-:OPTION29.1
+:INSTALL-BEATS.1
 echo.
 cls
 echo.
@@ -7194,7 +7118,6 @@ echo *     The Option 29 To Install Pimp My Beats©     *
 ECHO *  To The Kindle Fire Was Canceled By The User.   *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7202,7 +7125,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION29.2
+:INSTALL-BEATS.2
 echo.
 cls
 echo.
@@ -7214,15 +7137,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -7234,7 +7157,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -7250,9 +7172,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION29.0
+CALL:INSTALL-BEATS.0
 
-:OPTION30
+:INSTALL-LOCK
 echo.
 cls
 echo.
@@ -7277,13 +7199,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install No Lock And Magic Locker?" OPTION30.0 OPTION30.1
+CALL:yesno "Would You Like To Install No Lock And Magic Locker?" INSTALL-LOCK.0 INSTALL-LOCK.1
 
-:OPTION30.0
+:INSTALL-LOCK.0
 echo.
+cd %~dp0
 cls
 echo.
 COLOR 2
@@ -7312,7 +7233,6 @@ ECHO * Not Worry Or Interrupt The Install Process Once The *
 ECHO *                   Install Begins.                   *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -7320,8 +7240,7 @@ ECHO *   An System Install Without Permission Errors       *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION30.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-LOCK.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -7338,7 +7257,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7365,15 +7283,14 @@ ECHO * The Amazon Services Just In Case You Would Like The Ads*
 ECHO *                Back On The Kindle.                     *
 ECHO **********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide\Disabled
+cd Disabled
 adb pull /system/app/dtcp_apk.apk
-cd \KFFirstAide
 adb shell su -c "rm /system/app/dtcp_apk.apk"
-adb push \KFFirstAide\lsystem\app\org.jraf.android.nolock-1.apk /system/app/.
-adb push \KFFirstAide\lsystem\app\mobi.lockscreen.magiclocker-1.apk /system/app/.
+cd %~dp0
+adb push lsystem\app\org.jraf.android.nolock-1.apk /system/app/.
+adb push lsystem\app\mobi.lockscreen.magiclocker-1.apk /system/app/.
 adb shell su -c "busybox chmod 0644 /system/app/org.jraf.android.nolock-1.apk"
 adb shell su -c "busybox chmod 0644 /system/app/mobi.lockscreen.magiclocker-1.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
@@ -7384,7 +7301,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7464,7 +7380,6 @@ ECHO *You May Now Go Back To More+ Sound & Display And Set Your Preferred*
 ECHO *                       Screen Timeout.                             *
 ECHO *********************************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7475,7 +7390,7 @@ adb kill-server
 echo.
 GOTO menu
 
-:OPTION30.1
+:INSTALL-LOCK.1
 echo.
 cls
 echo.
@@ -7486,7 +7401,6 @@ echo *The Option 30 To Install No Lock And Magic Locker*
 ECHO *  To The Kindle Fire Was Canceled By The User.   *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7494,7 +7408,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION30.2
+:INSTALL-LOCK.2
 echo.
 cls
 echo.
@@ -7506,15 +7420,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -7526,7 +7440,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -7542,9 +7455,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION30.0
+CALL:INSTALL-LOCK.0
 
-:OPTION31
+:FIX-PERMISSIONS
 echo.
 cls
 echo.
@@ -7566,13 +7479,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Fix The Android Permissions And Anomalies?" OPTION31.0 OPTION31.1
+CALL:yesno "Would You Like To Fix The Android Permissions And Anomalies?" FIX-PERMISSIONS.0 FIX-PERMISSIONS.1
 
-:OPTION31.0
+:FIX-PERMISSIONS.0
 echo.
+cd %~dp0
 cls
 echo.
 ECHO ************************************************
@@ -7598,7 +7510,6 @@ ECHO *Install Starts. Make Sure The Kindle Is Plugged Into *
 ECHO *             USB, Are You Ready?                     *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -7606,11 +7517,10 @@ ECHO *   An System Install Without Permission Errors       *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION31.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto FIX-PERMISSIONS.2
 echo.
 set /p unr=Do you have the stock Launcher (y/n) ?
-IF %unr% == n GOTO OPTION31.1
+IF %unr% == n GOTO FIX-PERMISSIONS.1
 echo.
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
@@ -7629,7 +7539,6 @@ adb kill-server
 adb start-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7652,7 +7561,6 @@ ECHO *************************************
 ECHO *We Are Now Restoring The Appearance*
 ECHO *************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -7670,9 +7578,8 @@ ECHO * Hour Or More. Relax And Enjoy While I Do The Hard *
 ECHO *                    Work.                          *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -7696,7 +7603,6 @@ ECHO *   Kindle Fire First Aide Thread. Thank You For    *
 ECHO *              Using Our Software.                  *
 ECHO *****************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7706,7 +7612,7 @@ cls
 echo.
 GOTO menu
 
-:OPTION31.1
+:FIX-PERMISSIONS.1
 echo.
 cls
 echo.
@@ -7726,7 +7632,6 @@ ECHO *  Launcher. Be Warned, Unexpected results Have Occured   *
 ECHO *             With The Stock Launcher!                    *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -7734,7 +7639,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION31.2
+:FIX-PERMISSIONS.2
 echo.
 cls
 echo.
@@ -7746,15 +7651,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -7766,7 +7671,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -7782,7 +7686,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION31.0
+CALL:FIX-PERMISSIONS.0
 
 :ADS-DISABLE
 echo.
@@ -8200,7 +8104,7 @@ echo.
 cd %~dp0
 CALL:DEFAULT-PLAYSTORE.0
 
-:OPTION34
+:INSTALL-ADW
 echo.
 cls
 echo.
@@ -8221,13 +8125,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install ADW Launcher v1.3.3.8 Stable Version?" OPTION34.0 OPTION34.1
+CALL:yesno "Would You Like To Install ADW Launcher v1.3.3.8 Stable Version?" INSTALL-ADW.0 INSTALL-ADW.1
 
-:OPTION34.0
+:INSTALL-ADW.0
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -8254,7 +8157,6 @@ ECHO *  Not Worry Or Interrupt The Install Process Once The    *
 ECHO *                  Install Begins.                        *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -8262,8 +8164,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION34.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-ADW.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -8280,7 +8181,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8300,26 +8200,25 @@ echo.
 cls
 echo.
 set /p unr=Do You Want To Install ADW Launcher (y/n) ?
-IF %unr% == n GOTO OPTION34.1
+IF %unr% == n GOTO INSTALL-ADW.1
 echo.
 ECHO **********************************************************
 ECHO * We Are Now Setting Up The ADW Launcher System Service  *
 ECHO **********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\adw\app\org.adw.launcher-1.apk /system/app/.
+adb push adw\app\org.adw.launcher-1.apk /system/app/.
 adb shell su -c "busybox chmod 0644 /system/app/com.anddoes.launcher-1.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
-CALL:OPTION34.1
+CALL:INSTALL-ADW.1
 
-:OPTION34.1
+:INSTALL-ADW.1
 echo.
 set /p unr=Do You Want To Install Widget Picker And Live Wallpaper Services (y/n) ?
-IF %unr% == n GOTO OPTION34.3
+IF %unr% == n GOTO INSTALL-ADW.3
 echo.
 ECHO **********************************************************
 ECHO *           We Are Now We Are Installing                 *
@@ -8328,8 +8227,8 @@ ECHO **********************************************************
 echo.
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\apex\app\AppWidgetPicker-1.2.3.apk /system/app/.
-adb push \KFFirstAide\apex\app\LiveWallpapersPicker.apk /system/app/.
+adb push apex\app\AppWidgetPicker-1.2.3.apk /system/app/.
+adb push apex\app\LiveWallpapersPicker.apk /system/app/.
 adb shell su -c "busybox chmod 0644 /system/app/AppWidgetPicker-1.2.3.apk"
 adb shell su -c "busybox chmod 0644 /system/app/LiveWallpapersPicker.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
@@ -8340,7 +8239,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8379,7 +8277,6 @@ ECHO * Locate The Icon Named Home, Click On Home And   *
 ECHO *You Will Launch The Kindle Fire Original Laucher *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8390,7 +8287,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION34.2
+:INSTALL-ADW.2
 echo.
 cls
 echo.
@@ -8402,15 +8299,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -8422,7 +8319,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -8438,16 +8334,15 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION34.0
+CALL:INSTALL-ADW.0
 
-:OPTION34.3
+:INSTALL-ADW.3
 echo.
 cls
 echo.
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8462,7 +8357,6 @@ echo *   The Option 34 To Install ADW Launcher v1.3.3.8   *
 ECHO *    On The Kindle Fire Was Canceled By The User.    *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8470,8 +8364,9 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION35
+:INSTALL-HOLO
 echo.
+cd %~dp0
 cls
 echo.
 ECHO ****************************************************************
@@ -8491,12 +8386,10 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install Holo Launcher HD v2.0.2 Stable Version?" OPTION35.0 OPTION35.1
+CALL:yesno "Would You Like To Install Holo Launcher HD v2.0.2 Stable Version?" INSTALL-HOLO.0 INSTALL-HOLO.1
 
-:OPTION35.0
+:INSTALL-HOLO.0
 echo.
 COLOR 2
 echo.
@@ -8514,7 +8407,6 @@ ECHO *Request, Be Sure To Click On Allow Or Grant Otherwise*
 ECHO *             The Install Will Fail.                  *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *Please Make Sure ADB Is Enabled On The Kindle By Going To*
@@ -8535,8 +8427,7 @@ ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION35.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-HOLO.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -8553,7 +8444,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8573,39 +8463,37 @@ echo.
 cls
 echo.
 set /p unr=Do You Want To Install Holo Launcher (y/n) ?
-IF %unr% == n GOTO OPTION34.1
+IF %unr% == n GOTO INSTALL-ADW.1
 echo.
 ECHO *********************************************************
 ECHO *We Are Now Setting Up The Holo Launcher System Services*
 ECHO *********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\holo\app\com.mobint.hololauncher.hd-1.apk /system/app/.
-adb push \KFFirstAide\holo\app\com.mobint.locker-1.apk /system/app/.
+adb push holo\app\com.mobint.hololauncher.hd-1.apk /system/app/.
+adb push holo\app\com.mobint.locker-1.apk /system/app/.
 adb shell su -c "busybox chmod 0644 /system/app/com.mobint.hololauncher.hd-1.apk"
 adb shell su -c "busybox chmod 0644 /system/app/com.mobint.locker-1.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
-CALL:OPTION35.1
+CALL:INSTALL-HOLO.1
 
 
-:OPTION35.1
+:INSTALL-HOLO.1
 echo.
 set /p unr=Do You Want To Install Widget Picker And Live Wallpaper Services (y/n) ?
-IF %unr% == n GOTO OPTION35.3
+IF %unr% == n GOTO INSTALL-HOLO.3
 echo.
 echo **********************************************************
 ECHO *  We Are Now Setting Up The Widget Picker Service and   *
 ECHO *               Live Wallpaper Service.                  *
 ECHO **********************************************************
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\holo\app\AppWidgetPicker-1.2.3.apk /system/app/.
-adb push \KFFirstAide\holo\app\LiveWallpapersPicker.apk /system/app/.
+adb push holo\app\AppWidgetPicker-1.2.3.apk /system/app/.
+adb push holo\app\LiveWallpapersPicker.apk /system/app/.
 adb shell su -c "busybox chmod 0644 /system/app/AppWidgetPicker-1.2.3.apk"
 adb shell su -c "busybox chmod 0644 /system/app/LiveWallpapersPicker.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
@@ -8616,7 +8504,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8656,7 +8543,6 @@ ECHO * Locate The Icon Named Home, Click On Home And   *
 ECHO *You Will Launch The Kindle Fire Original Laucher *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8667,7 +8553,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION35.2
+:INSTALL-HOLO.2
 echo.
 cls
 echo.
@@ -8679,15 +8565,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -8699,7 +8585,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -8715,16 +8600,15 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION35.0
+CALL:INSTALL-HOLO.0
 
-:OPTION35.3
+:INSTALL-HOLO.3
 echo.
 cls
 echo.
 echo.
 COLOR 2
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8739,7 +8623,6 @@ echo * The Option 34 To Install Holo Launcher HD v2.0.2   *
 ECHO *    On The Kindle Fire Was Canceled By The User.    *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8747,7 +8630,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION36
+:INSTALL-BOAT
 echo.
 cls
 echo.
@@ -8768,13 +8651,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would Like To Install Boat Browser, Instagram and Adobe Flash Player?" OPTION36.0 OPTION36.1
+CALL:yesno "Would Like To Install Boat Browser, Instagram and Adobe Flash Player?" INSTALL-BOAT.0 INSTALL-BOAT.1
 
-:OPTION36.0
+:INSTALL-BOAT.0
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -8803,7 +8685,6 @@ ECHO *   Not Worry Or Interrupt The Install Process Once The      *
 ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -8811,8 +8692,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION36.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-BOAT.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -8829,7 +8709,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8855,12 +8734,11 @@ ECHO *  Flash Player. If You Already Installed Flash Player   *
 ECHO *   You May See An Error, You May Ignore The Error.      *
 ECHO **********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\boat\app\com.boatbrowser.free-1.apk /system/app/.
-adb install -r \KFFirstAide\insta\app\Instagram_3.4.4.apk
-adb install -r \KFFirstAide\boat\app\Adobe_Flash_Player_11.1.115.16_4.0+.apk
+adb push boat\app\com.boatbrowser.free-1.apk /system/app/.
+adb install -r insta\app\Instagram_3.4.4.apk
+adb install -r boat\app\Adobe_Flash_Player_11.1.115.16_4.0+.apk
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -8869,7 +8747,6 @@ ECHO *  We Are Now Setting Up The Proper Permissions For All  *
 ECHO *                      Services                          *
 ECHO **********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox chmod 0644 /system/app/com.boatbrowser.free-1.apk"
@@ -8881,7 +8758,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -8908,7 +8784,6 @@ ECHO * Locate The Icon Named Silk, Click On Silk And   *
 ECHO *You Will Launch The Kindle Fire Original Browser *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8919,7 +8794,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION36.1
+:INSTALL-BOAT.1
 echo.
 cls
 echo.
@@ -8930,7 +8805,6 @@ echo * The Option 36 To Install Boat Browser, Instagram   *
 ECHO *   On The Kindle Fire Was Canceled By The User.     *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -8938,7 +8812,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION36.2
+:INSTALL-BOAT.2
 echo.
 cls
 echo.
@@ -8950,15 +8824,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -8970,7 +8844,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -8986,9 +8859,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION36.0
+CALL:INSTALL-BOAT.0
 
-:OPTION37
+:INSTALL-VPN
 echo.
 cls
 echo.
@@ -9010,13 +8883,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install VPN Clients And SIP/VoIP Client Software?" OPTION36.0 OPTION36.1
+CALL:yesno "Would You Like To Install VPN Clients And SIP/VoIP Client Software?" INSTALL-VPN.0 INSTALL-VPN.1
 
-:OPTION37.0
+:INSTALL-VPN.0
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -9045,7 +8917,6 @@ ECHO *   Not Worry Or Interrupt The Install Process Once The      *
 ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -9053,8 +8924,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION37.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-VPN.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -9071,7 +8941,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -9097,15 +8966,14 @@ ECHO *   Software. If You Already Installed Flash Player       *
 ECHO *   You May See An Error, You May Ignore The Error.       *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb install -r \KFFirstAide\vpn\app\com.csipsimple-1.apk
-adb install -r \KFFirstAide\vpn\app\com.gmail.mjm4456.vpncillatrial-1.apk
-adb install -r \KFFirstAide\vpn\app\com.xnsystems.xnmvpntrial-1.apk
-adb install -r \KFFirstAide\vpn\app\de.ncp.vpn.basic.trial-1.apk
-adb install -r \KFFirstAide\vpn\app\dellmont.SipGo-1.apk
-adb install -r \KFFirstAide\vpn\app\org.strongswan.android-1.apk
+adb install -r vpn\app\com.csipsimple-1.apk
+adb install -r vpn\app\com.gmail.mjm4456.vpncillatrial-1.apk
+adb install -r vpn\app\com.xnsystems.xnmvpntrial-1.apk
+adb install -r vpn\app\de.ncp.vpn.basic.trial-1.apk
+adb install -r vpn\app\dellmont.SipGo-1.apk
+adb install -r vpn\app\org.strongswan.android-1.apk
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
@@ -9114,7 +8982,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -9136,7 +9003,6 @@ ECHO * The VPN And SIP/VoIP Client Software Has Been   *
 ECHO *        Installed On The Kindle Fire.            *
 ECHO ***************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -9147,7 +9013,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION37.1
+:INSTALL-VPN.1
 echo.
 cls
 echo.
@@ -9158,7 +9024,6 @@ echo * The Option 37 To Install VPN And SIP/VoIP Client   *
 ECHO *    On The Kindle Fire Was Canceled By The User.    *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -9166,7 +9031,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION37.2
+:INSTALL-VPN.2
 echo.
 cls
 echo.
@@ -9178,15 +9043,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -9198,7 +9063,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -9214,9 +9078,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION37.0
+CALL:INSTALL-VPN.0
 
-:OPTION38
+:FIX-INSTALLATION
 echo.
 cls
 echo.
@@ -9237,13 +9101,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Attempt To Fix A Broken Installation?" OPTION38.0 OPTION38.3
+CALL:yesno "Would You Like To Attempt To Fix A Broken Installation?" FIX-INSTALLATION.0 FIX-INSTALLATION.3
 
-:OPTION38.0
+:FIX-INSTALLATION.0
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -9263,7 +9126,6 @@ echo.
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -9271,8 +9133,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION36.2
-cd \KFFirstAide
+if %errorlevel% == 1 goto FIX-INSTALLATION.2
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -9289,7 +9150,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -9308,11 +9168,9 @@ adb wait-for-device
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 set /p unr=Do You Have A Kindle Fire 2 (y/n) ?
-IF %unr% == n GOTO OPTION38.1
-cd \KFFirstAide
+IF %unr% == n GOTO FIX-INSTALLATION.1
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting The Kindle Fire 2 Recovery    *
@@ -9322,10 +9180,9 @@ echo.
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\kf2\build.prop /system/.
+adb push kf2\build.prop /system/.
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 echo.
@@ -9335,14 +9192,13 @@ ECHO * Post Them In Kindle Fire First Aide. Next We Are Going  *
 ECHO *          To Fix The File System Permissions             *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
 adb shell su -c "rm -r /data/local/tmp"
 adb shell su -c "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -9368,7 +9224,6 @@ ECHO *     Kindle Fire First Aide Thread. Thank You For     *
 ECHO *                 Using Our Software.                  *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -9378,15 +9233,14 @@ cls
 echo.
 CALL:menu
 
-:OPTION38.1
+:FIX-INSTALLATION.1
 echo.
 COLOR 2
 echo.
 cls
 echo.
 set /p unr=Do You Have A Kindle Fire HD 7 (y/n) ?
-IF %unr% == n GOTO OPTION38.2
-cd \KFFirstAide
+IF %unr% == n GOTO FIX-INSTALLATION.2
 echo.
 ECHO ***********************************************************
 ECHO * Thank You For Selecting The Kindle Fire HD 7 Recovery   *
@@ -9396,10 +9250,9 @@ echo.
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\kfhd7\build.prop /system/.
+adb push kfhd7\build.prop /system/.
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 echo.
@@ -9409,14 +9262,13 @@ ECHO * Post Them In Kindle Fire First Aide. Next We Are Going  *
 ECHO *          To Fix The File System Permissions             *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
 adb shell su -c "rm -r /data/local/tmp"
 adb shell su -c "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
@@ -9442,7 +9294,6 @@ ECHO *     Kindle Fire First Aide Thread. Thank You For     *
 ECHO *                 Using Our Software.                  *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -9452,15 +9303,14 @@ cls
 echo.
 CALL:menu
 
-:OPTION38.2
+:FIX-INSTALLATION.2
 echo.
 COLOR 2
 echo.
 cls
 echo.
 set /p unr=Do You Have A Kindle Fire HD 8.9 (y/n) ?
-IF %unr% == n GOTO OPTION38.3
-cd \KFFirstAide
+IF %unr% == n GOTO FIX-INSTALLATION.3
 echo.
 ECHO ***********************************************************
 ECHO * Thank You For Selecting The Kindle Fire HD 8.9 Recovery *
@@ -9472,7 +9322,7 @@ adb wait-for-device
 echo.
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\kfhd8\build.prop /system/.
+adb push kfhd8\build.prop /system/.
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 echo.
@@ -9482,20 +9332,18 @@ ECHO * Post Them In Kindle Fire First Aide. Next We Are Going  *
 ECHO *          To Fix The File System Permissions             *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
 adb shell su -c "rm -r /data/local/tmp"
 adb shell su -c "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\fix_permissions.sh /data/local/tmp/.
+adb push fix_permissions.sh /data/local/tmp/.
 adb shell su -c "busybox chown 0:0 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox chmod 0755 /data/local/tmp/fix_permissions.sh"
 adb shell su -c "sh ./data/local/tmp/fix_permissions.sh"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
 echo.
 ECHO ****************************************************
 ECHO *     We Are Done With Fixing The Permissions      *
@@ -9516,7 +9364,6 @@ ECHO *     Kindle Fire First Aide Thread. Thank You For     *
 ECHO *                 Using Our Software.                  *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -9526,7 +9373,7 @@ cls
 echo.
 CALL:menu
 
-:OPTION38.3
+:FIX-INSTALLATION.3
 echo.
 cls
 echo.
@@ -9537,7 +9384,6 @@ echo *    The Option 38 To Fix A Broken Installation      *
 ECHO *   On The Kindle Fire Was Canceled By The User.     *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10176,7 +10022,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION42
+:FIX-FLASHING
 echo.
 cls
 echo.
@@ -10196,13 +10042,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Fix A Sluggish Kindle?" OPTION42.1 OPTION42.3
+CALL:yesno "Would You Like To Fix A Sluggish Kindle?" FIX-FLASHING.1 FIX-FLASHING.3
 
-:OPTION42.1
+:FIX-FLASHING.1
 echo.
+cd %~dp0
 cls
 echo.
 COLOR 2
@@ -10215,8 +10060,6 @@ ECHO * Security Find Enable ADB. Turn Enable ADB OFF And ON  *
 ECHO * This Script Should Continue After You Take These Steps*
 ECHO *********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
 ECHO ***********************************************************
 ECHO *Please Make Sure ADB Is Enabled On The Kindle By Going To*
@@ -10243,17 +10086,17 @@ echo.
 adb reboot
 adb wait-for-device
 echo.
-cd \KFFirstAide
-del \KFFirstAide\dropbox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\dropbox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
-adb push \KFFirstAide\su /data/local/tmp/.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push busybox /data/local/tmp/.
+adb push su /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -10269,15 +10112,15 @@ adb shell su -c "busybox chmod 755 /system/xbin/busybox"
 adb shell su -c "rm /system/bin/su"
 adb shell su -c "ln -s /system/xbin/su /system/bin/su"
 adb install -r Busybox_Installer_4.1.apk
-adb install -r ES_File_Explorer_1.6.2.5.apk
-adb install -r File_Manager_1.15.6.apk
+cd %~dp0
+adb install -r GApps\ES_File_Explorer_1.6.2.5.apk
+adb install -r GApps\File_Manager_1.15.6.apk
 adb shell su -c "rm /data/local.prop"
 adb shell su -c "rm -r /data/local/tmp"
 adb shell su -c "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
 adb shell su -c "busybox mount -o remount,ro /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
 echo.
 ECHO ***************************************************
 ECHO *OK, We Are Done With The Binary, Now We Are Going*
@@ -10307,7 +10150,7 @@ ECHO * The Kindle Apps. Please Use This Program*
 ECHO *             To Test Root.               *
 ECHO *******************************************
 echo.
-cd \KFFirstAide
+cd root
 adb install -r suchecker.apk
 echo.
 ECHO *******************************************************
@@ -10346,7 +10189,7 @@ echo.
 adb kill-server
 adb wait-for-device
 type isroot | adb shell | find "#"
-if %errorlevel% == 1 goto OPTION42.2
+if %errorlevel% == 1 goto FIX-FLASHING.2
 echo.
 ECHO *******************************************************
 ECHO *Success!!! You Have Root, This Test Is Very Accurate *
@@ -10359,7 +10202,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10367,7 +10209,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION42.2
+:FIX-FLASHING.2
 echo.
 cls
 echo.
@@ -10383,7 +10225,6 @@ ECHO * 5 Times Try Option 21 Which Uses A Different Method To Root  *
 ECHO *                         The Kindle.                          *
 ECHO ****************************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10391,7 +10232,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION42.3
+:FIX-FLASHING.3
 echo.
 cls
 echo.
@@ -10403,7 +10244,6 @@ ECHO *To A Normal Desktop On The Kindle Fire Was Canceled *
 ECHO *                  By The User.                      *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10411,7 +10251,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION43
+:UPGRADE-SU
 echo.
 cls
 echo.
@@ -10433,13 +10273,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Upgrade Superuser?" OPTION43.1 OPTION43.5
+CALL:yesno "Would You Like To Upgrade Superuser?" UPGRADE-SU.1 UPGRADE-SU.5
 
-:OPTION43.1
+:UPGRADE-SU.1
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -10468,7 +10307,6 @@ ECHO *   Not Worry Or Interrupt The Install Process Once The      *
 ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO ******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -10476,8 +10314,7 @@ ECHO *   An System Install Without Permission Errors      *
 ECHO ******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION43.4
-cd \KFFirstAide
+if %errorlevel% == 1 goto UPGRADE-SU.4
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -10494,7 +10331,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -10513,16 +10349,15 @@ adb wait-for-device
 echo.
 cls
 echo.
-cd \KFFirstAide
 type isroot | adb shell | find "#"
 if %errorlevel% == 1 goto OPTION21.0
 echo.
 set /p unr=Do You Have Chainfire Superuser (If You Used Our Restore Or Option 21 Root Answer y) (y/n) ?
-IF %unr% == n GOTO OPTION43.3
+IF %unr% == n GOTO UPGRADE-SU.3
 echo.
-CALL:OPTION43.2
+CALL:UPGRADE-SU.2
 
-:OPTION43.2
+:UPGRADE-SU.2
 echo.
 COLOR 2
 echo.
@@ -10534,11 +10369,12 @@ ECHO * Of Chainfire Superuser. These Items Are Small, The    *
 ECHO * Download Speed Should Be Fast. Please Wait.........   *
 ECHO *********************************************************
 echo.
-del \KFFirstAide\su
+cd root
+REM del \KFFirstAide\su
 wget http://dl.dropbox.com/u/54456659/superuser/Chainfire/su
-del \KFFirstAide\Superuser.apk
+REM del \KFFirstAide\Superuser.apk
 wget http://dl.dropbox.com/u/54456659/superuser/Chainfire/Superuser.apk
-del \KFFirstAide\eu.chainfire.supersu-2.apk
+REM del \KFFirstAide\eu.chainfire.supersu-2.apk
 wget http://dl.dropbox.com/u/54456659/superuser/Chainfire/eu.chainfire.supersu-2.apk
 echo.
 ECHO *************************************************************
@@ -10547,12 +10383,11 @@ ECHO *  Please Give Us A Moment To Complete These Tasks, If You  *
 ECHO * See Any Errors, Please Post The Screenshot In Our Thread. *
 ECHO *************************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\su /data/local/tmp/.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push su /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 adb shell su -c "rm /system/xbin/su"
 adb shell su -c "/system/xbin/busybox mv /data/local/tmp/su /system/xbin/su"
 adb shell su -c "rm /system/app/Superuser.apk"
@@ -10570,9 +10405,7 @@ adb shell su -c "mv /data/local/tmp.bak /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
 adb shell su -c "/system/xbin/busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
 echo.
-cd \KFFirstAide
 echo.
 ECHO *************************************************************
 ECHO *That Is It, After The Kindle Reboots You Will Have Two Apps*
@@ -10586,14 +10419,14 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION43.3
+:UPGRADE-SU.3
 echo.
 COLOR 2
 echo.
 cls
 echo.
 set /p unr=Do You Have ChainsDD Superuser (y/n) ?
-IF %unr% == n GOTO OPTION43.5
+IF %unr% == n GOTO UPGRADE-SU.5
 echo.
 ECHO *********************************************************
 ECHO *We Are Querying The Our Servers For The Lastest Version*
@@ -10601,11 +10434,13 @@ ECHO *  Of ChainsDD Superuser. These Items Are Small, The    *
 ECHO * Download Speed Should Be Fast. Please Wait.........   *
 ECHO *********************************************************
 echo.
-del \KFFirstAide\su
+mkdir root\CHAINSDD 2>nul
+cd root\CHAINSDD
+REM del \KFFirstAide\su
 wget http://dl.dropbox.com/u/54456659/superuser/ChainsDD/su
-del \KFFirstAide\Superuser.apk
+REM del \KFFirstAide\Superuser.apk
 wget http://dl.dropbox.com/u/54456659/superuser/ChainsDD/Superuser.apk
-del \KFFirstAide\eu.chainfire.supersu-2.apk
+REM del \KFFirstAide\eu.chainfire.supersu-2.apk
 wget http://dl.dropbox.com/u/54456659/superuser/ChainsDD/com.noshufou.android.su-1.apk
 echo.
 ECHO *************************************************************
@@ -10614,12 +10449,11 @@ ECHO *  Please Give Us A Moment To Complete These Tasks, If You  *
 ECHO * See Any Errors, Please Post The Screenshot In Our Thread. *
 ECHO *************************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\su /data/local/tmp/.
-adb push \KFFirstAide\Superuser.apk /data/local/tmp/.
+adb push su /data/local/tmp/.
+adb push Superuser.apk /data/local/tmp/.
 adb shell su -c "rm /system/xbin/su"
 adb shell su -c "/system/xbin/busybox mv /data/local/tmp/su /system/xbin/su"
 adb shell su -c "rm /system/app/Superuser.apk"
@@ -10630,6 +10464,7 @@ adb shell su -c "busybox chmod 655 /system/app/Superuser.apk"
 adb shell su -c "rm /system/bin/su"
 adb shell "ln -s /system/xbin/su /system/bin/su"
 adb install -r com.noshufou.android.su-1.apk
+cd ..
 adb install -r suchecker.apk
 adb shell su -c "rm /data/local.prop"
 adb shell su -c "rm -r /data/local/tmp"
@@ -10638,7 +10473,6 @@ adb shell su -c "mkdir /data/local/tmp"
 adb shell su -c "/system/xbin/busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
-cd \KFFirstAide
 echo.
 ECHO *************************************************************
 ECHO *That Is It, After The Kindle Reboots You Will Have Two Apps*
@@ -10653,7 +10487,7 @@ echo.
 CALL:menu
 
 
-:OPTION43.4
+:UPGRADE-SU.4
 echo.
 cls
 echo.
@@ -10665,15 +10499,15 @@ ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
 ECHO *         And We Will Install Busybox.               *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -10685,7 +10519,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -10701,9 +10534,9 @@ PAUSE
 echo.
 adb kill-server
 echo.
-CALL:OPTION43.0
+CALL:UPGRADE-SU.1
 
-:OPTION43.5
+:UPGRADE-SU.5
 echo.
 cls
 echo.
@@ -10714,7 +10547,6 @@ echo *  The Option 43 To Upgrade Superuser On The Kindle  *
 ECHO *         Fire Was Canceled By The User.             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10723,7 +10555,7 @@ echo.
 CALL:menu
 
 
-:OPTION44
+:UPGRADE-BUSYBOX
 echo.
 cls
 echo.
@@ -10742,13 +10574,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Upgrade Busybox?" OPTION44.1 OPTION44.2
+CALL:yesno "Would You Like To Upgrade Busybox?" UPGRADE-BUSYBOX.1 UPGRADE-BUSYBOX.2
 
-:OPTION44.1
+:UPGRADE-BUSYBOX.1
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -10777,7 +10608,6 @@ ECHO *   Not Worry Or Interrupt The Install Process Once The      *
 ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -10785,8 +10615,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION41.4
-cd \KFFirstAide
+if %errorlevel% == 1 goto UPGRADE-BUSYBOX.4
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -10803,7 +10632,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -10822,18 +10650,17 @@ adb wait-for-device
 echo.
 cls
 echo.
-cd \KFFirstAide
 echo.
 echo.
-cd \KFFirstAide
-del \KFFirstAide\busybox
-del \KFFirstAide\Busybox_Installer_4.1.apk
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
 wget http://dl.dropbox.com/u/54456659/busybox/busybox
 wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\busybox /data/local/tmp/.
+adb push busybox /data/local/tmp/.
 adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
 adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
 adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -10845,7 +10672,6 @@ adb shell su -c "rm -r /data/local/tmp/busybox"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb install Busybox_Installer_4.1.apk
-cd \KFFirstAide
 echo.
 ECHO *****************************************************
 ECHO * That Is It, Busybox Is Now Installed, We Will Now *
@@ -10858,7 +10684,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -10879,7 +10704,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION44.2
+:UPGRADE-BUSYBOX.2
 echo.
 cls
 echo.
@@ -10890,7 +10715,6 @@ echo *  The Option 44 To Upgrade Busybox On The Kindle    *
 ECHO *         Fire Was Canceled By The User.             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10898,7 +10722,56 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION45
+:UPGRADE-BUSYBOX.4
+echo.
+cls
+echo.
+echo.
+COLOR 2
+echo.
+ECHO ******************************************************
+ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
+ECHO *         And We Will Install Busybox.               *
+ECHO ******************************************************
+echo.
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
+wget http://dl.dropbox.com/u/54456659/busybox/busybox
+wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+adb shell su -c "busybox mount -o remount,rw ext4 /system"
+adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
+adb shell su -c "mkdir /data/local/tmp"
+adb push busybox /data/local/tmp/.
+adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
+adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
+adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
+adb shell su -c "busybox chown root.shell /system/xbin/busybox"
+adb shell su -c "busybox chmod 04755 /system/xbin/busybox"
+adb shell su -c "/system/xbin/busybox --install -s /system/xbin"
+adb shell su -c "busybox chmod 755 /system/xbin/busybox"
+adb shell su -c "rm -r /data/local/tmp/busybox"
+adb shell su -c "busybox mount -o remount,ro ext4 /system"
+adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
+adb install Busybox_Installer_4.1.apk
+echo.
+ECHO *****************************************************
+ECHO * That Is It, Busybox Is Now Installed, We Will Now *
+ECHO *         Return To The Installation!               *
+ECHO *****************************************************
+echo.
+ECHO *****************************************************
+ECHO *  If You See An Error Here, Please Post It In Our  *
+ECHO *     Kindle Fire First Aide Thread. Thanks!        *
+ECHO *****************************************************
+echo.
+PAUSE
+echo.
+adb kill-server
+echo.
+CALL:UPGRADE-BUSYBOX.1
+
+:INSTALL-CHAINFIRE
 echo.
 cls
 echo.
@@ -10917,13 +10790,12 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install ChainFire 3D?" OPTION45.1 OPTION45.2
+CALL:yesno "Would You Like To Install ChainFire 3D?" INSTALL-CHAINFIRE.1 INSTALL-CHAINFIRE.2
 
-:OPTION45.1
+:INSTALL-CHAINFIRE.1
 echo.
+cd %~dp0
 COLOR 2
 echo.
 cls
@@ -10952,7 +10824,6 @@ ECHO *   Not Worry Or Interrupt The Install Process Once The      *
 ECHO *                   Install Begins.                          *
 ECHO **************************************************************
 echo.
-cd \KFFirstAide
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -10960,8 +10831,7 @@ ECHO *    An System Install Without Permission Errors      *
 ECHO *******************************************************
 echo.
 adb shell su -c "ls /system/xbin/busybox"
-if %errorlevel% == 1 goto OPTION41.4
-cd \KFFirstAide
+if %errorlevel% == 1 goto INSTALL-CHAINFIRE.4
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -10978,7 +10848,6 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -10997,14 +10866,13 @@ adb wait-for-device
 echo.
 cls
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
-adb push \KFFirstAide\eu.chainfire.cf3d-1.apk /data/app/.
+adb push Chainfire\eu.chainfire.cf3d-1.apk /data/app/.
 adb shell su -c "busybox chmod 0644 /data/app/eu.chainfire.cf3d-1.apk"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
-cd \KFFirstAide
+
 echo.
 ECHO *****************************************************
 ECHO *    That Is It, Chainfire Is Now Installed!        *
@@ -11020,7 +10888,6 @@ ECHO *We Are Now Rebooting The Kindle And Restoring The *
 ECHO *                   Appearance.                    *
 ECHO ****************************************************
 echo.
-cd \KFFirstAide
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "rm /data/local.prop"
@@ -11041,7 +10908,7 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION45.2
+:INSTALL-CHAINFIRE.2
 echo.
 cls
 echo.
@@ -11052,7 +10919,6 @@ echo *  The Option 44 To Upgrade Busybox On The Kindle    *
 ECHO *         Fire Was Canceled By The User.             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -11060,6 +10926,54 @@ adb kill-server
 echo.
 CALL:menu
 
+:INSTALL-CHAINFIRE.4
+echo.
+cls
+echo.
+echo.
+COLOR 2
+echo.
+ECHO ******************************************************
+ECHO * It Looks Like Busybox Is Missing, Give Me A Minute *
+ECHO *         And We Will Install Busybox.               *
+ECHO ******************************************************
+echo.
+cd root
+REM del \KFFirstAide\busybox
+REM del \KFFirstAide\Busybox_Installer_4.1.apk
+wget http://dl.dropbox.com/u/54456659/busybox/busybox
+wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+adb shell su -c "busybox mount -o remount,rw ext4 /system"
+adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
+adb shell su -c "mkdir /data/local/tmp"
+adb push busybox /data/local/tmp/.
+adb shell su -c "busybox chmod 755 /data/local/tmp/busybox"
+adb shell su -c "busybox chown 0:0 /data/local/tmp/busybox"
+adb shell su -c "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
+adb shell su -c "busybox chown root.shell /system/xbin/busybox"
+adb shell su -c "busybox chmod 04755 /system/xbin/busybox"
+adb shell su -c "/system/xbin/busybox --install -s /system/xbin"
+adb shell su -c "busybox chmod 755 /system/xbin/busybox"
+adb shell su -c "rm -r /data/local/tmp/busybox"
+adb shell su -c "busybox mount -o remount,ro ext4 /system"
+adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
+adb install Busybox_Installer_4.1.apk
+echo.
+ECHO *****************************************************
+ECHO * That Is It, Busybox Is Now Installed, We Will Now *
+ECHO *         Return To The Installation!               *
+ECHO *****************************************************
+echo.
+ECHO *****************************************************
+ECHO *  If You See An Error Here, Please Post It In Our  *
+ECHO *     Kindle Fire First Aide Thread. Thanks!        *
+ECHO *****************************************************
+echo.
+PAUSE
+echo.
+adb kill-server
+echo.
+CALL:INSTALL-CHAINFIRE.1
 
 :OPTION99
 echo.
@@ -11235,3 +11149,5 @@ if /i '%input%'=='y' goto %~2
 if /i '%input%'=='n' goto %~3
 
 :sleep
+SET /a SLEEP=%~1 -1
+IF %SLEEP% GEQ 1 ping -n %SLEEP% -w 1000 1.1.1.1 >nul 2>&1

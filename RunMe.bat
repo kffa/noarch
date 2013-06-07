@@ -54,7 +54,7 @@ ECHO 6.  Backups
 ECHO 7.  Extras
 ECHO 8.  Drivers
 ECHO 9.  Device Diagnostics (Root Required)
-ECHO 10. CAUTION: INSTALL 2ND BOOTLOADER (TWRP)
+ECHO 10. [DISABLED] CAUTION: INSTALL 2ND BOOTLOADER (TWRP)
 ECHO 0.  Exit
 ECHO --------------------------------------------------------------------
 
@@ -70,7 +70,9 @@ IF /I '%INPUT%'=='6' GOTO backupmenu
 IF /I '%INPUT%'=='7' GOTO extrasmenu
 IF /I '%INPUT%'=='8' GOTO driversmenu
 IF /I '%INPUT%'=='9' GOTO diag2menu
-IF /I '%INPUT%'=='10' GOTO bootloadermenu
+REM IF /I '%INPUT%'=='10' GOTO bootloadermenu
+IF /I '%INPUT%'=='10' GOTO menu
+
 
 :diagmenu
 echo.
@@ -87,7 +89,7 @@ ECHO 2.  Reboot The Kindle Into Fastboot Mode (Preferred Method)    (ADB)
 ECHO 3.  Reboot The Kindle Into Fastboot Mode (Alternative Method)  (ADB)
 ECHO 4.  Display the Fastboot Status                           (Fastboot)
 ECHO 5.  Reboot The Kindle Into Normal Boot Mode               (Fastboot)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -110,7 +112,7 @@ ECHO ****************************************************
 
 ECHO 1.  Completely Restore the Kindle Fire 2nd Gen  10.2.3    (Fastboot)
 ECHO 2.  Completely Restore the Kindle Fire 2nd Gen  10.2.1    (Fastboot)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -130,7 +132,7 @@ ECHO ****************************************************
 
 ECHO 1.  Completely Restore the KFHD 7    7.2.3                (Fastboot)
 ECHO 2.  Completely Restore the KFHD 7    7.2.1                (Fastboot)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -151,7 +153,7 @@ ECHO ****************************************************
 ECHO 1.  Completely Restore the KFHD 8.9  8.1.2                (Fastboot)
 ECHO 2.  Completely Restore the KFHD 8.9  8.1.3                (Fastboot)
 ECHO 3.  Completely Restore the KFHD 8.9  8.1.4                (Fastboot)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -173,7 +175,7 @@ ECHO ****************************************************
 ECHO 1.  Root The Kindle Fire - Method 1 (Older Kindle)             (ADB)
 ECHO 2.  Root The Kindle Fire - Method 2 (Preferred)                (ADB)
 ECHO 3.  UnRoot The Kindle - Do This Before Sending Back To Amazon  (ADB)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -198,7 +200,7 @@ ECHO 2.  Backup Three Kindle Images To The Backup Folder            (ADB)
 ECHO 3.  Erase the Kindle Cache and User Data                  (Fastboot)
 ECHO 4.  Restore The Kindle From The KindleBackup Folder       (Fastboot)
 ECHO 5.  Restore The Kindle From The Backup Folder             (Fastboot)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -237,7 +239,7 @@ ECHO 12. Install Holo Launcher HD v2.0.2 Stable Version             (ADB)
 ECHO.
 ECHO 13. Install Boat Browser Flash Player And Instagram            (ADB)
 ECHO 14. Install VPN And SIP/VoIP Client Software                   (ADB)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -269,7 +271,7 @@ ECHO ****************************************************
 
 ECHO 1. Install Amazon ADB Driver (Preferred)                    (DRIVER)
 ECHO 2. Install Universal ADB Driver (Alternative)               (DRIVER)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -297,7 +299,7 @@ ECHO.
 ECHO 5.  Install ChainFire 3D (Improves 3D Performance)             (ADB)
 ECHO.
 ECHO 6.  Fix Broken Installation - Use Under Guidance               (ADB)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -322,7 +324,7 @@ ECHO ****************************************************
 ECHO 1.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 7       (ADB)
 ECHO 2.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KF2          (ADB)
 ECHO 3.  Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 for KFHD 8.9     (ADB)
-ECHO 0.  <Back to Menu>
+ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
@@ -464,8 +466,8 @@ cls
 echo.
 color 2
 echo.
-mkdir kf7\10.2.3 2>nul
-cd kf7\10.2.3
+mkdir kf2\10.2.3 2>nul
+cd kf2\10.2.3
 REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
@@ -487,19 +489,37 @@ ECHO *****************************************************
 ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/boot-prod.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/boot-prod.img
+..\..\wget -Oboot-prod.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/xkeg3c5lqkmjx907qdwf.md5
+..\..\md5 "boot-prod.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot-prod.img -q --no-check-certificate https://xerocomm.box.com/shared/static/m42lrkiark6v5k1fyvw6.img
+)
+
 echo.
 ECHO ************************************************************
 ECHO *I have fetched the boot.img - 2 more to download..........*
 ECHO ************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/recovery-prod.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/recovery-prod.img
+..\..\wget -Orecovery-prod.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/1l7ux3evvwbdna90gl2o.md5
+..\..\md5 "recovery-prod.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery-prod.img -q --no-check-certificate https://xerocomm.box.com/shared/static/cl2p2hfi3m0fonvgmzxb.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I have fetched the recovery.img - 1 more to download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/system.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/8n4czj1dnbtnpamlgygv.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/bmpiqcz2bybf7q38ox86.img
+)
+
 echo.
 ECHO *******************************************************************************************
 ECHO *We Have Downloaded The Recovery - We Are Ready To Flash The 3 Images.....................*
@@ -706,8 +726,8 @@ CALL:menu
 echo.
 cls
 COLOR 2
-mkdir kf7\10.2.1 2> nul
-cd kf7\10.2.1
+mkdir kf2\10.2.1 2> nul
+cd kf2\10.2.1
 REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 echo.
@@ -729,19 +749,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/boot.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/x29y7921b88f4zil4dth.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/k4og9o8vsapaum7f2q2m.img
+)
+
 echo.
 ECHO ************************************************************
 ECHO *I have fetched the boot.img - 2 more to download..........*
 ECHO ************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/recovery.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/recovery.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/rzqwcb17gzuh6atb2wlv.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/dliu3qly5ufub5xtu70k.img
+)
+
 echo.
 ECHO ************************************************************
 ECHO *I have fetched the boot.img - 1 more to download..........*
 ECHO ************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/0akukxof686nxibeyokq.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/plo5zcn0opigtsj07dvy.img
+)
+
 echo.
 echo.
 ECHO *******************************************************************************************
@@ -10979,7 +11017,6 @@ CALL:INSTALL-CHAINFIRE.1
 echo.
 cls
 echo.
-set path=C:\KFFirstAide;%path%
 echo.
 COLOR 2
 echo.

@@ -1018,19 +1018,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/boot.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/rpblz2qwz3hspcses519.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/c3jjumxkvix0qbokyi00.img
+)
+
 echo.
 ECHO **************************************************************
 ECHO *I Have Fetched The boot.img - 2 More To Download............*
 ECHO **************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/recovery.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/recovery.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/1hz0jfhu2t8igpxp0r69.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/mjgyerqq1touyr80f9bz.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I Have Fetched The recovery.img - 1 More To Download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/system.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/ni8f8qgzlyhxfz4046v4.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ass27y5w3r7rvxv3zeze.img
+)
+
 echo.
 echo.
 echo.
@@ -1276,19 +1294,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/boot.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/byzch7hiacafjuj3g2yv.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ym54ji1p6tvgwquvk6ib.img
+)
+
 echo.
 ECHO **************************************************************
 ECHO *I Have Fetched The boot.img - 2 More To Download............*
 ECHO **************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/recovery.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/recovery.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/k10h9543qvu6ymhs73n7.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ff4qgyus0erbicp3nxkb.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I Have Fetched The recovery.img - 1 More To Download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/system.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/nklsrctwvtgjlos4ded0.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/9evm4cwf81ziig2vw3fg.img
+)
+
 echo.
 cls
 echo.
@@ -2649,6 +2685,7 @@ CALL:menu
 
 :BACKUP-FULL
 echo.
+cd %~dp0
 cls
 echo.
 COLOR 2
@@ -2711,66 +2748,91 @@ adb shell su -c "ls /system/xbin/busybox"
 if %errorlevel% == 1 goto BACKUP-FULL.2
 adb shell su -c "rm -R /data/local/kindlebackup"
 ECHO Please Ignore Any Errors Above This Line
+mkdir KindleBackup 2>nul
+cd KindleBackup
+
 adb shell su -c "mkdir /data/local/kindlebackup"
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup"
+
 ECHO I Am Backing Up Partition 1 (xloader)
 ECHO ***
 adb shell su -c "dd if=/dev/block/mmcblk0p1 of=/data/local/kindlebackup/xloader.img"
+
 ECHO I Am Backing Up Partition 2 (bootloader)
 ECHO ******
 adb shell su -c "dd if=/dev/block/mmcblk0p2 of=/data/local/kindlebackup/bootloader.img"
+
 ECHO I Am Backing Up Partition 3 (idme)
 ECHO *********
 adb shell su -c "dd if=/dev/block/mmcblk0p3 of=/data/local/kindlebackup/idme.img"
+
 ECHO I Am Backing Up Partition 4 (crypto)
 ECHO ************
 adb shell su -c "dd if=/dev/block/mmcblk0p4 of=/data/local/kindlebackup/crypto.img"
+
 ECHO I Am Backing Up Partition 5 (misc)
 ECHO ***************
 adb shell su -c "dd if=/dev/block/mmcblk0p5 of=/data/local/kindlebackup/misc.img"
+
 ECHO I Am Backing Up Partition 6 (dkernel)
 ECHO ******************
 adb shell su -c "dd if=/dev/block/mmcblk0p6 of=/data/local/kindlebackup/dkernel.img"
+
 ECHO I Am Backing Up Partition 7 (dfs)
 ECHO *********************
 adb shell su -c "dd if=/dev/block/mmcblk0p7 of=/data/local/kindlebackup/dfs.img"
+
 ECHO I Am Backing Up Partition 8 (efs)
 ECHO ************************
 adb shell su -c "dd if=/dev/block/mmcblk0p8 of=/data/local/kindlebackup/efs.img"
+
 ECHO I Am Backing Up Partition 9 (recovery)
 ECHO ***************************
 adb shell su -c "dd if=/dev/block/mmcblk0p9 of=/data/local/kindlebackup/recovery.img"
+
 ECHO I Am Backing Up Partition 10 (boot)
 ECHO ******************************
 adb shell su -c "dd if=/dev/block/mmcblk0p10 of=/data/local/kindlebackup/boot.img"
+
 ECHO I Am Backing Up Partition 11 (system)
 ECHO *********************************
 adb shell su -c "dd if=/dev/block/mmcblk0p11 of=/data/local/kindlebackup/system.img"
+
 ECHO We Are Now Modify Ownership/Permissions Of All Archives
 ECHO ************************************
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/xloader.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/xloader.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/bootloader.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/bootloader.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/idme.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/idme.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/crypto.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/crypto.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/misc.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/misc.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/dkernel.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/dkernel.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/dfs.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/dfs.img"
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/efs.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/efs.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/recovery.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/recovery.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/boot.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/boot.img"
+
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup/system.img"
 adb shell su -c "busybox chmod 777 /data/local/kindlebackup/system.img"
+
 echo.
 echo.
 ECHO ***************************************************************
@@ -11142,27 +11204,27 @@ echo.
 echo.
 COLOR 2
 ECHO *******************************************************
-CALL:sleep 5
+CALL:sleep 2
 ECHO *Prokennexusa Would Like To Thank You For The Support!*
 echo.
-CALL:sleep 5
+CALL:sleep 2
 ECHO * If You Found This Utility Valuable,   PLEASE Send A *
 echo.
-CALL:sleep 5
+CALL:sleep 2
 ECHO *   Donation using PayPal to xerocomm@hotmail.com     *
 echo.
-CALL:sleep 5
+CALL:sleep 2
 ECHO *Support Is Available Via Email prokennexusa@gmail.com*
-CALL:sleep 5
+CALL:sleep 2
 ECHO * This Utility Has Over 10,000 Lines Of Code, Please  *
-CALL:sleep 5
+CALL:sleep 2
 ECHO *  Take This Seriously. If You Want This Utility To   *
-CALL:sleep 5
+CALL:sleep 2
 ECHO *      Remain Free, Please Donate Today!!!!           *
-CALL:sleep 5
+CALL:sleep 2
 ECHO *******************************************************
 echo.
-CALL:sleep 5
+CALL:sleep 2
 echo.
 COLOR 2
 CALL:yesno "Are You Sure You Are Done Using The Utility?" OPTION90.1 OPTION90.2

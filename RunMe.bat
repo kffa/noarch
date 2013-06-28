@@ -7,7 +7,7 @@ REM   Not Designed. Do Not Attempt To Change This File In Any Way
 REM             You May Contact Us Through Email
 REM         support@canonicaldev.com - Thank You For The
 REM     Support! Phone is 707-774-5923 In The United States
-REM       This Is Revision 88 Dated 05/17/2013
+REM       This Is Revision 100 Dated 06/30/2013
 mode con:cols=90 lines=56
 SET path=%~dp0;%path%
 
@@ -71,7 +71,15 @@ IF /I '%INPUT%'=='7' GOTO extrasmenu
 IF /I '%INPUT%'=='8' GOTO driversmenu
 IF /I '%INPUT%'=='9' GOTO diag2menu
 REM IF /I '%INPUT%'=='10' GOTO bootloadermenu
-IF /I '%INPUT%'=='10' GOTO menu
+IF /I '%INPUT%'=='10' (
+echo.
+ECHO *****************************************************
+ECHO *Option Temporarily disabled till stability improved*
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+GOTO menu
+)
 
 
 :diagmenu
@@ -495,6 +503,17 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/boot-prod.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot-prod.img -q --no-check-certificate https://xerocomm.box.com/shared/static/m42lrkiark6v5k1fyvw6.img
 )
+..\..\md5 "boot-prod.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO ************************************************************
@@ -507,6 +526,18 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/recovery-prod.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery-prod.img -q --no-check-certificate https://xerocomm.box.com/shared/static/cl2p2hfi3m0fonvgmzxb.img
 )
+..\..\md5 "recovery-prod.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
+
 
 echo.
 ECHO **********************************************************************
@@ -519,6 +550,18 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/system.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/bmpiqcz2bybf7q38ox86.img
 )
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
+
 
 echo.
 ECHO *******************************************************************************************
@@ -755,6 +798,17 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/boot.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/k4og9o8vsapaum7f2q2m.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO ************************************************************
@@ -767,6 +821,17 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.1/images/recovery.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/dliu3qly5ufub5xtu70k.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO ************************************************************
@@ -778,6 +843,17 @@ REM wget http://dl.dropbox.com/u/54456659/kf2-10.2.3/images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/plo5zcn0opigtsj07dvy.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.
@@ -1024,6 +1100,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/boot.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/c3jjumxkvix0qbokyi00.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **************************************************************
@@ -1036,6 +1123,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/recovery.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/mjgyerqq1touyr80f9bz.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **********************************************************************
@@ -1047,6 +1145,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ass27y5w3r7rvxv3zeze.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.
@@ -1300,6 +1409,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/boot.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ym54ji1p6tvgwquvk6ib.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **************************************************************
@@ -1312,6 +1432,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/recovery.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ff4qgyus0erbicp3nxkb.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **********************************************************************
@@ -1323,6 +1454,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd7.2.1/images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/9evm4cwf81ziig2vw3fg.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.
@@ -1569,6 +1711,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/boot.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/65mrumnvv5oeyewaqdz4.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **************************************************************
@@ -1581,6 +1734,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/recovery.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/y9psvmwwm9cfzz4qewb5.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **********************************************************************
@@ -1592,6 +1756,17 @@ REM  wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/q0jcuhvlks8fzw1n9dzx.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.
@@ -1841,6 +2016,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/boot-prod.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/tvwkjm2v7v3xhc8j57bh.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **************************************************************
@@ -1853,6 +2039,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/recovery-prod.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ilf2orwytfvh6740g8a3.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **********************************************************************
@@ -1864,6 +2061,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/d5l9kgkksdeg7sjs0e1v.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.
@@ -2113,6 +2321,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/boot.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/zmg9j58j3yk861tdocpk.img
 )
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **************************************************************
@@ -2125,6 +2344,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/recovery.img
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/2qbeqszsctld0uze3l67.img
 )
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 
 echo.
 ECHO **********************************************************************
@@ -2136,6 +2366,17 @@ REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/system.img
 ..\..\md5 "system.img"
 if /I '%ERRORLEVEL%' == '1' (
 ..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/wfffho9ulyblljrs8ogw.img
+)
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
 )
 
 echo.

@@ -150,17 +150,17 @@ ECHO ****************************************************
 ECHO *           Kindle Fire HD 8.9" Listing            *
 ECHO ****************************************************
 
-ECHO 1.  Completely Restore the KFHD 8.9  8.1.2                (Fastboot)
-ECHO 2.  Completely Restore the KFHD 8.9  8.1.3                (Fastboot)
-ECHO 3.  Completely Restore the KFHD 8.9  8.1.4                (Fastboot)
+ECHO 1.  Completely Restore the KFHD 8.9  8.2.1                (Fastboot)
+ECHO 2.  Completely Restore the KFHD 8.9  8.2.3                (Fastboot)
+ECHO 3.  Completely Restore the KFHD 8.9  8.2.4                (Fastboot)
 ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
 IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO RESTOREKFHD8-8-1-2
-IF /I '%INPUT%'=='2' GOTO RESTOREKFHD8-8-1-3
-IF /I '%INPUT%'=='3' GOTO RESTOREKFHD8-8-1-4
+IF /I '%INPUT%'=='1' GOTO RESTOREKFHD8-8-2-1
+IF /I '%INPUT%'=='2' GOTO RESTOREKFHD8-8-2-3
+IF /I '%INPUT%'=='3' GOTO RESTOREKFHD8-8-2-4
 
 :rootmenu
 echo.
@@ -1404,7 +1404,7 @@ cls
 echo.
 CALL:menu
 
-:RESTOREKFHD8-8-1-2
+:RESTOREKFHD8-8-2-1
 echo.
 cls
 echo.
@@ -1424,9 +1424,9 @@ echo.
 echo.
 COLOR 2
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-2.0 RESTOREKFHD8-8-1-2.5
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-2-1.0 RESTOREKFHD8-8-2-1.5
 
-:RESTOREKFHD8-8-1-2.0
+:RESTOREKFHD8-8-2-1.0
 echo.
 cls
 echo.
@@ -1444,9 +1444,9 @@ PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure? This Operation Can Not Be Reversed!" RESTOREKFHD8-8-1-2.1 RESTOREKFHD8-8-1-2.6
+CALL:yesno "Are You Sure? This Operation Can Not Be Reversed!" RESTOREKFHD8-8-2-1.1 RESTOREKFHD8-8-2-1.6
 
-:RESTOREKFHD8-8-1-2.1
+:RESTOREKFHD8-8-2-1.1
 echo.
 cls
 echo.
@@ -1458,9 +1458,9 @@ ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-2.2 RESTOREKFHD8-8-1-2.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-2-1.2 RESTOREKFHD8-8-2-1.4
 
-:RESTOREKFHD8-8-1-2.2
+:RESTOREKFHD8-8-2-1.2
 echo.
 cls
 echo.
@@ -1479,9 +1479,9 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTOREKFHD8-8-1-2.3 RESTOREKFHD8-8-1-2.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTOREKFHD8-8-2-1.3 RESTOREKFHD8-8-2-1.2
 
-:RESTOREKFHD8-8-1-2.3
+:RESTOREKFHD8-8-2-1.3
 echo.
 cls
 echo.
@@ -1516,7 +1516,7 @@ ECHO ************************************************
 echo.
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO RESTOREKFHD8-8-1-2.4
+IF %unr% == y GOTO RESTOREKFHD8-8-2-1.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1535,12 +1535,12 @@ echo.
 CALL:menu
 
 
-:RESTOREKFHD8-8-1-2.4
+:RESTOREKFHD8-8-2-1.4
 echo.
 cls
 color 2
-mkdir kfhd8\8.1.2 2>nul
-cd kfhd8\8.1.2
+mkdir kfhd8\8.2.1 2>nul
+cd kfhd8\8.2.1
 REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
@@ -1563,19 +1563,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/boot.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/bb92ikckqmmlvo05ncaz.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/65mrumnvv5oeyewaqdz4.img
+)
+
 echo.
 ECHO **************************************************************
 ECHO *I Have Fetched The boot.img - 2 More To Download............*
 ECHO **************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/recovery.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/recovery.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/zz7rtb8wmmnn7b8w2wmx.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/y9psvmwwm9cfzz4qewb5.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I Have Fetched The recovery.img - 1 More To Download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/system.img
+REM  wget http://dl.dropbox.com/u/54456659/kfhd8.2.1/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/l9ard14o7aqc741zy6g6.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/q0jcuhvlks8fzw1n9dzx.img
+)
+
 echo.
 ECHO ****************************************************************************************
 ECHO *I Have Fetched The system.img - I Am Ready To Flash The 3 Images......................*
@@ -1591,13 +1609,13 @@ fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 fastboot -i 0x1949 -w
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO RESTOREKFHD8-8-1-2.5
+IF %unr% == n GOTO RESTOREKFHD8-8-2-1.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:RESTOREKFHD8-8-1-2.5
+CALL:RESTOREKFHD8-8-2-1.5
 
-:RESTOREKFHD8-8-1-2.5
+:RESTOREKFHD8-8-2-1.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1605,7 +1623,7 @@ COLOR 2
 echo.
 ECHO ************************************
 ECHO *Success!!! The Kindle Fire HD 8.9 *
-ECHO *Restored To Software Version 8.1.2*
+ECHO *Restored To Software Version 8.2.1*
 ECHO ************************************
 echo.
 PAUSE
@@ -1632,7 +1650,7 @@ echo.
 cls
 CALL:menu
 
-:RESTOREKFHD8-8-1-2.6
+:RESTOREKFHD8-8-2-1.6
 echo.
 cls
 echo.
@@ -1654,7 +1672,7 @@ cls
 echo.
 CALL:menu
 
-:RESTOREKFHD8-8-1-3
+:RESTOREKFHD8-8-2-3
 echo.
 cls
 echo.
@@ -1674,9 +1692,9 @@ echo.
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.3?" RESTOREKFHD8-8-1-3.0 RESTOREKFHD8-8-1-3.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.3?" RESTOREKFHD8-8-2-3.0 RESTOREKFHD8-8-2-3.5
 
-:RESTOREKFHD8-8-1-3.0
+:RESTOREKFHD8-8-2-3.0
 echo.
 cls
 echo.
@@ -1695,9 +1713,9 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-3.1 RESTOREKFHD8-8-1-3.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-2-3.1 RESTOREKFHD8-8-2-3.6
 
-:RESTOREKFHD8-8-1-3.1
+:RESTOREKFHD8-8-2-3.1
 echo.
 cls
 echo.
@@ -1709,9 +1727,9 @@ ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-3.2 RESTOREKFHD8-8-1-3.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-2-3.2 RESTOREKFHD8-8-2-3.4
 
-:RESTOREKFHD8-8-1-3.2
+:RESTOREKFHD8-8-2-3.2
 echo.
 cls
 echo.
@@ -1733,9 +1751,9 @@ echo.
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-1-3.3 RESTOREKFHD8-8-1-3.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-2-3.3 RESTOREKFHD8-8-2-3.2
 
-:RESTOREKFHD8-8-1-3.3
+:RESTOREKFHD8-8-2-3.3
 echo.
 cls
 echo.
@@ -1769,7 +1787,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO RESTOREKFHD8-8-1-3.4
+IF %unr% == y GOTO RESTOREKFHD8-8-2-3.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -1788,13 +1806,13 @@ echo.
 CALL:menu
 
 
-:RESTOREKFHD8-8-1-3.4
+:RESTOREKFHD8-8-2-3.4
 echo.
 cls
 COLOR 2
 echo.
-mkdir kfhd8\8.1.3 2>nul
-cd kfhd8\8.1.3
+mkdir kfhd8\8.2.3 2>nul
+cd kfhd8\8.2.3
 REM del \KFFirstAide\boot-prod.img
 REM del \KFFirstAide\recovery-prod.img
 REM del \KFFirstAide\system.img
@@ -1817,19 +1835,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/boot-prod.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/boot-prod.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/3uh7cmx6k3458m9yhf98.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/tvwkjm2v7v3xhc8j57bh.img
+)
+
 echo.
 ECHO **************************************************************
 ECHO *I Have Fetched The boot.img - 2 More To Download............*
 ECHO **************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/recovery-prod.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/recovery-prod.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/4dmmakeeyajqnek1p5fe.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ilf2orwytfvh6740g8a3.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I Have Fetched The recovery.img - 1 More To Download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/system.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-8.2.3/Images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/g5aicwjflgj5ek62vrif.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/d5l9kgkksdeg7sjs0e1v.img
+)
+
 echo.
 ECHO ****************************************************************************************
 ECHO *I Have Fetched The system.img - I Am Ready To Flash The 3 Images......................*
@@ -1841,17 +1877,17 @@ cls
 echo.
 echo.
 echo.
-fastboot -i 0x1949 flash boot boot-prod.img
-fastboot -i 0x1949 flash recovery recovery-prod.img
+fastboot -i 0x1949 flash boot boot.img
+fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO RESTOREKFHD8-8-1-3.5
+IF %unr% == n GOTO RESTOREKFHD8-8-2-3.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:RESTOREKFHD8-8-1-3.5
+CALL:RESTOREKFHD8-8-2-3.5
 
-:RESTOREKFHD8-8-1-3.5
+:RESTOREKFHD8-8-2-3.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -1860,7 +1896,7 @@ COLOR 2
 echo.
 ECHO ************************************
 ECHO *Success!!! The Kindle Fire HD 8.9 *
-ECHO *Restored To Software Version 8.1.3*
+ECHO *Restored To Software Version 8.2.3*
 ECHO ************************************
 echo.
 PAUSE
@@ -1888,7 +1924,7 @@ cls
 echo.
 CALL:menu
 
-:RESTOREKFHD8-8-1-3.6
+:RESTOREKFHD8-8-2-3.6
 echo.
 cls
 echo.
@@ -1909,7 +1945,7 @@ cls
 echo.
 CALL:menu
 
-:RESTOREKFHD8-8-1-4
+:RESTOREKFHD8-8-2-4
 echo.
 cls
 echo.
@@ -1930,9 +1966,9 @@ echo.
 echo.
 COLOR 2
 echo.
-CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.4?" RESTOREKFHD8-8-1-4.0 RESTOREKFHD8-8-1-4.5
+CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.4?" RESTOREKFHD8-8-2-4.0 RESTOREKFHD8-8-2-4.5
 
-:RESTOREKFHD8-8-1-4.0
+:RESTOREKFHD8-8-2-4.0
 echo.
 cls
 echo.
@@ -1950,9 +1986,9 @@ PAUSE
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-1-4.1 RESTOREKFHD8-8-1-4.6
+CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data!" RESTOREKFHD8-8-2-4.1 RESTOREKFHD8-8-2-4.6
 
-:RESTOREKFHD8-8-1-4.1
+:RESTOREKFHD8-8-2-4.1
 echo.
 cls
 echo.
@@ -1964,9 +2000,9 @@ ECHO *Do You Need Us To Reboot The Kindle Into Fastboot?*
 ECHO ****************************************************
 echo.
 echo.
-CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-1-4.2 RESTOREKFHD8-8-1-4.4
+CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-8-2-4.2 RESTOREKFHD8-8-2-4.4
 
-:RESTOREKFHD8-8-1-4.2
+:RESTOREKFHD8-8-2-4.2
 echo.
 cls
 echo.
@@ -1988,9 +2024,9 @@ cls
 echo.
 COLOR 4
 echo.
-CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-1-4.3 RESTOREKFHD8-8-1-4.2
+CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOREKFHD8-8-2-4.3 RESTOREKFHD8-8-2-4.2
 
-:RESTOREKFHD8-8-1-4.3
+:RESTOREKFHD8-8-2-4.3
 echo.
 cls
 echo.
@@ -2024,7 +2060,7 @@ ECHO *To Boot The Kindle Fire HD Into Fastboot Mode *
 ECHO ************************************************
 echo.
 set /p unr=Is The Kindle In Fastboot Mode (y/n) ?
-IF %unr% == y GOTO RESTOREKFHD8-8-1-4.4
+IF %unr% == y GOTO RESTOREKFHD8-8-2-4.4
 echo.
 ECHO ******************************************************
 ECHO *Sorry, It Appears You Need A Factory USB Cable Since*
@@ -2043,12 +2079,12 @@ echo.
 CALL:menu
 
 
-:RESTOREKFHD8-8-1-4.4
+:RESTOREKFHD8-8-2-4.4
 echo.
 cls
 COLOR 2
-mkdir kfhd8\8.1.4 2>nul
-cd kfhd8\8.1.4
+mkdir kfhd8\8.2.4 2>nul
+cd kfhd8\8.2.4
 REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
@@ -2071,19 +2107,37 @@ ECHO *Get A Cup Of Coffee, This May Take A While.........*
 ECHO *****************************************************
 echo.
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/boot.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/boot.img
+..\..\wget -Oboot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/y6xcfsv1f1e65sxdc38r.md5
+..\..\md5 "boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Oboot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/zmg9j58j3yk861tdocpk.img
+)
+
 echo.
 ECHO **************************************************************
 ECHO *I Have Fetched The boot.img - 2 More To Download............*
 ECHO **************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/recovery.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/recovery.img
+..\..\wget -Orecovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/hu1htatd7l9900wdx2k0.md5
+..\..\md5 "recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Orecovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/2qbeqszsctld0uze3l67.img
+)
+
 echo.
 ECHO **********************************************************************
 ECHO *I Have Fetched The recovery.img - 1 More To Download................*
 ECHO **********************************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/system.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd8.2.4/images/system.img
+..\..\wget -Osystem.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/hrrou5qs3ymxqfai4g5d.md5
+..\..\md5 "system.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Osystem.img -q --no-check-certificate https://xerocomm.box.com/shared/static/wfffho9ulyblljrs8ogw.img
+)
+
 echo.
 ECHO ****************************************************************************************
 ECHO *I Have Fetched The system.img - I Am Ready To Flash The 3 Images......................*
@@ -2100,13 +2154,13 @@ fastboot -i 0x1949 flash boot boot.img
 fastboot -i 0x1949 flash recovery recovery.img
 fastboot -i 0x1949 flash system system.img
 set /p unr=Would You Like To Wipe Data And Cache (y/n) ?
-IF %unr% == n GOTO RESTOREKFHD8-8-1-4.5
+IF %unr% == n GOTO RESTOREKFHD8-8-2-4.5
 fastboot -i 0x1949 -w
 echo.
 echo.
-CALL:RESTOREKFHD8-8-1-4.5
+CALL:RESTOREKFHD8-8-2-4.5
 
-:RESTOREKFHD8-8-1-4.5
+:RESTOREKFHD8-8-2-4.5
 echo.
 fastboot -i 0x1949 reboot
 echo.
@@ -2115,7 +2169,7 @@ COLOR 2
 echo.
 ECHO ************************************
 ECHO *Success!!! The Kindle Fire HD 8.9 *
-ECHO *Restored To Software Version 8.1.4*
+ECHO *Restored To Software Version 8.2.4*
 ECHO ************************************
 echo.
 PAUSE
@@ -2147,7 +2201,7 @@ cls
 echo.
 CALL:menu
 
-:RESTOREKFHD8-8-1-4.6
+:RESTOREKFHD8-8-2-4.6
 echo.
 cls
 echo.

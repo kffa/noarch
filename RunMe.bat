@@ -70,16 +70,16 @@ IF /I '%INPUT%'=='6' GOTO backupmenu
 IF /I '%INPUT%'=='7' GOTO extrasmenu
 IF /I '%INPUT%'=='8' GOTO driversmenu
 IF /I '%INPUT%'=='9' GOTO diag2menu
-REM IF /I '%INPUT%'=='10' GOTO bootloadermenu
-IF /I '%INPUT%'=='10' (
-echo.
-ECHO *****************************************************
-ECHO *Option Temporarily disabled till stability improved*
-ECHO *****************************************************
-echo.
-CALL:sleep 5
-GOTO menu
-)
+IF /I '%INPUT%'=='10' GOTO bootloadermenu
+REM IF /I '%INPUT%'=='10' (
+REM echo.
+REM ECHO *****************************************************
+REM ECHO *Option Temporarily disabled till stability improved*
+REM ECHO *****************************************************
+REM echo.
+REM CALL:sleep 5
+REM GOTO menu
+REM )
 
 
 :diagmenu
@@ -336,6 +336,7 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
+IF /I '%INPUT%'=='1' GOTO TWRPKFHD7
 IF /I '%INPUT%'=='0' GOTO menu
 
 :RESTOREKF2-10-2-3
@@ -4605,8 +4606,8 @@ echo.
 cd root
 REM del \KFFirstAide\dropbox
 REM del \KFFirstAide\Busybox_Installer_4.1.apk
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
-wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell "busybox mount -o remount,rw ext4 /system"
 adb shell "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell "mkdir /data/local/tmp"
@@ -4796,7 +4797,7 @@ echo.
 adb kill-server
 adb wait-for-device
 echo.
-adb restore \KFFirstAide\fakebackup.ab
+adb restore fakebackup.ab
 echo.
 ECHO ******************************************************
 ECHO *                  Phase Two                         *
@@ -4835,7 +4836,7 @@ ECHO ****************************************************
 ECHO *     We Are Pushing Busybox To The Kindle         *
 ECHO ****************************************************
 echo.
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
 adb shell "mkdir /data/local/tmp"
 adb push busybox /data/local/tmp/.
 echo.
@@ -4863,7 +4864,7 @@ ECHO *                Busybox                          *
 ECHO ***************************************************
 echo.
 REM del \KFFirstAide\Busybox_Installer_4.1.apk
-wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+REM wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 adb shell "/data/local/tmp/busybox mount -o remount,rw /system"
 adb shell "dd if=/data/local/tmp/busybox of=/system/xbin/busybox"
@@ -4911,7 +4912,7 @@ ECHO *     We Are Pushing Busybox To The Kindle         *
 ECHO ****************************************************
 echo.
 REM del \KFFirstAide\busybox
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
 adb shell "mkdir /data/local/tmp"
 adb push busybox /data/local/tmp/.
 echo.
@@ -5279,8 +5280,8 @@ ECHO ******************************************************
 echo.
 REM del \KFFirstAide\busybox
 REM del \KFFirstAide\Busybox_Installer_4.1.apk
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
-wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -9786,16 +9787,16 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION39
+:TWRPKFHD7
 echo.
+cd %~dp0
 cls
 echo.
 ECHO ***********************************************************
-ECHO *   Thank You For Selecting Option 39. This Option Will   *
-ECHO *  Install Kindle Fire 2nd-bootloader + TWRP 2.4.4.0 On   *
-ECHO *  The Kindle Fire HD 7.This Option Is Only For The HD    *
-ECHO *   Series 7. Do Not Attempt This Install On An Older     *
-ECHO *                Kindle Fire Device.                      *
+ECHO *   This Option Will Install Kindle Fire 2nd-bootloader   *
+ECHO *                 + TWRP 2.4.4.0                          *
+ECHO *        This Option Is Only For The HD Series 7.         *
+ECHO *  Do Not Attempt This Install On An Older Kindle Device. *
 ECHO ***********************************************************
 echo.
 ECHO ***********************************************************
@@ -9810,7 +9811,7 @@ ECHO *     POSTENTIAL FAILURES WITH THIS 2ND BOOTLOADER.       *
 ECHO ***********************************************************
 echo.
 set /p unr=DO YOU UNDERSTAND THE RISK! (y/n) ?
-IF %unr% == n GOTO OPTION39.3
+IF %unr% == n GOTO TWRPKFHD7.3
 echo.
 COLOR 2
 echo.
@@ -9821,12 +9822,10 @@ ECHO *And You Have The Kindle Plugged In To USB Using A Normal *
 ECHO *  USB Cable To The Computer, NOT The Factory USB Cable   *
 ECHO ***********************************************************
 echo.
-set path=C:\KFFirstAide;%path%
-cd \KFFirstAide
 echo.
-CALL:yesno "Would You Like To Install Kindle Fire HD 7 2ND-Bootloader And TWRP 2.4.4.0?" OPTION39.0 OPTION39.1
+CALL:yesno "Would You Like To Install Kindle Fire HD 7 2ND-Bootloader And TWRP 2.4.4.0?" TWRPKFHD7.0 TWRPKFHD7.1
 
-:OPTION39.0
+:TWRPKFHD7.0
 echo.
 COLOR 2
 echo.
@@ -9847,7 +9846,6 @@ echo.
 adb kill-server
 adb wait-for-device
 echo.
-cd \KFFirstAide
 echo.
 ECHO ******************************************************
 ECHO * It Is Critical You Backup The Kindle Fire Prior To *
@@ -9855,12 +9853,13 @@ ECHO *          Installing This Option!                   *
 ECHO ******************************************************
 echo.
 set /p unr=Did You Backup The Kindle Fire HD 7 (y/n) ?
-IF %unr% == n GOTO OPTION17
-cd \KFFirstAide
+IF %unr% == n GOTO BACKUP-3
 echo.
 set /p unr=Do You Have A Kindle Fire HD 7 Plugged Into USB (y/n) ?
-IF %unr% == n GOTO OPTION39.1
-cd \KFFirstAide
+IF %unr% == n GOTO TWRPKFHD7.1
+mkdir kfhd7\TWRP>nul
+cd kfhd7\TWRP
+cls
 echo.
 ECHO ********************************************************
 ECHO *  Thank You For Selecting The Option To Flash TWRP    *
@@ -9874,11 +9873,24 @@ ECHO *We Are Now Querying The Download Server For The Latest*
 ECHO * Stack Override File, Please Wait.............        *
 ECHO ********************************************************
 echo.
-cd \KFFirstAide\kfhd7
-del \KFFirstAide\kfhd7\stack
 echo.
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/custom/stack
-cd \KFFirstAide\kfhd7
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/custom/stack
+..\..\wget -Ostack.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/m4cjutejb3ofu730spap.md5
+..\..\md5 "stack"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Ostack -q --no-check-certificate https://xerocomm.box.com/shared/static/xy2zmkdaghiwc615ie1d
+)
+..\..\md5 "stack"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 echo.
 ECHO ******************************************************
 ECHO *  Ok, Here We Go, We Are Now Installing The Stack   *
@@ -9888,10 +9900,9 @@ ECHO *  The Kindle Temp Directory. If You See Any Errors  *
 ECHO *        Please Post Them In Our Thread.             *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide\kfhd7
 adb shell su -c "rm -r /data/local/tmp"
 adb shell su -c "mkdir /data/local/tmp"
-adb push \KFFirstAide\kfhd7\stack /data/local/tmp/.
+adb push stack /data/local/tmp/.
 adb shell su -c "dd if=/data/local/tmp/stack of=/dev/block/platform/omap/omap_hsmmc.1/by-name/system bs=6519488 seek=1"
 echo.
 ECHO *******************************************************
@@ -9910,8 +9921,23 @@ ECHO *  Push The Kindle Fire Original OS 7.2.3 - This May  *
 ECHO *          Take A While, Please Wait......            *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide\kfhd7
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/kfhd7-amazon-os-7.2.3.zip
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/kfhd7-amazon-os-7.2.3.zip
+..\..\wget -Okfhd7-amazon-os-7.2.3.zip.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/7zeie9okxos5d25y6rh8.img
+..\..\md5 "kfhd7-amazon-os-7.2.3.zip"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Okfhd7-amazon-os-7.2.3.zip -q --no-check-certificate https://xerocomm.box.com/shared/static/qyvtkcxmj30glsqbsn1c.zip
+)
+..\..\md5 "kfhd7-amazon-os-7.2.3.zip"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
 echo.
 ECHO *******************************************************
 ECHO *We Are Done With The Download, Now We Will Push It To*
@@ -9919,8 +9945,7 @@ ECHO *  The Kindle SD Card. This May Take A While, Please  *
 ECHO *           Wait..................                    *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide\kfhd7
-adb push \KFFirstAide\kfhd7\kfhd7-amazon-os-7.2.3.zip /data/local/.
+adb push kfhd7-amazon-os-7.2.3.zip /data/local/.
 echo.
 ECHO *******************************************************
 ECHO *OK, Now We Are Going To Reboot The Kindle And Have It*
@@ -9929,56 +9954,90 @@ ECHO *   Will Flash The New TWRP Recovery And Freedom      *
 ECHO *                 Bootloader.                         *
 ECHO *******************************************************
 echo.
+adb kill-server
+adb wait-for-device
+echo.
+adb shell su -c "reboot bootloader"
 ECHO *******************************************************
 ECHO * The Kindle Is Now Rebooting Into Fastboot...........*
 ECHO *******************************************************
 echo.
 echo.
-ECHO ********************************************************
-ECHO * Power Off The Kindle Fire HD 7 By Pressing The Power *
-ECHO *Button Until The Kindle Shows Shutdown, Then Shutdown *
-ECHO *    The Kindle. This Is A Very Important Step!        *
-ECHO ********************************************************
-echo.
-set /p unr=Is The Kindle Fire HD 7 Powered Off (y/n) ?
-IF %unr% == n GOTO OPTION39.2
+REM ECHO ********************************************************
+REM ECHO * Power Off The Kindle Fire HD 7 By Pressing The Power *
+REM ECHO *Button Until The Kindle Shows Shutdown, Then Shutdown *
+REM ECHO *    The Kindle. This Is A Very Important Step!        *
+REM ECHO ********************************************************
+REM echo.
+set /p unr=Is The Kindle Fire HD 7 Displaying the Fastboot Logo (y/n) ?
+IF %unr% == n GOTO TWRPKFHD7.1
 echo.
 ECHO *******************************************************
 ECHO *  We Are Now Downloading The Latest Version Of The   *
 ECHO *       Freedom Boot Image. Please Wait...........    *
 ECHO *******************************************************
 echo.
-cd \KFFirstAide\kfhd7
-del \KFFirstAide\kfhd7\kfhd7-freedom-boot.img
-wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/custom/kfhd7-freedom-boot.img
+REM wget http://dl.dropbox.com/u/54456659/kfhd-7.2.3/images/custom/kfhd7-freedom-boot.img
+..\..\wget -Okfhd7-freedom-boot.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/1wourzho3a6xyolqh16d.md5
+..\..\md5 "kfhd7-freedom-boot.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Okfhd7-freedom-boot.img -q --no-check-certificate https://xerocomm.box.com/shared/static/ybuxo3j89hgxrzdxjnep.img
+)
+..\..\md5 "kfhd7-freedom-boot.img"
+if /I '%ERRORLEVEL%' == '1' (
 echo.
-cd \KFFirstAide\kfhd7
-del \KFFirstAide\kfhd7\kfhd7-twrp-2.4.4.0-recovery.img
-wget http://dl.dropboxusercontent.com/u/54456659/kfhd-7.2.3/images/custom/kfhd7-twrp-2.4.4.0-recovery.img
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
 echo.
-ECHO *******************************************************
-ECHO *When You See <waiting for device> Please Power Up The*
-ECHO *Kindle Fire HD 7 - OK Here We Go!                    *
-ECHO *Power Up The Kindle Please..............             *
-ECHO *******************************************************
-echo.
-ECHO *******************************************************
-ECHO *We Are Now Flashing The Freedom Bootloader...........*
-ECHO *******************************************************
-echo.
-cd \KFFirstAide\kfhd7
-fastboot -i 0x1949 flash boot kfhd7-freedom-boot.img
-echo.
+CALL:sleep 5
+exit
+)
+echo .
 ECHO *******************************************************
 ECHO *  We Are Now Downloading The Latest Version Of The   *
 ECHO * TWRP 2.3.3.0 Recovery, Please Wait.............     *
 ECHO *******************************************************
 echo.
+REM wget http://dl.dropboxusercontent.com/u/54456659/kfhd-7.2.3/images/custom/kfhd7-twrp-2.4.4.0-recovery.img
+..\..\wget -Okfhd7-twrp-2.4.4.0-recovery.img.md5 -q --no-check-certificate https://xerocomm.box.com/shared/static/hbx1saesub04mnd1vxi4.img
+..\..\md5 "kfhd7-twrp-2.4.4.0-recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+..\..\wget -Okfhd7-twrp-2.4.4.0-recovery.img -q --no-check-certificate https://xerocomm.box.com/shared/static/r306ed8hpugrsenk97x0.img
+)
+..\..\md5 "kfhd7-twrp-2.4.4.0-recovery.img"
+if /I '%ERRORLEVEL%' == '1' (
+echo.
+ECHO *****************************************************
+ECHO *       File downloaded does not match MD5 Sum.     *
+ECHO *             Please try again later.               *
+ECHO *****************************************************
+echo.
+CALL:sleep 5
+exit
+)
+echo.
+ECHO *******************************************************
+ECHO *          Images downloaded successfully             *
+ECHO *******************************************************
+echo .
+REM ECHO *******************************************************
+REM ECHO *When You See <waiting for device> Please Power Up The*
+REM ECHO *Kindle Fire HD 7 - OK Here We Go!                    *
+REM ECHO *Power Up The Kindle Please..............             *
+REM ECHO *******************************************************
+REM echo.
+ECHO *******************************************************
+ECHO *We Are Now Flashing The Freedom Bootloader...........*
+ECHO *******************************************************
+echo.
+fastboot -i 0x1949 flash boot kfhd7-freedom-boot.img
+echo.
 ECHO *******************************************************
 ECHO *We Are Now Fashing TWRP 2.3.3.0......................*
 ECHO *******************************************************
 echo.
-cd \KFFirstAide\kfhd7
 fastboot -i 0x1949 flash recovery kfhd7-twrp-2.4.4.0-recovery.img
 echo.
 ECHO *******************************************************
@@ -10008,7 +10067,6 @@ ECHO * data/local. If You Have Any Questions, Please Post The  *
 ECHO *  Question In Our Thread. Thank You For Your Support!    *
 ECHO ***********************************************************
 echo.
-cd \KFFirstAide
 echo.
 PAUSE
 echo.
@@ -10016,18 +10074,35 @@ adb kill-server
 echo.
 CALL:menu
 
-:OPTION39.1
+:TWRPKFHD7.1
 echo.
 cls
 echo.
 echo.
 COLOR 2
 ECHO ******************************************************
-echo *  The Option 39 To Install 2nd-bootloader + TWRP    *
+echo *   The Option To Install 2nd-bootloader + TWRP      *
 ECHO *   On The Kindle Fire Was Canceled By The User.     *
 ECHO ******************************************************
 echo.
-cd \KFFirstAide
+echo.
+PAUSE
+echo.
+adb kill-server
+echo.
+CALL:menu
+
+:TWRPKFHD7.2
+echo.
+cls
+echo.
+echo.
+COLOR 2
+ECHO ******************************************************
+echo *   The Option To Install 2nd-bootloader + TWRP      *
+ECHO * On The Kindle Fire Failed due to Fastboot Failure. *
+ECHO ******************************************************
+echo.
 echo.
 PAUSE
 echo.
@@ -10166,7 +10241,7 @@ ECHO *    The Kindle. This Is A Very Important Step!        *
 ECHO ********************************************************
 echo.
 set /p unr=Is The Kindle Fire 2 Powered Off (y/n) ?
-IF %unr% == n GOTO OPTION39.2
+IF %unr% == n GOTO TWRPKFHD7.2
 echo.
 ECHO *******************************************************
 ECHO *When You See <waiting for device> Please Power Up The*
@@ -10355,7 +10430,7 @@ ECHO *    The Kindle. This Is A Very Important Step!        *
 ECHO ********************************************************
 echo.
 set /p unr=Is The Kindle Fire 8.9 Powered Off (y/n) ?
-IF %unr% == n GOTO OPTION39.2
+IF %unr% == n GOTO TWRPKFHD7.2
 echo.
 ECHO *******************************************************
 ECHO *When You See <waiting for device> Please Power Up The*

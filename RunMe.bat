@@ -7,13 +7,33 @@ REM   Not Designed. Do Not Attempt To Change This File In Any Way
 REM             You May Contact Us Through Email
 REM         support@canonicaldev.com - Thank You For The
 REM     Support! Phone is 707-774-5923 In The United States
-REM       This Is Revision 100 Dated 06/30/2013
-mode con:cols=90 lines=56
+REM       This Is Revision 101 Dated 06/30/2013
+
+if "%1"=="" (
+	SET VERBOSE=0
+) else (
+	if "%1"=="-v" (
+	SET VERBOSE=1
+	) else (
+		if "%1"=="-verbose" (
+		SET VERBOSE=1
+		)
+	)
+)
+
+if "%VERBOSE%"=="0" (
+	mode con:cols=90 lines=56
+) else (
+	if "%VERBOSE%"=="1" (
+	mode con:cols=90
+	)
+)
+
+REM mode con:cols=90 lines=56
 SET path=%~dp0;%path%
 
 color 2
-:menu
-cd %~dp0
+:Disclaimer
 cls
 ECHO **********************************
 ECHO * PLEASE PLUG THE USB CABLE INTO *
@@ -34,13 +54,16 @@ ECHO **********************************
 ECHO.
 set /p unr=DO YOU UNDERSTAND THIS RISK (y/n) ?
 IF %unr% == n GOTO exit
+
+:menu
+cd %~dp0
 CLS
 echo.
 color 2
 echo.
 
 ECHO --------------------------------------------------------------------
-ECHO              Kindle Fire First Aide Version 4.1.88-Beta
+ECHO              Kindle Fire First Aide Version 4.1.101-Beta
 ECHO      For The Kindle Fire HD 7, 8.9 And The Kindle Fire 2nd Gen
 ECHO            Please Choose The Device We Are Working With
 ECHO --------------------------------------------------------------------
@@ -60,17 +83,51 @@ ECHO --------------------------------------------------------------------
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO exit
-IF /I '%INPUT%'=='1' GOTO diagmenu
-IF /I '%INPUT%'=='2' GOTO kf2ndmenu
-IF /I '%INPUT%'=='3' GOTO kfhd7menu
-IF /I '%INPUT%'=='4' GOTO kfhd89menu
-IF /I '%INPUT%'=='5' GOTO rootmenu
-IF /I '%INPUT%'=='6' GOTO backupmenu
-IF /I '%INPUT%'=='7' GOTO extrasmenu
-IF /I '%INPUT%'=='8' GOTO driversmenu
-IF /I '%INPUT%'=='9' GOTO diag2menu
-IF /I '%INPUT%'=='10' GOTO bootloadermenu
+IF /I '%INPUT%'=='0' (
+	GOTO exit
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO diagmenu
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO kf2ndmenu
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO kfhd7menu
+			) else (
+				IF /I '%INPUT%'=='4' (
+					GOTO kfhd89menu
+				) else (
+					IF /I '%INPUT%'=='5' (
+						GOTO rootmenu
+					) else (
+						IF /I '%INPUT%'=='6' (
+							GOTO backupmenu
+						) else (
+							IF /I '%INPUT%'=='7' (
+								GOTO extrasmenu
+							) else (
+								IF /I '%INPUT%'=='8' (
+									GOTO driversmenu
+								) else (
+									IF /I '%INPUT%'=='9' (
+										GOTO diag2menu
+									) else (
+										IF /I '%INPUT%'=='10' (
+											GOTO bootloadermenu
+										) else (
+											GOTO menu
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+)
 REM IF /I '%INPUT%'=='10' (
 REM echo.
 REM ECHO *****************************************************
@@ -101,12 +158,31 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO TESTADB
-IF /I '%INPUT%'=='2' GOTO FASTBOOTPREFERRED
-IF /I '%INPUT%'=='3' GOTO FASTBOOTALT
-IF /I '%INPUT%'=='4' GOTO FASTBOOTSTATUS
-IF /I '%INPUT%'=='5' GOTO FASTBOOTREBOOT
+IF /I '%INPUT%'=='0' (
+GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO TESTADB
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO FASTBOOTPREFERRED
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO FASTBOOTALT
+			) else (
+				IF /I '%INPUT%'=='4' (
+					GOTO FASTBOOTSTATUS
+				) else (
+					IF /I '%INPUT%'=='5' (
+						GOTO FASTBOOTREBOOT
+					) else (
+						GOTO diagmenu
+					)
+				)
+			)
+		)
+	)
+)
 
 :kf2ndmenu
 echo.
@@ -124,9 +200,19 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO RESTOREKF2-10-2-3
-IF /I '%INPUT%'=='2' GOTO RESTOREKF2-10-2-1
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO RESTOREKF2-10-2-3
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO RESTOREKF2-10-2-1
+		) else (
+			GOTO kf2ndmenu
+		)
+	)
+)
 
 :kfhd7menu
 echo.
@@ -144,9 +230,19 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO RESTOREKFHD7-7-2-3
-IF /I '%INPUT%'=='2' GOTO RESTOREKFHD7-7-2-1
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO RESTOREKFHD7-7-2-3
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO RESTOREKFHD7-7-2-1
+		) else (
+			GOTO kfhd7menu
+		)
+	)
+)
 
 :kfhd89menu
 echo.
@@ -165,10 +261,23 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO RESTOREKFHD8-8-2-1
-IF /I '%INPUT%'=='2' GOTO RESTOREKFHD8-8-2-3
-IF /I '%INPUT%'=='3' GOTO RESTOREKFHD8-8-2-4
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO RESTOREKFHD8-8-2-1
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO RESTOREKFHD8-8-2-3
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO RESTOREKFHD8-8-2-4
+			) else (
+				GOTO kfhd89menu
+			)
+		)
+	)
+)
 
 :rootmenu
 echo.
@@ -187,10 +296,23 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO ROOT-OLD
-IF /I '%INPUT%'=='2' GOTO ROOT-PREFERRED
-IF /I '%INPUT%'=='3' GOTO UNROOT
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO ROOT-OLD
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO ROOT-PREFERRED
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO UNROOT
+			) else (
+				GOTO rootmenu
+			)
+		)
+	)
+)
 
 
 :backupmenu
@@ -205,19 +327,43 @@ ECHO ****************************************************
 
 ECHO 1.  Backup The Entire Kindle To The KindleBackup Folder        (ADB)
 ECHO 2.  Backup Three Kindle Images To The Backup Folder            (ADB)
-ECHO 3.  Erase the Kindle Cache and User Data                  (Fastboot)
-ECHO 4.  Restore The Kindle From The KindleBackup Folder       (Fastboot)
-ECHO 5.  Restore The Kindle From The Backup Folder             (Fastboot)
+ECHO 3.  Clean Backups from the Device                              (ADB)
+ECHO 4.  Erase the Kindle Cache and User Data                  (Fastboot)
+ECHO 5.  Restore The Kindle From The KindleBackup Folder       (Fastboot)
+ECHO 6.  Restore The Kindle From The Backup Folder             (Fastboot)
 ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO BACKUP-FULL
-IF /I '%INPUT%'=='2' GOTO BACKUP-3
-IF /I '%INPUT%'=='3' GOTO ERASEKINDLE
-IF /I '%INPUT%'=='4' GOTO RESTORE-FULL
-IF /I '%INPUT%'=='5' GOTO RESTORE-3
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO BACKUP-FULL
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO BACKUP-3
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO BACKUPCLEAN
+			) else (
+				IF /I '%INPUT%'=='4' (
+					GOTO ERASEKINDLE
+				) else (
+					IF /I '%INPUT%'=='5' (
+						GOTO RESTORE-FULL
+					) else (
+						IF /I '%INPUT%'=='6' (
+							GOTO RESTORE-3
+						) else (
+							GOTO backupmenu
+						)
+					)
+				)
+			)
+		)
+	)
+)
 
 :extrasmenu
 echo.
@@ -251,21 +397,67 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO OTA-DISABLE
-IF /I '%INPUT%'=='2' GOTO OTA-ENABLE
-IF /I '%INPUT%'=='3' GOTO ADS-DISABLE
-IF /I '%INPUT%'=='4' GOTO INSTALL-PLAYSTORE
-IF /I '%INPUT%'=='5' GOTO DEFAULT-PLAYSTORE
-IF /I '%INPUT%'=='6' GOTO INSTALL-GAPPS
-IF /I '%INPUT%'=='7' GOTO INSTALL-SONYAUDIO
-IF /I '%INPUT%'=='8' GOTO INSTALL-SONYVIDEO
-IF /I '%INPUT%'=='9' GOTO INSTALL-BEATS
-IF /I '%INPUT%'=='10' GOTO INSTALL-LOCK
-IF /I '%INPUT%'=='11' GOTO INSTALL-ADW
-IF /I '%INPUT%'=='12' GOTO INSTALL-HOLO
-IF /I '%INPUT%'=='13' GOTO INSTALL-BOAT
-IF /I '%INPUT%'=='14' GOTO INSTALL-VPN
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO OTA-DISABLE
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO OTA-ENABLE
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO ADS-DISABLE
+			) else (
+				IF /I '%INPUT%'=='4' (
+					GOTO INSTALL-PLAYSTORE
+				) else (
+					IF /I '%INPUT%'=='5' (
+						GOTO DEFAULT-PLAYSTORE
+					) else (
+						IF /I '%INPUT%'=='6' (
+							GOTO INSTALL-GAPPS
+						) else (
+							IF /I '%INPUT%'=='7' (
+								GOTO INSTALL-SONYAUDIO
+							) else (
+								IF /I '%INPUT%'=='8' (
+									GOTO INSTALL-SONYVIDEO
+								) else (
+									IF /I '%INPUT%'=='9' (
+										GOTO INSTALL-BEATS
+									) else (
+										IF /I '%INPUT%'=='10'
+											GOTO INSTALL-LOCK
+										) else (
+											IF /I '%INPUT%'=='11' (
+												GOTO INSTALL-ADW
+											) else (
+												IF /I '%INPUT%'=='12' (
+													GOTO INSTALL-HOLO
+												) else (
+													IF /I '%INPUT%'=='13' (
+														GOTO INSTALL-BOAT
+													) else (
+														IF /I '%INPUT%'=='14' (
+															GOTO INSTALL-VPN
+														) else (
+															GOTO extrasmenu
+														)
+													)
+												)
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+)
 
 :driversmenu
 echo.
@@ -283,9 +475,19 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO DRIVER-PREFERRED
-IF /I '%INPUT%'=='2' GOTO DRIVER-ALT
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO DRIVER-PREFERRED
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO DRIVER-ALT
+		) else (
+			GOTO driversmenu
+		)
+	)
+)
 
 :diag2menu
 echo.
@@ -311,13 +513,35 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='0' GOTO menu
-IF /I '%INPUT%'=='1' GOTO FIX-PERMISSIONS
-IF /I '%INPUT%'=='2' GOTO FIX-FLASHING
-IF /I '%INPUT%'=='3' GOTO UPGRADE-SU
-IF /I '%INPUT%'=='4' GOTO UPGRADE-BUSYBOX
-IF /I '%INPUT%'=='5' GOTO INSTALL-CHAINFIRE
-IF /I '%INPUT%'=='6' GOTO FIX-INSTALLATION
+IF /I '%INPUT%'=='0' (
+	GOTO menu
+) else (
+	IF /I '%INPUT%'=='1' (
+		GOTO FIX-PERMISSIONS
+	) else (
+		IF /I '%INPUT%'=='2' (
+			GOTO FIX-FLASHING
+		) else (
+			IF /I '%INPUT%'=='3' (
+				GOTO UPGRADE-SU
+			) else (
+				IF /I '%INPUT%'=='4' (
+					GOTO UPGRADE-BUSYBOX
+				) else (
+					IF /I '%INPUT%'=='5' (
+						GOTO INSTALL-CHAINFIRE
+					) else (
+						IF /I '%INPUT%'=='6' (
+							GOTO FIX-INSTALLATION
+						) else (
+							GOTO diag2menu
+						)
+					)
+				)
+			)
+		)
+	)
+)
 
 :bootloadermenu
 echo.
@@ -336,12 +560,13 @@ ECHO 0.  [Back to Menu]
 
 SET INPUT=
 SET /P INPUT=Select an option:
-IF /I '%INPUT%'=='1' GOTO TWRPKFHD7
 IF /I '%INPUT%'=='0' GOTO menu
+IF /I '%INPUT%'=='1' GOTO TWRPKFHD7
+
 
 :RESTOREKF2-10-2-3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -363,7 +588,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire 2 To 10.2.3?" RESTOREKF2-1
 
 :RESTOREKF2-10-2-3.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -375,7 +600,7 @@ ECHO ***********************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -384,7 +609,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKF2-10-2-3.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -398,7 +623,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKF2-10
 
 :RESTOREKF2-10-2-3.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -410,7 +635,7 @@ ECHO *****************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -419,7 +644,7 @@ CALL:yesno "Are You Ready? The Kindle Fire 2 7 Must Be Power On To The Desktop."
 
 :RESTOREKF2-10-2-3.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -465,13 +690,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKF2-10-2-3.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 color 2
 echo.
@@ -481,7 +706,7 @@ REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -571,7 +796,7 @@ ECHO ***************************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -591,7 +816,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -611,13 +836,13 @@ adb kill-server
 echo.
 cd %~dp0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKF2-10-2-3.5
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -633,13 +858,13 @@ adb kill-server
 echo.
 cd %~dp0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKF2-10-2-1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -661,7 +886,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire HD 2 7 To 10.2.1?" RESTORE
 
 :RESTOREKF2-10-2-1.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 color 2
 echo.
@@ -681,7 +906,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKF2-10-2-1.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -694,7 +919,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKF2-10
 
 :RESTOREKF2-10-2-1.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -706,7 +931,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -715,7 +940,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTORE
 
 :RESTOREKF2-10-2-1.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -761,21 +986,21 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 
 :RESTOREKF2-10-2-1.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 COLOR 2
 mkdir kf2\10.2.1 2> nul
 cd kf2\10.2.1
 REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -865,7 +1090,7 @@ ECHO ***************************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -890,7 +1115,7 @@ ECHO *Restored To Software Version 10.2.1 *
 ECHO **************************************
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -915,13 +1140,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKF2-10-2-1.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -935,13 +1160,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD7-7-2-3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -963,7 +1188,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.3?" RESTOREKFH
 
 :RESTOREKFHD7-7-2-3.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -983,7 +1208,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKFHD7-7-2-3.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -996,7 +1221,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD7-
 
 :RESTOREKFHD7-7-2-3.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1008,7 +1233,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -1017,7 +1242,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop!" RESTOR
 
 :RESTOREKFHD7-7-2-3.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1062,13 +1287,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD7-7-2-3.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 COLOR 2
 echo.
 mkdir kfhd7\7.2.3 2>nul
@@ -1077,7 +1302,7 @@ REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -1168,7 +1393,7 @@ ECHO ***************************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1195,7 +1420,7 @@ ECHO ************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1220,13 +1445,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD7-7-2-3.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -1241,13 +1466,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD7-7-2-1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1269,7 +1494,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire HD 7 To 7.2.1?" RESTOREKFH
 
 :RESTOREKFHD7-7-2-1.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1290,7 +1515,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKFHD7-7-2-1.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1304,7 +1529,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD7-
 
 :RESTOREKFHD7-7-2-1.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1316,7 +1541,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -1325,7 +1550,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOR
 
 :RESTOREKFHD7-7-2-1.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1371,7 +1596,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
@@ -1379,7 +1604,7 @@ CALL:menu
 
 :RESTOREKFHD7-7-2-1.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 color 2
 mkdir kfhd7\7.2.1 2>nul
 cd kfhd7\7.2.1
@@ -1387,7 +1612,7 @@ REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -1469,7 +1694,7 @@ exit
 )
 
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1497,7 +1722,7 @@ ECHO * Restored To Software Version 7.2.1*
 ECHO *************************************
 echo.
 PAUSE
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1521,13 +1746,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD7-7-2-1.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -1543,13 +1768,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD8-8-2-1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1571,7 +1796,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKFHD8-8-2-1.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1591,7 +1816,7 @@ CALL:yesno "Are You Sure? This Operation Can Not Be Reversed!" RESTOREKFHD8-8-2-
 
 :RESTOREKFHD8-8-2-1.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1605,7 +1830,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-
 
 :RESTOREKFHD8-8-2-1.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1617,7 +1842,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -1626,7 +1851,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop" RESTORE
 
 :RESTOREKFHD8-8-2-1.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1673,14 +1898,14 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 
 :RESTOREKFHD8-8-2-1.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 color 2
 mkdir kfhd8\8.2.1 2>nul
 cd kfhd8\8.2.1
@@ -1688,7 +1913,7 @@ REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -1776,7 +2001,7 @@ ECHO *I Have Fetched The system.img - I Am Ready To Flash The 3 Images..........
 ECHO ****************************************************************************************
 echo.
 PAUSE
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1804,7 +2029,7 @@ ECHO ************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -1823,12 +2048,12 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 CALL:menu
 
 :RESTOREKFHD8-8-2-1.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -1844,13 +2069,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD8-8-2-3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1872,7 +2097,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.3?" RESTOREK
 
 :RESTOREKFHD8-8-2-3.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -1893,7 +2118,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKFHD8-8-2-3.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1907,7 +2132,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-
 
 :RESTOREKFHD8-8-2-3.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -1922,7 +2147,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -1931,7 +2156,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOR
 
 :RESTOREKFHD8-8-2-3.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -1977,14 +2202,14 @@ echo.
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 
 :RESTOREKFHD8-8-2-3.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 COLOR 2
 echo.
 mkdir kfhd8\8.2.3 2>nul
@@ -1993,7 +2218,7 @@ REM del \KFFirstAide\boot-prod.img
 REM del \KFFirstAide\recovery-prod.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -2082,7 +2307,7 @@ ECHO ***************************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -2110,7 +2335,7 @@ ECHO ************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -2129,13 +2354,13 @@ echo.
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD8-8-2-3.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -2150,13 +2375,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD8-8-2-4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2179,7 +2404,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire HD 8.9 To 8.2.4?" RESTOREK
 
 :RESTOREKFHD8-8-2-4.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -2199,7 +2424,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :RESTOREKFHD8-8-2-4.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2213,7 +2438,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTOREKFHD8-
 
 :RESTOREKFHD8-8-2-4.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2229,7 +2454,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 4
 echo.
@@ -2237,7 +2462,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." RESTOR
 
 :RESTOREKFHD8-8-2-4.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2283,14 +2508,14 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 
 :RESTOREKFHD8-8-2-4.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 COLOR 2
 mkdir kfhd8\8.2.4 2>nul
 cd kfhd8\8.2.4
@@ -2298,7 +2523,7 @@ REM del \KFFirstAide\boot.img
 REM del \KFFirstAide\recovery.img
 REM del \KFFirstAide\system.img
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -2387,7 +2612,7 @@ ECHO ***************************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -2416,7 +2641,7 @@ ECHO ************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -2430,7 +2655,7 @@ ECHO *Do Not Forget To Disable OTA Before Connecting To It To Wireless*
 ECHO ******************************************************************
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -2439,13 +2664,13 @@ COLOR 2
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :RESTOREKFHD8-8-2-4.6
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -2459,13 +2684,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :ERASEKINDLE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2493,7 +2718,7 @@ CALL:yesno "Would You Like To Wipe The User Data And Cache On The Kindle Fire?" 
 
 :ERASEKINDLE.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 4
@@ -2513,7 +2738,7 @@ CALL:yesno "Are You Sure You Want To Proceed? This Operation Wipes The User Data
 
 :ERASEKINDLE.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2527,7 +2752,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" ERASEKINDLE.2
 
 :ERASEKINDLE.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2539,7 +2764,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -2548,7 +2773,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered On To The Desktop." ERASEK
 
 :ERASEKINDLE.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 ECHO *************************************************
@@ -2593,13 +2818,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :ERASEKINDLE.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2625,13 +2850,13 @@ echo.
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :ERASEKINDLE.5
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2646,13 +2871,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTSTATUS
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2675,7 +2900,7 @@ CALL:yesno "Is The Kindle Powered On And Plugged Into USB?" FASTBOOTSTATUS.0 FAS
 
 :FASTBOOTSTATUS.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2708,13 +2933,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTSTATUS.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2730,13 +2955,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTREBOOT
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2761,7 +2986,7 @@ CALL:yesno "Would You Like To Reboot The Kindle Out Of Fastboot?" FASTBOOTREBOOT
 
 :FASTBOOTREBOOT.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2788,13 +3013,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTREBOOT.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2809,13 +3034,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :testadb
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2847,12 +3072,12 @@ CALL:yesno "Would You Like To Test ADB On The Kindle Fire?" testadb.1 menu
 :testadb.1
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 setlocal
 del device.txt >nul 2>&1
 adb kill-server
@@ -2880,7 +3105,7 @@ ECHO *******************************************
 del device.txt
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -2889,7 +3114,7 @@ CALL:menu
 :DRIVER-PREFERRED
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -2912,7 +3137,7 @@ CALL:yesno "Would You Like To Install The Amazon ADB And Fastboot Driver?" DRIVE
 
 :DRIVER-PREFERRED.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2954,13 +3179,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :DRIVER-PREFERRED.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -2975,14 +3200,14 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :BACKUP-FULL
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3005,7 +3230,7 @@ CALL:yesno "Would You Like To Perform A Full Backup Using Option 13?" BACKUP-FUL
 
 :BACKUP-FULL.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3043,9 +3268,7 @@ echo.
 adb shell su -c "ls /system/xbin/busybox"
 if %errorlevel% == 1 goto BACKUP-FULL.2
 adb shell su -c "rm -R /data/local/kindlebackup"
-ECHO Please Ignore Any Errors Above This Line
-mkdir KindleBackup 2>nul
-cd KindleBackup
+ECHO Please Ignore Any Errors Above This Line, and any relating to 'media_rw'
 
 adb shell su -c "mkdir /data/local/kindlebackup"
 adb shell su -c "busybox chown media_rw.media_rw /data/local/kindlebackup"
@@ -3139,6 +3362,7 @@ ECHO *             Your USB Subsystem............                  *
 ECHO ***************************************************************
 echo.
 echo.
+cd %~dp0
 mkdir KindleBackup 2>nul
 cd KindleBackup
 adb pull /data/local/kindlebackup/xloader.img
@@ -3168,13 +3392,13 @@ echo.
 PAUSE
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :BACKUP-FULL.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3189,13 +3413,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :BACKUP-FULL.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3242,7 +3466,7 @@ CALL:BACKUP-FULL.0
 
 :OTA-DISABLE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3265,7 +3489,7 @@ CALL:yesno "Would You Like To Disable The Amazon OTA Updates?" OTA-DISABLE.0 OTA
 
 :OTA-DISABLE.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3346,7 +3570,7 @@ CALL:menu
 
 :OTA-DISABLE.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3361,14 +3585,14 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :OTA-DISABLE.2
 echo.
 cd root
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3416,7 +3640,7 @@ CALL:OTA-DISABLE.0
 
 :FASTBOOTPREFERRED
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3434,7 +3658,7 @@ ECHO **************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -3443,7 +3667,7 @@ CALL:yesno "Would You Like To Enable Fastboot Using Method One?" FASTBOOTPREFERR
 
 :FASTBOOTPREFERRED.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3489,13 +3713,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTPREFERRED.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3510,13 +3734,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FASTBOOTALT
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3556,7 +3780,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be Powered Off And Accessible." FASTB
 
 :FASTBOOTALT.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3605,7 +3829,7 @@ CALL:menu
 
 :FASTBOOTALT.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3620,13 +3844,14 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :BACKUP-3
 echo.
-cls
+cd %~dp0
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -3648,7 +3873,7 @@ CALL:yesno "Would You Like To Backup The Kindle Fire Using Option 17 Backup?" BA
 
 :BACKUP-3.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3693,8 +3918,6 @@ adb shell su -c "mkdir /data/local/backup"
 adb shell su -c "busybox chown media_rw.media_rw /data/local/backup"
 adb shell su -c "busybox chmod 777 /data/local/backup"
 echo.
-mkdir Backup 2>nul
-cd Backup
 echo.
 ECHO I Am Backing Up Partition 9 (recovery)
 ECHO ***************************
@@ -3724,6 +3947,8 @@ ECHO *             Your USB Subsystem............                  *
 ECHO ***************************************************************
 echo.
 echo.
+mkdir Backup 2>nul
+cd Backup
 adb pull /data/local/backup/stock-boot.img
 adb pull /data/local/backup/stock-recovery.img
 adb pull /data/local/backup/stock-system.img
@@ -3762,7 +3987,7 @@ CALL:menu
 
 :BACKUP-3.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3777,13 +4002,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :BACKUP-3.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3796,8 +4021,8 @@ echo.
 cd root
 REM del \KFFirstAide\busybox
 REM del \KFFirstAide\Busybox_Installer_4.1.apk
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
-wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -3830,9 +4055,86 @@ adb kill-server
 echo.
 CALL:BACKUP-3.0
 
+:BACKUPCLEAN
+echo.
+cd %~dp0
+if "%VERBOSE%"=="0" CLS
+echo.
+COLOR 2
+echo.
+ECHO *********************************************************************
+ECHO *        This Option will Clean the Backups from the Device,        *
+ECHO *         potentially freeing up over a GB of storage space.        *
+ECHO *********************************************************************
+echo.
+echo.
+COLOR 2
+echo.
+CALL:yesno "Would You Like To Clean the Backups from the Device?" BACKUPCLEAN.0 BACKUPCLEAN.1
+
+:BACKUPCLEAN.0
+if "%VERBOSE%"=="0" CLS
+echo.
+ECHO *********************************************************************
+ECHO *        Removing 'kindlebackup' folder from device, and all        *
+ECHO *                  backup files contained within.                   *
+ECHO *********************************************************************
+echo.
+adb shell su -c "rm -rf /data/local/kindlebackup"
+call:sleep 10
+echo.
+ECHO *********************************************************************
+ECHO *      Checking removal. If you see 'No such file or directory,'    *
+ECHO *                the process completed sucessfully.                 *
+ECHO *********************************************************************
+echo.
+set /p unr=Did you see this message (y/n) ?
+IF %unr% == y (
+echo.
+ECHO *********************************************************************
+ECHO *    Backups removed. Rebooting device to update storage contents.  *
+ECHO *********************************************************************
+echo.
+adb shell su -c "reboot"
+) else (
+echo.
+ECHO *********************************************************************
+ECHO *       Backup removal failed.  Are you successfully rooted?        *
+ECHO *********************************************************************
+echo.
+)
+adb kill-server
+PAUSE
+if "%VERBOSE%"=="0" CLS
+echo.
+CALL:menu
+
+
+:BACKUPCLEAN.1
+echo.
+if "%VERBOSE%"=="0" CLS
+echo.
+echo.
+COLOR 2
+echo.
+ECHO *************************************************
+ECHO *      The Operation To Clean the Backups       *
+ECHO *               from the Device                 *
+ECHO *           Was Canceled By The User!           *
+ECHO *************************************************
+echo.
+echo.
+PAUSE
+echo.
+adb kill-server
+echo.
+if "%VERBOSE%"=="0" CLS
+echo.
+CALL:menu
+
 :INSTALL-PLAYSTORE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -3853,7 +4155,7 @@ CALL:yesno "Would You Like To Install Google play Store Version 3.10.10?" INSTAL
 
 :INSTALL-PLAYSTORE.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4114,7 +4416,7 @@ CALL:menu
 
 :INSTALL-PLAYSTORE.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4129,13 +4431,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :INSTALL-PLAYSTORE.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -4147,8 +4449,8 @@ echo.
 cd root
 REM del \KFFirstAide\busybox
 REM del \KFFirstAide\Busybox_Installer_4.1.apk
-wget http://dl.dropbox.com/u/54456659/busybox/busybox
-wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
+REM wget http://dl.dropbox.com/u/54456659/busybox/busybox
+REM wget http://dl.dropbox.com/u/54456659/busybox/Busybox_Installer_4.1.apk
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
 adb shell su -c "mkdir /data/local/tmp"
@@ -4184,7 +4486,7 @@ CALL:INSTALL-PLAYSTORE.0
 
 :OTA-ENABLE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -4205,7 +4507,7 @@ CALL:yesno "Would You Like To Selectively Enable OTA Updates?" OTA-ENABLE.0 OTA-
 
 :OTA-ENABLE.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4455,7 +4757,7 @@ CALL:menu
 
 :OTA-ENABLE.15
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4470,13 +4772,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :OTA-ENABLE.16
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4525,7 +4827,7 @@ CALL:OTA-ENABLE.0
 
 :ROOT-OLD
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO *********************************************************
@@ -4551,7 +4853,7 @@ ECHO ***********************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ******************************************************
 ECHO *We Are Now Beginning The Root Process, Please Wait. *
@@ -4645,7 +4947,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *******************************************************
 ECHO *Looks Good! Root Permissions Are Successfully Granted*
@@ -4718,7 +5020,7 @@ CALL:menu
 
 :ROOT-OLD.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -4741,7 +5043,7 @@ CALL:menu
 
 :ROOT-PREFERRED
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *Thank You For Selecting Preferred To Root The Kindle This*
@@ -4761,7 +5063,7 @@ CALL:yesno "Are You Sure You Would Like To Root The Kindle Fire Using Preferred 
 :ROOT-PREFERRED.0
 echo.
 cd root
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -4894,7 +5196,7 @@ CALL:ROOT-PREFERRED.2
 
 :ROOT-PREFERRED.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -4960,7 +5262,7 @@ CALL:ROOT-PREFERRED.2
 
 :ROOT-PREFERRED.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5036,7 +5338,7 @@ CALL:menu
 
 :ROOT-PREFERRED.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -5092,7 +5394,7 @@ CALL:menu
 
 :ROOT-PREFERRED.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5113,7 +5415,7 @@ CALL:menu
 
 :UNROOT
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************************
 ECHO *Thank You For Selecting UNROOT. This Option will Remove*
@@ -5135,7 +5437,7 @@ CALL:yesno "Are You Sure You Would Like To Remove Root From The Kindle Fire?" UN
 :UNROOT.0
 cd root
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -5247,7 +5549,7 @@ CALL:menu
 
 :UNROOT.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5267,7 +5569,7 @@ CALL:menu
 
 :UNROOT.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5317,7 +5619,7 @@ CALL:UNROOT.0
 
 :INSTALL-GAPPS
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *******************************************************
 ECHO * Thank You For Selecting Option 23. This Option Will *
@@ -5339,7 +5641,7 @@ CALL:yesno "Would You Like To Install Google Apps With AVIC Alice Speech Recogni
 
 :INSTALL-GAPPS.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -5584,7 +5886,7 @@ GOTO menu
 
 :INSTALL-GAPPS.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -5858,7 +6160,7 @@ GOTO menu
 
 :INSTALL-GAPPS.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5878,7 +6180,7 @@ CALL:menu
 
 :INSTALL-GAPPS.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -5928,7 +6230,7 @@ CALL:INSTALL-GAPPS.0
 
 :DRIVER-ALT
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ******************************************************
 ECHO *Thank You For Selecting Option 24. This Option Will *
@@ -5952,7 +6254,7 @@ CALL:yesno "Would You Like To Install Alternate ADB Driver From Amazon?" DRIVER-
 
 :DRIVER-ALT.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -5995,7 +6297,7 @@ CALL:menu
 
 :DRIVER-ALT.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -6015,7 +6317,7 @@ CALL:menu
 
 :RESTORE-FULL
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6056,7 +6358,7 @@ echo.
 COLOR 4
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6069,7 +6371,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Fire Into Fastboot?" RESTORE-
 
 :RESTORE-FULL.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -6081,7 +6383,7 @@ ECHO ******************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 4
@@ -6090,7 +6392,7 @@ CALL:yesno "Are You Ready? The Kindle Must Be On!" RESTORE-FULL.2 RESTORE-FULL.1
 
 :RESTORE-FULL.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 ECHO *************************************************
@@ -6121,7 +6423,7 @@ CALL:menu
 
 :RESTORE-FULL.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6181,7 +6483,7 @@ CALL:yesno "Are You Ready To Begin The Selective Restore?" RESTORE-FULL.5 RESTOR
 
 :RESTORE-FULL.5
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 set /p unr=Would You Like To Restore The Xloader Partition (y/n) ?
@@ -6305,7 +6607,7 @@ CALL:RESTORE-FULL.16
 :RESTORE-FULL.16
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -6318,7 +6620,7 @@ ECHO **************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -6338,7 +6640,7 @@ CALL:menu
 
 :RESTORE-FULL.17
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -6354,7 +6656,7 @@ CALL:menu
 
 :RESTORE-3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6372,7 +6674,7 @@ CALL:yesno "Would You Like To Restore The Kindle Fire From A 3 File Backup?" RES
 
 :RESTORE-3.0
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6386,7 +6688,7 @@ CALL:yesno "Would You Like Us To Reboot The Kindle Into Fastboot?" RESTORE-3.2 R
 
 :RESTORE-3.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 ECHO *************************************************
@@ -6432,7 +6734,7 @@ CALL:RESTORE-3.2
 :RESTORE-3.2
 cd Backup
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -6505,7 +6807,7 @@ echo.
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -6525,7 +6827,7 @@ CALL:menu
 
 :RESTORE-3.7
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 color 2
@@ -6542,7 +6844,7 @@ CALL:menu
 
 :INSTALL-SONYAUDIO
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO **************************************************************
 ECHO *Thank You For Selecting Option 27. This Option Will Install *
@@ -6573,7 +6875,7 @@ CALL:yesno "Would You Like To Install Sony xLoud And ClearAudio+ Applications On
 :INSTALL-SONYAUDIO.0
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -6638,7 +6940,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO *************************************************************
@@ -6732,7 +7034,7 @@ ECHO *****************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -6741,7 +7043,7 @@ CALL:menu
 
 :INSTALL-SONYAUDIO.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -6759,7 +7061,7 @@ CALL:menu
 
 :INSTALL-SONYAUDIO.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -6809,7 +7111,7 @@ CALL:INSTALL-SONYAUDIO.0
 
 :INSTALL-SONYVIDEO
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************************************
 ECHO *Thank You For Selecting Option 28. This Option Will Install*
@@ -6835,7 +7137,7 @@ CALL:yesno "Would You Like To Install Sony BRAVIA Engine 2 On The Kindle Fire?" 
 :INSTALL-SONYVIDEO.0
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *******************************************************
 ECHO *Here We Go, We Are Now Preparing The Kindle To Accept*
@@ -6896,7 +7198,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO *******************************************************
@@ -6990,7 +7292,7 @@ GOTO menu
 
 :INSTALL-SONYVIDEO.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7008,7 +7310,7 @@ CALL:menu
 
 :INSTALL-SONYVIDEO.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7058,7 +7360,7 @@ CALL:INSTALL-SONYVIDEO.0
 
 :INSTALL-BEATS
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO **************************************************************
 ECHO *Thank You For Selecting Option 29. This Option Will Install *
@@ -7089,7 +7391,7 @@ CALL:yesno "Would You Like To Install Pimp My Beats© On The Kindle Fire?" INSTA
 :INSTALL-BEATS.0
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -7505,7 +7807,7 @@ GOTO menu
 
 :INSTALL-BEATS.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7523,7 +7825,7 @@ CALL:menu
 
 :INSTALL-BEATS.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7572,7 +7874,7 @@ CALL:INSTALL-BEATS.0
 
 :INSTALL-LOCK
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -7601,7 +7903,7 @@ CALL:yesno "Would You Like To Install No Lock And Magic Locker?" INSTALL-LOCK.0 
 :INSTALL-LOCK.0
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -7669,7 +7971,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO **********************************************************
@@ -7719,7 +8021,7 @@ ECHO *             Made This Change.                      *
 ECHO ******************************************************
 echo.
 PAUSE
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO ****************************************************
@@ -7754,7 +8056,7 @@ ECHO ***********************************************************************
 echo.
 PAUSE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO **************************************************************
 ECHO *OK, Now Let's Install A Theme Into Magic Locker. First Open *
@@ -7780,7 +8082,7 @@ echo.
 PAUSE
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -7788,7 +8090,7 @@ GOTO menu
 
 :INSTALL-LOCK.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7806,7 +8108,7 @@ CALL:menu
 
 :INSTALL-LOCK.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -7855,7 +8157,7 @@ CALL:INSTALL-LOCK.0
 
 :FIX-PERMISSIONS
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************************************
 ECHO *Thank You For Selecting Option 31. This Option Will Deploy *
@@ -7881,7 +8183,7 @@ CALL:yesno "Would You Like To Fix The Android Permissions And Anomalies?" FIX-PE
 :FIX-PERMISSIONS.0
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -7951,7 +8253,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************
 ECHO *We Are Now Restoring The Appearance*
@@ -8004,13 +8306,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 GOTO menu
 
 :FIX-PERMISSIONS.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8037,7 +8339,7 @@ CALL:menu
 
 :FIX-PERMISSIONS.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8086,7 +8388,7 @@ CALL:FIX-PERMISSIONS.0
 
 :ADS-DISABLE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************************************
 ECHO *Thank You For Selecting Option 32. This Option Will Remove *
@@ -8112,7 +8414,7 @@ CALL:yesno "Would You Like To Disable The Amazon Ad Services?" ADS-DISABLE.0 ADS
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -8179,7 +8481,7 @@ adb kill-server
 adb start-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO **********************************************************
 ECHO *                     We Are Now                         *
@@ -8230,13 +8532,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :ADS-DISABLE.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8254,7 +8556,7 @@ CALL:menu
 
 :ADS-DISABLE.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8306,7 +8608,7 @@ CALL:ADS-DISABLE.0
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************************************
 ECHO *Thank You For Selecting Option 33. This Option Will Disable*
@@ -8335,7 +8637,7 @@ CALL:yesno "Would You Like To Make Google Play Store Your Default Market?" DEFAU
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -8387,7 +8689,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO ***********************************************************
@@ -8437,13 +8739,13 @@ echo.
 adb kill-server
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :DEFAULT-PLAYSTORE.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8461,7 +8763,7 @@ CALL:menu
 
 :DEFAULT-PLAYSTORE.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8502,7 +8804,7 @@ CALL:DEFAULT-PLAYSTORE.0
 
 :INSTALL-ADW
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *************************************************************
 ECHO *Thank You For Selecting Option 34. This Option Will Install*
@@ -8529,7 +8831,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -8593,7 +8895,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Do You Want To Install ADW Launcher (y/n) ?
 IF %unr% == n GOTO INSTALL-ADW.1
@@ -8644,7 +8946,7 @@ adb shell su -c "mkdir /data/local/tmp"
 adb shell su -c "busybox mount -o remount,ro ext4 /system"
 adb shell su -c "mount -o ro,remount /dev/block/mmcblk0p1 /system"
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO ***********************************************
@@ -8677,7 +8979,7 @@ echo.
 PAUSE
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -8685,7 +8987,7 @@ CALL:menu
 
 :INSTALL-ADW.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8734,7 +9036,7 @@ CALL:INSTALL-ADW.0
 
 :INSTALL-ADW.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -8763,7 +9065,7 @@ CALL:menu
 :INSTALL-HOLO
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ****************************************************************
 ECHO * Thank You For Selecting Option 35. This Option Will Install  *
@@ -8789,7 +9091,7 @@ CALL:yesno "Would You Like To Install Holo Launcher HD v2.0.2 Stable Version?" I
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -8856,7 +9158,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Do You Want To Install Holo Launcher (y/n) ?
 IF %unr% == n GOTO INSTALL-ADW.1
@@ -8927,7 +9229,7 @@ ECHO *     Launcher As Your Default Launcher       *
 ECHO ***********************************************
 echo.
 PAUSE
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***************************************************
 ECHO *The Holo Launcher Has Successfully Been Installed*
@@ -8943,7 +9245,7 @@ echo.
 PAUSE
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -8951,7 +9253,7 @@ CALL:menu
 
 :INSTALL-HOLO.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9000,7 +9302,7 @@ CALL:INSTALL-HOLO.0
 
 :INSTALL-HOLO.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9028,7 +9330,7 @@ CALL:menu
 
 :INSTALL-BOAT
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 36. This Option Will   *
@@ -9055,7 +9357,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -9121,7 +9423,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO **********************************************************
@@ -9168,7 +9470,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***************************************************
 ECHO *The Boat Browser And Instagram Has Been Installed*
@@ -9184,7 +9486,7 @@ echo.
 PAUSE
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -9192,7 +9494,7 @@ CALL:menu
 
 :INSTALL-BOAT.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9210,7 +9512,7 @@ CALL:menu
 
 :INSTALL-BOAT.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9259,7 +9561,7 @@ CALL:INSTALL-BOAT.0
 
 :INSTALL-VPN
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 37. This Option Will   *
@@ -9287,7 +9589,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -9353,7 +9655,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 ECHO ***********************************************************
@@ -9392,7 +9694,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***************************************************
 ECHO * The VPN And SIP/VoIP Client Software Has Been   *
@@ -9403,7 +9705,7 @@ echo.
 PAUSE
 echo.
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb kill-server
 echo.
@@ -9411,7 +9713,7 @@ CALL:menu
 
 :INSTALL-VPN.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9429,7 +9731,7 @@ CALL:menu
 
 :INSTALL-VPN.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9478,7 +9780,7 @@ CALL:INSTALL-VPN.0
 
 :FIX-INSTALLATION
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 38. This Option Will   *
@@ -9505,7 +9807,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -9562,7 +9864,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 set /p unr=Do You Have A Kindle Fire 2 (y/n) ?
@@ -9625,7 +9927,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
@@ -9633,7 +9935,7 @@ CALL:menu
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Do You Have A Kindle Fire HD 7 (y/n) ?
 IF %unr% == n GOTO FIX-INSTALLATION.2
@@ -9695,7 +9997,7 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
@@ -9703,7 +10005,7 @@ CALL:menu
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Do You Have A Kindle Fire HD 8.9 (y/n) ?
 IF %unr% == n GOTO FIX-INSTALLATION.3
@@ -9765,13 +10067,13 @@ PAUSE
 echo.
 adb kill-server
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 CALL:menu
 
 :FIX-INSTALLATION.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -9790,7 +10092,7 @@ CALL:menu
 :TWRPKFHD7
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   This Option Will Install Kindle Fire 2nd-bootloader   *
@@ -9829,7 +10131,7 @@ CALL:yesno "Would You Like To Install Kindle Fire HD 7 2ND-Bootloader And TWRP 2
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -9859,7 +10161,7 @@ set /p unr=Do You Have A Kindle Fire HD 7 Plugged Into USB (y/n) ?
 IF %unr% == n GOTO TWRPKFHD7.1
 mkdir kfhd7\TWRP>nul
 cd kfhd7\TWRP
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ********************************************************
 ECHO *  Thank You For Selecting The Option To Flash TWRP    *
@@ -10076,7 +10378,7 @@ CALL:menu
 
 :TWRPKFHD7.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10094,7 +10396,7 @@ CALL:menu
 
 :TWRPKFHD7.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10112,7 +10414,7 @@ CALL:menu
 
 :OPTION40
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 40. This Option Will   *
@@ -10155,7 +10457,7 @@ CALL:yesno "Would You Like To Install Kindle Fire 2 2ND-Bootloader And TWRP 2.4.
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Did You Backup The Kindle Fire 2 (y/n) ?
 IF %unr% == n GOTO OPTION17
@@ -10287,7 +10589,7 @@ CALL:menu
 
 :OPTION40.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10306,7 +10608,7 @@ CALL:menu
 
 :OPTION41
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 41. This Option Will   *
@@ -10349,7 +10651,7 @@ CALL:yesno "Would You Like To Install Kindle Fire HD 8.9 2ND-Bootloader And TWRP
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Did You Backup The Kindle Fire HD 8.9 (y/n) ?
 IF %unr% == n GOTO OPTION17
@@ -10475,7 +10777,7 @@ CALL:menu
 
 :OPTION41.1
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10494,7 +10796,7 @@ CALL:menu
 
 :FIX-FLASHING
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 42. This Option Will   *
@@ -10518,7 +10820,7 @@ CALL:yesno "Would You Like To Fix A Sluggish Kindle?" FIX-FLASHING.1 FIX-FLASHIN
 :FIX-FLASHING.1
 echo.
 cd %~dp0
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 COLOR 2
 echo.
@@ -10602,7 +10904,7 @@ adb kill-server
 adb wait-for-device
 echo.
 adb shell su -c "rm /data/local.prop"
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *******************************************************
 ECHO *Looks Good! Root Permissions Are Successfully Granted*
@@ -10681,7 +10983,7 @@ CALL:menu
 
 :FIX-FLASHING.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10704,7 +11006,7 @@ CALL:menu
 
 :FIX-FLASHING.3
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -10723,7 +11025,7 @@ CALL:menu
 
 :UPGRADE-SU
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 43. This Option Will   *
@@ -10751,7 +11053,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -10817,7 +11119,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 type isroot | adb shell | find "#"
 if %errorlevel% == 1 goto OPTION21.0
@@ -10831,7 +11133,7 @@ CALL:UPGRADE-SU.2
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO *********************************************************
 ECHO *We Are Querying The Our Servers For The Lastest Version*
@@ -10893,7 +11195,7 @@ CALL:menu
 echo.
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 set /p unr=Do You Have ChainsDD Superuser (y/n) ?
 IF %unr% == n GOTO UPGRADE-SU.5
@@ -10959,7 +11261,7 @@ CALL:menu
 
 :UPGRADE-SU.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11008,7 +11310,7 @@ CALL:UPGRADE-SU.1
 
 :UPGRADE-SU.5
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11027,7 +11329,7 @@ CALL:menu
 
 :UPGRADE-BUSYBOX
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 44. This Option Will   *
@@ -11052,7 +11354,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -11118,7 +11420,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 echo.
@@ -11167,7 +11469,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 PAUSE
 echo.
 adb kill-server
@@ -11176,7 +11478,7 @@ CALL:menu
 
 :UPGRADE-BUSYBOX.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11194,7 +11496,7 @@ CALL:menu
 
 :UPGRADE-BUSYBOX.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11243,7 +11545,7 @@ CALL:UPGRADE-BUSYBOX.1
 
 :INSTALL-CHAINFIRE
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ***********************************************************
 ECHO *   Thank You For Selecting Option 45. This Option Will   *
@@ -11268,7 +11570,7 @@ echo.
 cd %~dp0
 COLOR 2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 ECHO ************************************************
 ECHO * OK Here We Go, We Are Beginning The Process! *
@@ -11334,7 +11636,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 adb shell su -c "busybox mount -o remount,rw ext4 /system"
 adb shell su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system"
@@ -11371,7 +11673,7 @@ adb reboot
 adb kill-server
 adb wait-for-device
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 PAUSE
 echo.
 adb kill-server
@@ -11380,7 +11682,7 @@ CALL:menu
 
 :INSTALL-CHAINFIRE.2
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11398,7 +11700,7 @@ CALL:menu
 
 :INSTALL-CHAINFIRE.4
 echo.
-cls
+if "%VERBOSE%"=="0" CLS
 echo.
 echo.
 COLOR 2
@@ -11576,21 +11878,20 @@ COLOR 2
 ECHO *******************************************************
 CALL:sleep 2
 ECHO *Prokennexusa Would Like To Thank You For The Support!*
-echo.
 CALL:sleep 2
 ECHO * If You Found This Utility Valuable,   PLEASE Send A *
-echo.
 CALL:sleep 2
 ECHO *   Donation using PayPal to xerocomm@hotmail.com     *
-echo.
 CALL:sleep 2
-ECHO *Support Is Available Via Email prokennexusa@gmail.com*
+ECHO *            Support Is Available Via Email.          *
+CALL:sleep 2
+ECHO *               support@canonicaldev.com              *
 CALL:sleep 2
 ECHO * This Utility Has Over 10,000 Lines Of Code, Please  *
 CALL:sleep 2
 ECHO *  Take This Seriously. If You Want This Utility To   *
 CALL:sleep 2
-ECHO *      Remain Free, Please Donate Today!!!!           *
+ECHO *        Remain Free, Please Donate Today!!!!         *
 CALL:sleep 2
 ECHO *******************************************************
 echo.
